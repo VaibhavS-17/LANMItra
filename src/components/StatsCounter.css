@@ -1,0 +1,116 @@
+/* ===== STATS COUNTER COMPONENT ===== */
+
+.stats-counter-section {
+  width: 100%;
+  background: var(--bg-primary);
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background accent glow */
+.stats-counter-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Responsive Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual Stat Card */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  position: relative;
+  transition: transform var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Large Number (Orbitron, 2.5rem, cyan) */
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1.1;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 24px rgba(0, 212, 255, 0.35);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.stat-suffix {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-left: 2px;
+}
+
+/* Stat Label (text-secondary) */
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+/* Responsive Breakpoints */
+/* Tablet: 2 cols */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 24px;
+  }
+}
+
+/* Mobile: 1 col, adjusted padding */
+@media (max-width: 600px) {
+  .stats-counter-section {
+    padding: 60px 0;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .stat-number {
+    font-size: 2.25rem;
+  }
+
+  .stat-suffix {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+  }
+}

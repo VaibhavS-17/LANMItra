@@ -1,0 +1,204 @@
+.business-cta {
+  position: relative;
+}
+
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+.business-card {
+  position: relative;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+/* Subtle gradient indicator on left border */
+.business-card-cafe {
+  border-left: 3px solid transparent;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.business-card-cafe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent-cyan) 0%, rgba(0, 212, 255, 0.4) 60%, transparent 100%);
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.business-card-cafe:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(0, 212, 255, 0.35);
+}
+
+.business-card-tournament {
+  border-left: 3px solid transparent;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.business-card-tournament::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent-purple) 0%, rgba(124, 58, 237, 0.4) 60%, transparent 100%);
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.business-card-tournament:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.35);
+}
+
+.business-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.business-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+}
+
+.business-icon-wrapper.cafe-icon {
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+}
+
+.business-icon-wrapper.tournament-icon {
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  color: var(--accent-purple);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
+}
+
+.business-icon {
+  font-size: 2rem;
+}
+
+.business-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.business-card-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.business-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.business-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bullet-check-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bullet-check-badge.cafe-check {
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.bullet-check-badge.tournament-check {
+  background: rgba(124, 58, 237, 0.15);
+  color: var(--accent-purple);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.bullet-check-icon {
+  font-size: 0.85rem;
+}
+
+.bullet-text {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.business-card-action {
+  margin-top: auto;
+}
+
+.business-card-action .btn {
+  width: 100%;
+}
+
+/* Tournament purple gradient button */
+.btn-tournament {
+  background: linear-gradient(135deg, var(--accent-purple), #9333ea);
+  box-shadow: var(--glow-purple);
+}
+
+.btn-tournament:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .business-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .business-card {
+    padding: 24px;
+  }
+
+  .business-card-title {
+    font-size: 1.35rem;
+  }
+
+  .business-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 20px;
+  }
+
+  .business-icon {
+    font-size: 1.75rem;
+  }
+}
