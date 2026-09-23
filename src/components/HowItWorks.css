@@ -1,0 +1,231 @@
+/* ===== HOW IT WORKS COMPONENT STYLES ===== */
+
+.how-tabs-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.how-tabs {
+  display: inline-flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 16px;
+}
+
+.how-tab-btn {
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 14px 20px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--transition-fast);
+}
+
+.how-tab-btn:hover {
+  color: var(--text-secondary);
+}
+
+.how-tab-btn.active {
+  color: #ffffff;
+  border-bottom-color: var(--accent-cyan);
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+/* ===== STEPS CONTAINER (Mobile-First: Vertical) ===== */
+
+.how-steps-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.how-step-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+}
+
+/* Icon in a circle with cyan gradient border */
+.step-icon-outer {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.25);
+  flex-shrink: 0;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.step-icon-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #0b1120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+}
+
+.step-react-icon {
+  font-size: 1.75rem;
+  transition: transform var(--transition-fast);
+}
+
+.how-step-card:hover .step-icon-outer {
+  transform: scale(1.06);
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.45);
+}
+
+.how-step-card:hover .step-react-icon {
+  transform: scale(1.1);
+}
+
+.step-number-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, var(--accent-purple), #9333ea);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.step-text-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  transition: color var(--transition-fast);
+}
+
+.how-step-card:hover .step-title {
+  color: #fff;
+}
+
+.step-description {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Vertical connector on mobile */
+@media (max-width: 767px) {
+  .how-step-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 92px;
+    left: 57px;
+    width: 2px;
+    height: calc(100% - 68px + 20px);
+    background: linear-gradient(180deg, var(--accent-cyan), rgba(124, 58, 237, 0.3));
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
+
+/* ===== TABLET & DESKTOP (Horizontal Stepper with Connectors) ===== */
+
+@media (min-width: 768px) {
+  .how-tab-btn {
+    font-size: 1.05rem;
+    padding: 16px 28px;
+  }
+
+  .how-steps-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  /* Horizontal connector line behind circles */
+  .how-steps-track::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 212, 255, 0.6) 0%,
+      rgba(124, 58, 237, 0.6) 50%,
+      rgba(0, 212, 255, 0.6) 100%
+    );
+    z-index: 1;
+  }
+
+  .how-step-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 18px;
+    gap: 0;
+  }
+
+  .step-icon-outer {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 20px;
+  }
+
+  .step-react-icon {
+    font-size: 2rem;
+  }
+
+  .step-title {
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+  }
+
+  .step-description {
+    font-size: 0.88rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .how-steps-track {
+    gap: 28px;
+  }
+
+  .how-step-card {
+    padding: 34px 22px;
+  }
+
+  .step-icon-outer {
+    width: 80px;
+    height: 80px;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+  }
+
+  .step-description {
+    font-size: 0.92rem;
+  }
+}

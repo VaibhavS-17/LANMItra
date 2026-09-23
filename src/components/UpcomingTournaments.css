@@ -1,0 +1,238 @@
+/* ===== UPCOMING TOURNAMENTS COMPONENT STYLES ===== */
+
+.tournaments-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.tournament-card {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.tournament-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.tournament-card:hover::before {
+  opacity: 1;
+}
+
+.tournament-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.tournament-format-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.tournament-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  line-height: 1.35;
+  transition: color var(--transition-fast);
+}
+
+.tournament-card:hover .tournament-name {
+  color: #fff;
+}
+
+.tournament-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 22px;
+}
+
+.tournament-date-icon {
+  font-size: 1.1rem;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.tournament-prize-block {
+  background: rgba(0, 212, 255, 0.04);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  text-align: center;
+  margin-bottom: 22px;
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.tournament-card:hover .tournament-prize-block {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.35);
+}
+
+.tournament-prize-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.tournament-prize-value {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
+  letter-spacing: 0.5px;
+}
+
+.tournament-slots-section {
+  margin-bottom: 22px;
+}
+
+.tournament-slots-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.tournament-slots-label {
+  color: var(--text-secondary);
+}
+
+.tournament-slots-count {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tournament-progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.tournament-progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--accent-cyan), #38bdf8);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tournament-footer-meta {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tournament-entry-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tournament-entry-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.tournament-entry-value {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tournament-register-btn {
+  width: 100%;
+}
+
+.tournaments-all-wrapper {
+  text-align: center;
+}
+
+.tournaments-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), transform var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+.tournaments-all-link:hover {
+  color: #fff;
+  transform: translateX(4px);
+  text-shadow: var(--glow-cyan);
+}
+
+.tournaments-arrow-icon {
+  font-size: 1.15rem;
+  transition: transform var(--transition-fast);
+}
+
+.tournaments-all-link:hover .tournaments-arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+@media (min-width: 768px) {
+  .tournaments-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .tournament-card {
+    padding: 30px 26px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .tournaments-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .tournament-card {
+    padding: 32px 28px;
+  }
+
+  .tournament-prize-value {
+    font-size: 2rem;
+  }
+}
