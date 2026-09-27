@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LANMitra - Gaming Tournament &amp; Cafe Booking Platform</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- 1. HEADER & NAVIGATION BAR                                -->
+  <!-- ========================================================= -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="#hero" class="brand">
+        <img src="assets/logo.png" alt="LANMitra Logo" class="brand-logo">
+        <span class="brand-text">LANMitra</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#features" class="btn btn-primary btn-sm">Book Station</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================= -->
+    <!-- 2. HERO SECTION                                           -->
+    <!-- ========================================================= -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-badge">Academic Practical Project • FSJP 2026</div>
+        <h1 class="hero-title">
+          Connect, Compete &amp; Book <br>
+          <span class="gradient-text">Gaming Stations with Ease</span>
+        </h1>
+        <p class="hero-subtitle">
+          LANMitra is a centralized web platform connecting local gaming cafe owners,
+          tournament organizers, and competitive players for real-time station bookings
+          and conflict-free automated tournaments.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#features" class="btn btn-primary">Explore Features</a>
+          <a href="#contact" class="btn btn-outline">Project Inquiries</a>
+        </div>
+
+        <!-- Quick Metrics Highlights -->
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Gaming Stations</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">Active Tournaments</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Conflict-Free Bookings</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 3. ABOUT SECTION                                          -->
+    <!-- ========================================================= -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Overview</span>
+          <h2 class="section-title">About LANMitra</h2>
+          <p class="section-description">
+            Traditional gaming cafes and local tournaments rely on fragmented phone calls, WhatsApp chats,
+            and spreadsheets. LANMitra solves this with automated scheduling, verified match reporting,
+            and single-elimination tournament management.
+          </p>
+        </div>
+
+        <div class="roles-grid">
+          <!-- Role 1: Players -->
+          <div class="role-card">
+            <div class="role-icon">🎮</div>
+            <h3 class="role-title">For Players</h3>
+            <p class="role-desc">
+              Discover verified gaming cafes, view real-time station availability, reserve PC/console slots,
+              and register for upcoming competitive tournaments.
+            </p>
+            <ul class="role-list">
+              <li>Instant slot reservation</li>
+              <li>Live tournament brackets</li>
+              <li>Fair match score reporting</li>
+            </ul>
+          </div>
+
+          <!-- Role 2: Cafe Owners -->
+          <div class="role-card">
+            <div class="role-icon">🖥️</div>
+            <h3 class="role-title">For Cafe Owners</h3>
+            <p class="role-desc">
+              List gaming stations with hardware specifications, manage pricing per hour, and eliminate double-booking
+              conflicts with automated schedule locking.
+            </p>
+            <ul class="role-list">
+              <li>Station &amp; hardware inventory</li>
+              <li>Overlap prevention algorithm</li>
+              <li>Real-time booking calendar</li>
+            </ul>
+          </div>
+
+          <!-- Role 3: Tournament Organizers -->
+          <div class="role-card">
+            <div class="role-icon">🏆</div>
+            <h3 class="role-title">For Organizers</h3>
+            <p class="role-desc">
+              Host single-elimination tournaments with automatic seeding, bracket generation, bye handling,
+              and official dispute resolution mechanisms.
+            </p>
+            <ul class="role-list">
+              <li>Automated bracket progression</li>
+              <li>Live tournament leaderboards</li>
+              <li>Dispute arbitration panel</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 4. KEY FEATURES SECTION                                   -->
+    <!-- ========================================================= -->
+    <section id="features" class="features-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Capabilities</span>
+          <h2 class="section-title">Core Platform Features</h2>
+          <p class="section-description">
+            Designed to meet academic requirements for Full Stack Java Programming (FSJP),
+            focusing on robust data integrity and user satisfaction.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-badge">01</div>
+            <h3 class="feature-title">Station Booking Engine</h3>
+            <p class="feature-desc">
+              Allows users to select date, time slots, and hardware tiers. The platform enforces strict concurrency
+              checks to guarantee zero overlapping reservations.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-badge">02</div>
+            <h3 class="feature-title">Automated Brackets</h3>
+            <p class="feature-desc">
+              Generates single-elimination tournament trees automatically upon registration closing. Automatically
+              allocates byes when participant counts are not powers of two.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-badge">03</div>
+            <h3 class="feature-title">Result Tracking &amp; Disputes</h3>
+            <p class="feature-desc">
+              Both competing players submit match outcomes. Matching scores advance the bracket automatically;
+              conflicting reports are flagged for organizer review.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <div class="feature-badge">04</div>
+            <h3 class="feature-title">Live Leaderboards</h3>
+            <p class="feature-desc">
+              Real-time standings and match history views allow spectators and participants to track bracket progression,
+              match winners, and tournament champions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 5. CONTACT & SUBMISSION SECTION                           -->
+    <!-- ========================================================= -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">Contact &amp; Submission Details</h2>
+          <p class="section-description">
+            Feel free to submit an inquiry or review the project submission details below.
+          </p>
+        </div>
+
+        <div class="contact-wrapper">
+          <!-- Submission & College Info -->
+          <div class="contact-info">
+            <h3 class="info-title">Project Information</h3>
+            <p class="info-desc">
+              This static homepage demonstrates the user interface and system capabilities of the LANMitra web application.
+            </p>
+
+            <div class="info-items">
+              <div class="info-item">
+                <span class="info-icon">📚</span>
+                <div>
+                  <strong>Course:</strong>
+                  <p>Full Stack Java Programming (FSJP)</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">🏛️</span>
+                <div>
+                  <strong>Institution:</strong>
+                  <p>Mumbai University - Department of Computer Engineering</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">📍</span>
+                <div>
+                  <strong>Location:</strong>
+                  <p>Mumbai, Maharashtra, India</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon">✉️</span>
+                <div>
+                  <strong>Inquiries:</strong>
+                  <p>lanmitra.project@gmail.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Semantic Contact Form -->
+          <div class="contact-form-card">
+            <h3 class="form-title">Send a Message</h3>
+            <form class="contact-form" action="#" method="post">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="e.g. Vaibhav Sharma" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="role" class="form-label">Select Role</label>
+                <select id="role" name="role" class="form-control" required>
+                  <option value="" disabled selected>-- Select your interest --</option>
+                  <option value="player">Competitive Player</option>
+                  <option value="cafe_owner">Cafe Owner / Manager</option>
+                  <option value="organizer">Tournament Organizer</option>
+                  <option value="academic">Academic Evaluator</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message or feedback..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Submit Inquiry</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- 6. FOOTER                                                 -->
+  <!-- ========================================================= -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand">
+          <img src="assets/logo.png" alt="LANMitra Logo" class="brand-logo">
+          <span class="brand-text">LANMitra</span>
+        </div>
+        <p class="footer-tagline">
+          Empowering local gaming cafés and community esports tournaments.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <span class="footer-heading">Quick Links</span>
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Core Features</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-academic">
+        <span class="footer-heading">Academic Submission</span>
+        <p>Full Stack Java Programming (FSJP)</p>
+        <p>Second Year Computer Engineering</p>
+        <p class="copyright">© 2026 LANMitra. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
