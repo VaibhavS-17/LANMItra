@@ -33,6 +33,7 @@ h2 { text-align: center; font-size: 1.8rem; color: #0f172a; margin-bottom: 6px; 
 .logo img { height: 38px; display: block; }
 .nav-links a { text-decoration: none; color: #334155; margin: 0 14px; font-weight: 500; }
 .nav-links a:hover { color: #1d4ed8; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
 
 /* Buttons */
 .btn {
