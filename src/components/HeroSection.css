@@ -2,10 +2,11 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 80px;
+  padding-top: 90px;
   padding-bottom: 60px;
   overflow: hidden;
   background: var(--bg-primary);
@@ -24,7 +25,7 @@
   z-index: 1;
 }
 
-/* Floating Background Assets */
+/* Floating Background Assets - Desktop/Tablet Landscape */
 .hero-bg-asset-right,
 .hero-bg-asset-left {
   position: absolute;
@@ -47,6 +48,14 @@
   width: 400px;
   height: 400px;
   animation: floatBgAssetLeft 12s ease-in-out infinite alternate;
+}
+
+/* Hide overlapping 3D assets on tablet & mobile to keep headline perfectly readable */
+@media (max-width: 992px) {
+  .hero-bg-asset-right,
+  .hero-bg-asset-left {
+    display: none;
+  }
 }
 
 .hero-bg-asset-img {
@@ -87,16 +96,17 @@
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 4rem;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--text-primary);
-  margin-bottom: 24px;
-  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+  letter-spacing: -0.03em;
 }
 
 .hero-title-line {
@@ -109,25 +119,25 @@
 
 .hero-subtext {
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.125rem);
   color: var(--text-secondary);
   max-width: 660px;
   line-height: 1.6;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 36px auto;
 }
 
 /* Static Search Bar */
 .hero-search {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   max-width: 580px;
   padding: 6px 6px 6px 16px;
   border-radius: 9999px; /* pill shape */
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 40px;
+  margin-bottom: 36px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
   backdrop-filter: blur(12px);
@@ -146,6 +156,7 @@
 
 .hero-search-input {
   flex: 1;
+  min-width: 0; /* Prevents overflow */
   background: transparent;
   border: none;
   outline: none;
@@ -163,6 +174,7 @@
   padding: 10px 24px;
   font-size: 0.875rem;
   flex-shrink: 0;
+  min-height: 40px;
 }
 
 /* Hero CTA Group */
@@ -176,6 +188,7 @@
 
 .hero-cta-btn {
   min-width: 160px;
+  min-height: 48px;
 }
 
 /* Scroll Indicator */
@@ -225,21 +238,30 @@
 
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
+  .hero-section {
+    padding-top: 90px;
+    padding-bottom: 60px;
+    min-height: calc(100dvh - 20px);
+  }
+
   .hero-title {
-    font-size: 2.5rem;
     margin-bottom: 16px;
   }
 
   .hero-subtext {
-    font-size: 1rem;
-    margin-bottom: 32px;
-    padding: 0 16px;
+    margin-bottom: 28px;
+    padding: 0 8px;
   }
 
   .hero-search {
-    padding: 6px 6px 6px 16px;
-    margin-bottom: 32px;
+    padding: 5px 5px 5px 14px;
+    margin-bottom: 28px;
     max-width: 100%;
+  }
+
+  .hero-search-btn {
+    padding: 8px 18px;
+    font-size: 0.825rem;
   }
 
   .hero-cta-group {
@@ -254,6 +276,21 @@
   }
 
   .hero-scroll-indicator {
-    bottom: 24px;
+    display: none; /* Hide on mobile to give full prominence to CTAs */
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 1.95rem;
+  }
+
+  .hero-search-input {
+    font-size: 0.875rem;
+  }
+
+  .hero-search-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
   }
 }

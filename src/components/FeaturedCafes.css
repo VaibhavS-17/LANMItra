@@ -75,9 +75,15 @@
   .section-header-grid {
     flex-direction: column;
     text-align: center;
+    gap: 16px;
+    margin-bottom: 24px;
   }
   .section-header-text {
     text-align: center;
+  }
+  .section-header-asset {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -381,23 +387,28 @@
 @media (max-width: 768px) {
   .cafes-scroll-track {
     gap: 16px;
-    padding: 12px 0 24px 0;
-    scroll-padding: 0 20px;
+    padding: 12px 16px 24px 16px;
+    scroll-padding: 0 16px;
+    margin: 0 -16px;
   }
 
   .cafe-card {
-    flex: 0 0 85vw;
-    min-width: 85vw;
+    flex: 0 0 82vw;
+    min-width: 270px;
     max-width: 320px;
     scroll-snap-align: center;
   }
 
+  .cafe-title {
+    font-size: 1.25rem;
+  }
+
   .cafes-footer {
-    margin-top: 36px;
+    margin-top: 28px;
   }
 
   .cafes-view-all-link {
     font-size: 0.95rem;
-    padding: 8px 18px;
+    padding: 10px 20px;
   }
 }

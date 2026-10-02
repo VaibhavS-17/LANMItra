@@ -30,7 +30,7 @@ const Navbar = () => {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <header className={`navbar ${scrolled ? 'scrolled' : ''} ${mobileMenuOpen ? 'menu-open' : ''}`}>
       <div className="container navbar-container">
         {/* Left: Logo */}
         <a href="#" className="navbar-logo" onClick={closeMenu}>

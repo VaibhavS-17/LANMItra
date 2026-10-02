@@ -133,10 +133,16 @@
 @media (max-width: 768px) {
   .testimonials-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 
   .testimonial-card {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+
+  .testimonial-quote {
+    font-size: 0.925rem;
+    line-height: 1.55;
+    margin-bottom: 20px;
   }
 }
