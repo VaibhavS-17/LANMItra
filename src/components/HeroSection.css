@@ -12,15 +12,15 @@
   background: var(--bg-primary);
 }
 
-/* Big brand cyan glow at the bottom */
+/* Big brand cyan glow starting directly from the bottom edge */
 .hero-bottom-glow {
   position: absolute;
-  bottom: -20%;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 140%;
-  height: 60vh;
-  background: radial-gradient(ellipse at bottom, rgba(0, 212, 255, 0.35) 0%, rgba(0, 212, 255, 0.1) 40%, transparent 70%);
+  height: 55vh;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 212, 255, 0.42) 0%, rgba(0, 212, 255, 0.2) 35%, rgba(0, 212, 255, 0.05) 65%, transparent 85%);
   pointer-events: none;
   z-index: 1;
 }
@@ -241,7 +241,8 @@
   .hero-section {
     padding-top: 90px;
     padding-bottom: 60px;
-    min-height: calc(100dvh - 20px);
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero-title {
@@ -273,6 +274,15 @@
   .hero-cta-btn {
     width: 100%;
     max-width: 100%;
+  }
+
+  .hero-bottom-glow {
+    width: 100%;
+    left: 0;
+    transform: none;
+    height: 55vh;
+    background: radial-gradient(ellipse 100% 60% at 50% 100%, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.18) 45%, rgba(0, 212, 255, 0.05) 75%, transparent 100%),
+                linear-gradient(to top, rgba(0, 212, 255, 0.14) 0%, transparent 45%);
   }
 
   .hero-scroll-indicator {
