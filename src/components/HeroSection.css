@@ -286,7 +286,27 @@
   }
 
   .hero-scroll-indicator {
-    display: none; /* Hide on mobile to give full prominence to CTAs */
+    display: flex;
+    bottom: 22px;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .hero-scroll-label {
+    font-size: 0.675rem;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+
+  .hero-scroll-chevron {
+    font-size: 1.15rem;
+    color: var(--accent-cyan);
+  }
+}
+
+@media (max-height: 540px) {
+  .hero-scroll-indicator {
+    display: none;
   }
 }
 
