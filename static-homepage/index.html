@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LANMitra - Gaming & Cafe Booking Platform</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= HEADER & NAVIGATION ================= -->
+  <header class="navbar">
+    <a href="#" class="logo">
+      <img src="assets/logo.png" alt="LANMitra">
+    </a>
+    <nav class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-outline">Login</a>
+      <a href="#contact" class="btn btn-primary">Sign Up</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section id="hero" class="hero">
+    <div class="badge">🎮 Esports &amp; Gaming Cafe Hub</div>
+    <h1>Connect, Compete &amp; Book Gaming Stations</h1>
+    <p>LANMitra connects gaming cafe owners, tournament organizers, and players for seamless station bookings and automated tournaments.</p>
+    <div class="hero-btns">
+      <a href="#features" class="btn btn-primary">Explore Features</a>
+      <a href="#contact" class="btn btn-outline">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT SECTION ================= -->
+  <section id="about" class="about">
+    <h2>About LANMitra</h2>
+    <p class="subtitle">A unified web platform for local esports and gaming cafe management.</p>
+    <div class="grid cards-3">
+      <div class="card">
+        <h3>🎮 Players</h3>
+        <p>Browse nearby cafes, check real-time PC availability, book slots, and enter competitive tournaments.</p>
+      </div>
+      <div class="card">
+        <h3>🖥️ Cafe Owners</h3>
+        <p>List PC specs, set hourly rates, manage slots, and eliminate double-booking conflicts.</p>
+      </div>
+      <div class="card">
+        <h3>🏆 Organizers</h3>
+        <p>Host tournaments, generate automated brackets, track scores, and resolve disputes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES SECTION ================= -->
+  <section id="features" class="features">
+    <h2>Key Features</h2>
+    <p class="subtitle">Everything you need to compete, host, and book gaming stations.</p>
+    <div class="grid cards-4">
+      <div class="card">
+        <h4>01. Station Booking</h4>
+        <p>Real-time slot reservations with concurrency conflict prevention.</p>
+      </div>
+      <div class="card">
+        <h4>02. Tournament Brackets</h4>
+        <p>Automatic single-elimination bracket generation and bye allocation.</p>
+      </div>
+      <div class="card">
+        <h4>03. Result Verification</h4>
+        <p>Dual match score reporting with organizer dispute resolution.</p>
+      </div>
+      <div class="card">
+        <h4>04. Live Leaderboard</h4>
+        <p>Real-time tournament progression and standings tracking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT SECTION ================= -->
+  <section id="contact" class="contact">
+    <h2>Get in Touch</h2>
+    <p class="subtitle">Have questions or want to partner with LANMitra? Send us a message.</p>
+    <form class="contact-form" action="#" method="post">
+      <input type="text" placeholder="Full Name" autocomplete="name" required>
+      <input type="email" placeholder="Email Address" autocomplete="email" required>
+      <select required>
+        <option value="" disabled selected>Select Role</option>
+        <option value="player">Player</option>
+        <option value="cafe_owner">Cafe Owner</option>
+        <option value="organizer">Organizer</option>
+      </select>
+      <textarea rows="3" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <p>&copy; 2026 LANMitra. All Rights Reserved. Empowering local gaming communities.</p>
+  </footer>
+
+</body>
+</html>

@@ -148,6 +148,45 @@
   }
 }
 
+@media (max-width: 480px) {
+  .how-tabs-container {
+    margin-bottom: 32px;
+  }
+
+  .how-tab-btn {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  .how-step-card {
+    padding: 18px 14px;
+    gap: 14px;
+  }
+
+  .step-icon-outer {
+    width: 54px;
+    height: 54px;
+  }
+
+  .step-react-icon {
+    font-size: 1.35rem;
+  }
+
+  .how-step-card:not(:last-child)::after {
+    left: 41px;
+    top: 74px;
+    height: calc(100% - 54px + 20px);
+  }
+
+  .step-title {
+    font-size: 1.05rem;
+  }
+
+  .step-description {
+    font-size: 0.82rem;
+  }
+}
+
 /* ===== TABLET & DESKTOP (Horizontal Stepper with Connectors) ===== */
 
 @media (min-width: 768px) {

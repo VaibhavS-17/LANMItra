@@ -61,6 +61,12 @@
 @media (max-width: 1024px) {
   .leaderboard-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .trophy-wrapper {
+    max-width: 220px;
+    margin: 0 auto;
   }
 }
 
@@ -83,8 +89,8 @@
   height: 100%;
   object-fit: cover;
   mix-blend-mode: lighten;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 70%);
+  mask-image: radial-gradient(circle at center, black 35%, transparent 68%);
+  -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 68%);
 }
 
 @keyframes floatTrophy {
@@ -409,21 +415,106 @@
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
   .leaderboard-card {
-    padding: 20px 16px;
+    padding: 16px 10px;
   }
 
   .tournament-banner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
   }
 
   .tournament-name {
     font-size: 0.95rem;
   }
 
-  .leaderboard-table th,
+  .live-status-indicator {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+
+  .leaderboard-table th {
+    padding: 6px 4px;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+  }
+
+  .th-rank {
+    width: 32px;
+  }
+
+  .th-stat {
+    width: 26px;
+  }
+
+  .th-status {
+    width: 74px;
+  }
+
   .leaderboard-row td {
-    padding: 12px 14px;
+    padding: 8px 4px;
+  }
+
+  .td-rank {
+    font-size: 0.8rem;
+  }
+
+  .player-cell-content {
+    gap: 8px;
+  }
+
+  .player-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .player-name {
+    font-size: 0.8rem;
+  }
+
+  .player-handle {
+    font-size: 0.68rem;
+  }
+
+  .td-wins, .td-losses {
+    font-size: 0.85rem;
+  }
+
+  .status-pill {
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    letter-spacing: 0.2px;
+    gap: 3px;
+  }
+
+  .status-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .leaderboard-footer {
+    margin-top: 16px;
+    padding-top: 12px;
+  }
+
+  .view-bracket-link {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .leaderboard-card {
+    padding: 12px 6px;
+  }
+
+  .player-avatar {
+    display: none; /* Hide avatar on extremely narrow screens to ensure text never truncates */
+  }
+
+  .player-cell-content {
+    gap: 0;
   }
 }

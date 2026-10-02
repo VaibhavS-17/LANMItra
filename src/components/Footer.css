@@ -154,3 +154,31 @@
   font-size: 0.85rem;
   line-height: 1.5;
 }
+
+@media (max-width: 767px) {
+  .footer {
+    padding-top: 48px;
+    padding-bottom: 24px;
+  }
+
+  .footer-logo {
+    height: 44px;
+  }
+
+  .footer-top {
+    gap: 32px;
+  }
+
+  .footer-heading {
+    margin-bottom: 12px;
+  }
+
+  .footer-links {
+    gap: 10px;
+  }
+
+  .footer-divider {
+    margin-top: 36px;
+    margin-bottom: 20px;
+  }
+}

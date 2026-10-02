@@ -70,7 +70,11 @@ body {
 /* Background */
 .app {
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg-primary);
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
 }
 
 /* ===== CONTAINER ===== */
@@ -78,6 +82,7 @@ body {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: var(--container-padding);
+  width: 100%;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -135,7 +140,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 28px;
+  padding: 12px 24px;
+  min-height: 44px; /* Touch-target friendly */
   border-radius: 9999px; /* Pill shape */
   font-weight: 600;
   font-size: 0.95rem;
@@ -221,18 +227,31 @@ button {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   :root {
-    --section-padding: 60px 0;
+    --section-padding: 56px 0;
+    --container-padding: 0 16px;
   }
 
   .section-title {
     font-size: 1.75rem;
+    line-height: 1.25;
   }
 
   .section-subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .section-header {
-    margin-bottom: 40px;
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding: 48px 0;
+    --container-padding: 0 14px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
   }
 }

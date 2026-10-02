@@ -11,9 +11,10 @@
   transition: padding var(--transition-normal), background var(--transition-normal);
 }
 
-.navbar.scrolled {
+.navbar.scrolled,
+.navbar.menu-open {
   padding: 12px 0;
-  background: rgba(5, 5, 5, 0.85);
+  background: rgba(8, 12, 22, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -133,9 +134,18 @@
 }
 
 @media (max-width: 767px) {
+  .navbar {
+    padding: 12px 0;
+  }
+
   .navbar-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-logo-img {
+    height: 44px;
   }
   
   .desktop-only {
@@ -146,6 +156,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
+    font-size: 1.5rem;
   }
 
   .navbar-mobile-menu {
@@ -154,38 +166,43 @@
     opacity: 0;
     overflow: hidden;
     pointer-events: none;
-    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease;
-    background: rgba(5, 5, 5, 0.98);
+    transition: max-height 0.35s ease, opacity 0.3s ease;
+    background: rgba(8, 12, 22, 0.98);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     border-bottom: 1px solid var(--border-subtle);
   }
 
   .navbar-mobile-menu.open {
-    max-height: 360px;
+    max-height: 480px;
     opacity: 1;
     pointer-events: auto;
     padding-bottom: 24px;
-    margin-top: 12px;
   }
 
   .navbar-mobile-nav {
     display: flex;
     flex-direction: column;
-    padding: 12px 24px;
+    padding: 12px 20px;
   }
 
   .navbar-mobile-link {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
     color: var(--text-primary);
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border-subtle);
     transition: color var(--transition-fast), padding-left var(--transition-fast);
   }
 
   .navbar-mobile-link:hover {
-    color: var(--text-primary);
+    color: var(--accent-cyan);
     padding-left: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-logo-img {
+    height: 38px;
   }
 }
