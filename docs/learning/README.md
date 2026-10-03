@@ -6,6 +6,7 @@ Whenever you see code in the project and wonder "What does this actually do?", c
 
 ## Available Guides
 
+0. [**From Core Java to Spring Boot**](00-core-java-to-web.md) — The "Missing Link" from college Java to Web Java.
 1. [**Spring Boot & Architecture Basics**](01-spring-boot-basics.md) — Understand the Controller → Service → Repository flow.
 2. [**JPA & Databases**](02-jpa-and-databases.md) — How our Java classes magically turn into MySQL tables.
 3. [**JWT Authentication**](03-jwt-authentication.md) — How logins work and how we secure our routes.
