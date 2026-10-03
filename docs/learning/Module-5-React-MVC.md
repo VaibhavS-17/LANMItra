@@ -1,32 +1,52 @@
-# Module V: Web Programming using React & MVC
+# Module V: Web Programming using React & MVC (From Scratch)
 
-This module bridges the gap between traditional architecture and modern frontend frameworks.
+This module introduces you to modern web development architectures.
+
+---
 
 ## 1. MVC Architecture (Model-View-Controller)
-The syllabus asks for MVC understanding. LANMItra implements a strictly decoupled MVC pattern!
-*   **Model:** Our Spring Boot JPA Entities (`User.java`, `Cafe.java`). This represents our data layer.
-*   **View:** Our React Frontend. This is strictly the UI.
-*   **Controller:** Our Spring Boot `@RestController`s (`AuthController.java`). This handles the logic between the View and the Model.
+**What is it?**
+MVC is a design pattern used to keep your code organized. If you put your database code, your HTML code, and your logic all in one file, it becomes a nightmare to fix bugs. MVC splits it into three clean parts:
 
-## 2. React Components & Elements
-In our upcoming React tasks, you will build pages using **Functional Components**.
-A component is just a JavaScript function that returns HTML (specifically, JSX).
+1.  **Model:** The Data. (In LANMItra, this is our `User.java` and `Cafe.java` entities mapping to the database).
+2.  **View:** What the user actually sees. (In LANMItra, this is our React HTML).
+3.  **Controller:** The brain. It takes input from the View, updates the Model, and returns a response. (In LANMItra, this is our `@RestController`).
+
+## 2. React: Components and Elements
+**What is React?**
+React is a JavaScript library built by Facebook. It allows you to create your own custom HTML tags called **Components**.
+
+Instead of writing a massive 10,000 line HTML file, you can break your website into small, reusable pieces:
 ```jsx
-function Login() {
-    return <h1>Welcome to LANMItra</h1>;
+// This is a React Component
+function Navbar() {
+    return <nav> LANMItra Logo </nav>;
+}
+
+function App() {
+    // We can use our custom tag anywhere!
+    return (
+        <div>
+            <Navbar />
+            <h1>Welcome to the Dashboard</h1>
+        </div>
+    );
 }
 ```
 
-## 3. React State, Props, and Hooks
-**In the Syllabus:** You must understand State and Hooks.
-**In LANMItra:** We will use the `useState` hook to manage form inputs.
-```jsx
-// Keeping track of what the user types in the email box
-const [email, setEmail] = useState("");
+## 3. React State and Props
+*   **State:** This is the "memory" of a component. If a user is typing their email into a text box, React needs to remember what they typed. We use a "Hook" called `useState` to store this memory. If the state changes, React instantly updates the screen!
+*   **Props:** This is how you pass data from a parent component down to a child component (like passing a variable into a function).
 
-return <input value={email} onChange={(e) => setEmail(e.target.value)} />
-```
+## 4. Single Page Applications (SPA) and Routing
+**What is an SPA?**
+In old websites, clicking a link meant the browser downloaded an entirely new HTML page, giving you a white flash screen while it loaded. 
+A **Single Page Application** only ever loads *one* HTML file. When you click a link, React instantly swaps out the old components for new components using JavaScript. It feels as fast as an app on your phone.
 
-## 4. Routing & SPA
-**In the Syllabus:** Creating a Single Page Application (SPA).
-**In LANMItra:** We will use `react-router-dom`. When a user clicks "Go to Cafes", the browser *does not reload the page*. Instead, React simply swaps out the current component for the Cafe component instantly, making the website feel like a fast mobile app!
+**Routing:** We use a tool called `react-router` so that when a user goes to `/login`, React knows to show the `LoginComponent` without actually refreshing the browser page!
+
+---
+### Summary for your Viva/Exams:
+*   *"What is MVC?"* -> An architectural pattern that separates an application into three logical components: the Model (data), the View (UI), and the Controller (logic).
+*   *"What is a React Component?"* -> A reusable, independent piece of UI built with a JavaScript function that returns HTML.
+*   *"What is a Single Page Application?"* -> A web application that dynamically updates the current web page with new data from the web server, instead of the default method of loading entire new pages.
