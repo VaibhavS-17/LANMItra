@@ -4,7 +4,17 @@ Welcome to the Learning Hub! Since this is your team's first Full Stack Java pro
 
 Whenever you see code in the project and wonder "What does this actually do?", check these guides!
 
-## Available Guides
+## University Syllabus Mappings (FSJP Course)
+
+To help you study for your vivas and exams, we have mapped the exact Modules from your university syllabus to the LANMItra codebase:
+
+*   [**Module III: Servlets, JSP & JDBC vs. Spring Boot**](Module-3-Servlets-JDBC.md)
+*   [**Module IV: JavaScript Fundamentals & DOM vs. React**](Module-4-JavaScript.md)
+*   [**Module V: Web Programming using React & MVC**](Module-5-React-MVC.md)
+*   [**Module VI: Applications of Spring Framework (IoC, DI, APIs)**](Module-6-Spring-Framework.md)
+
+---
+## General Architecture Guides
 
 0. [**From Core Java to Spring Boot**](00-core-java-to-web.md) — The "Missing Link" from college Java to Web Java.
 1. [**Spring Boot & Architecture Basics**](01-spring-boot-basics.md) — Understand the Controller → Service → Repository flow.
