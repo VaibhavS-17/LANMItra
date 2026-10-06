@@ -98,7 +98,7 @@ public class BookingService {
 
         while (current.isBefore(closing)) {
             LocalTime next = current.plusHours(1);
-            if (next.isAfter(closing)) {
+            if (next.isAfter(closing) && !next.equals(LocalTime.MIDNIGHT) && !next.isBefore(current)) {
                 break;
             }
 
@@ -116,6 +116,11 @@ public class BookingService {
             slots.add(slot);
 
             current = next;
+            
+            // If we wrapped around to midnight, stop to prevent infinite loop
+            if (current.equals(LocalTime.MIDNIGHT) || current.isBefore(opening)) {
+                break;
+            }
         }
 
         Map<String, Object> response = new HashMap<>();
