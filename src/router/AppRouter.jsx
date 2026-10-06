@@ -11,6 +11,7 @@ import CafeDetailPage from '../pages/CafeDetailPage';
 import BookingPage from '../pages/BookingPage';
 import MyBookingsPage from '../pages/MyBookingsPage';
 import OwnerDashboard from '../pages/OwnerDashboard';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const AppRouter = () => {
   return (
@@ -46,7 +47,9 @@ const AppRouter = () => {
         path="/dashboard" 
         element={
           <ProtectedRoute requireRole="CAFE_OWNER">
-            <OwnerDashboard />
+            <ErrorBoundary>
+              <OwnerDashboard />
+            </ErrorBoundary>
           </ProtectedRoute>
         } 
       />

@@ -110,7 +110,7 @@ const OwnerDashboard = () => {
   if (!selectedCafe) return null;
 
   return (
-    <div className="dashboard-container fade-in">
+    <div className="dashboard-container">
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>{selectedCafe?.name || 'Cafe'} Dashboard</h1>
@@ -195,7 +195,7 @@ const OwnerDashboard = () => {
             </div>
 
             {showAddForm && (
-              <form className="add-station-form fade-in" onSubmit={handleAddStation}>
+              <form className="add-station-form" onSubmit={handleAddStation}>
                 <div className="form-group">
                   <label>Label</label>
                   <input required type="text" className="dash-input" placeholder="e.g. PC 12" value={newStation.label} onChange={e => setNewStation({...newStation, label: e.target.value})} />
