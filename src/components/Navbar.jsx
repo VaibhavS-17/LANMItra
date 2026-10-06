@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { HiBars3, HiXMark } from 'react-icons/hi2';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import logo from '../assets/logo-darkmode.png';
 import './Navbar.css';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,27 +33,42 @@ const Navbar = () => {
 
   const closeMenu = () => setMobileMenuOpen(false);
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    closeMenu();
+  };
+
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''} ${mobileMenuOpen ? 'menu-open' : ''}`}>
       <div className="container navbar-container">
         {/* Left: Logo */}
-        <a href="#" className="navbar-logo" onClick={closeMenu}>
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <img src={logo} alt="LANMitra" className="navbar-logo-img" />
-        </a>
+        </Link>
 
         {/* Center: Pill Navigation */}
         <nav className="navbar-nav desktop-only">
           <div className="nav-pill">
-            <a href="#cafes" className="navbar-link">Cafés</a>
-            <a href="#tournaments" className="navbar-link">Tournaments</a>
-            <a href="#leaderboard" className="navbar-link">Leaderboards</a>
+            <Link to="/cafes" className="navbar-link">Cafés</Link>
+            <Link to="/tournaments" className="navbar-link">Tournaments</Link>
+            <Link to="/leaderboards" className="navbar-link">Leaderboards</Link>
           </div>
         </nav>
 
         {/* Right: Actions */}
         <div className="navbar-actions desktop-only">
-          <button className="btn btn-outline navbar-btn">Login</button>
-          <button className="btn btn-primary navbar-btn">Sign Up</button>
+          {isAuthenticated ? (
+            <>
+              <span style={{ marginRight: '16px', fontWeight: '500' }}>{user?.name || 'User'}</span>
+              <button onClick={handleLogout} className="btn btn-outline navbar-btn">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn btn-outline navbar-btn">Login</Link>
+              <Link to="/register" className="btn btn-primary navbar-btn">Sign Up</Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -66,17 +85,28 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`navbar-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <nav className="navbar-mobile-nav">
-          <a href="#cafes" className="navbar-mobile-link" onClick={closeMenu}>Cafés</a>
-          <a href="#tournaments" className="navbar-mobile-link" onClick={closeMenu}>Tournaments</a>
-          <a href="#leaderboard" className="navbar-mobile-link" onClick={closeMenu}>Leaderboards</a>
+          <Link to="/cafes" className="navbar-mobile-link" onClick={closeMenu}>Cafés</Link>
+          <Link to="/tournaments" className="navbar-mobile-link" onClick={closeMenu}>Tournaments</Link>
+          <Link to="/leaderboards" className="navbar-mobile-link" onClick={closeMenu}>Leaderboards</Link>
         </nav>
         <div className="navbar-mobile-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '12px 24px 0 24px' }}>
-          <button className="btn btn-outline navbar-btn" style={{ width: '100%' }} onClick={closeMenu}>
-            Login
-          </button>
-          <button className="btn btn-primary navbar-btn" style={{ width: '100%' }} onClick={closeMenu}>
-            Sign Up
-          </button>
+          {isAuthenticated ? (
+            <>
+              <div style={{ textAlign: 'center', marginBottom: '8px', fontWeight: '500' }}>Hi, {user?.name || 'User'}</div>
+              <button onClick={handleLogout} className="btn btn-outline navbar-btn" style={{ width: '100%' }}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn btn-outline navbar-btn" style={{ width: '100%', textAlign: 'center' }} onClick={closeMenu}>
+                Login
+              </Link>
+              <Link to="/register" className="btn btn-primary navbar-btn" style={{ width: '100%', textAlign: 'center' }} onClick={closeMenu}>
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
