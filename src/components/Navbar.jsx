@@ -56,6 +56,12 @@ const Navbar = () => {
             <Link to="/cafes" className="navbar-link">Cafés</Link>
             <Link to="/tournaments" className="navbar-link">Tournaments</Link>
             <Link to="/leaderboards" className="navbar-link">Leaderboards</Link>
+            {isAuthenticated && (user?.role === 'CAFE_OWNER' || user?.role === 'ADMIN') && (
+              <Link to="/dashboard" className="navbar-link">Dashboard</Link>
+            )}
+            {isAuthenticated && user?.role === 'PLAYER' && (
+              <Link to="/bookings/my" className="navbar-link">My Bookings</Link>
+            )}
           </div>
         </nav>
 
@@ -91,6 +97,12 @@ const Navbar = () => {
           <Link to="/cafes" className="navbar-mobile-link" onClick={closeMenu}>Cafés</Link>
           <Link to="/tournaments" className="navbar-mobile-link" onClick={closeMenu}>Tournaments</Link>
           <Link to="/leaderboards" className="navbar-mobile-link" onClick={closeMenu}>Leaderboards</Link>
+          {isAuthenticated && (user?.role === 'CAFE_OWNER' || user?.role === 'ADMIN') && (
+            <Link to="/dashboard" className="navbar-mobile-link" onClick={closeMenu}>Dashboard</Link>
+          )}
+          {isAuthenticated && user?.role === 'PLAYER' && (
+            <Link to="/bookings/my" className="navbar-mobile-link" onClick={closeMenu}>My Bookings</Link>
+          )}
         </nav>
         <div className="navbar-mobile-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '12px 24px 0 24px' }}>
           {isAuthenticated ? (

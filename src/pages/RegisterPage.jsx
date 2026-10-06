@@ -27,8 +27,12 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
-      await register(name, email, password, role);
-      navigate('/');
+      const registeredUser = await register(name, email, password, role);
+      if (registeredUser?.role === 'CAFE_OWNER' || registeredUser?.role === 'ADMIN') {
+        navigate('/dashboard');
+      } else {
+        navigate('/cafes');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed.');
     } finally {

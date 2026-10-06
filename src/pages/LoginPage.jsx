@@ -20,8 +20,12 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await login(email, password);
-      navigate('/');
+      const loggedInUser = await login(email, password);
+      if (loggedInUser?.role === 'CAFE_OWNER' || loggedInUser?.role === 'ADMIN') {
+        navigate('/dashboard');
+      } else {
+        navigate('/cafes');
+      }
     } catch (err) {
       setError('Invalid email or password.');
     } finally {
