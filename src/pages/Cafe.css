@@ -139,7 +139,6 @@
   background-position: center;
   display: flex;
   align-items: flex-end;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cafe-detail-hero::before {
