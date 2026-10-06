@@ -42,6 +42,18 @@ const Navbar = () => {
     closeMenu();
   };
 
+  const formatName = (name) => {
+    if (!name) return 'User';
+    if (name.length > 20) {
+      const parts = name.split(' ');
+      if (parts.length > 1) {
+        return `${parts[0]} ${parts[1][0]}.`; // e.g. "Sameer K."
+      }
+      return name.substring(0, 15) + '...';
+    }
+    return name;
+  };
+
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''} ${mobileMenuOpen ? 'menu-open' : ''}`}>
       <div className="container navbar-container">
@@ -69,7 +81,7 @@ const Navbar = () => {
         <div className="navbar-actions desktop-only">
           {isAuthenticated ? (
             <>
-              <span style={{ marginRight: '16px', fontWeight: '500' }}>{user?.name || 'User'}</span>
+              <span style={{ marginRight: '16px', fontWeight: '500' }}>{formatName(user?.name)}</span>
               <button onClick={handleLogout} className="btn btn-outline navbar-btn">Logout</button>
             </>
           ) : !isAuthPage && (
@@ -107,7 +119,7 @@ const Navbar = () => {
         <div className="navbar-mobile-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '12px 24px 0 24px' }}>
           {isAuthenticated ? (
             <>
-              <div style={{ textAlign: 'center', marginBottom: '8px', fontWeight: '500' }}>Hi, {user?.name || 'User'}</div>
+              <div style={{ textAlign: 'center', marginBottom: '8px', fontWeight: '500' }}>Hi, {formatName(user?.name)}</div>
               <button onClick={handleLogout} className="btn btn-outline navbar-btn" style={{ width: '100%' }}>
                 Logout
               </button>

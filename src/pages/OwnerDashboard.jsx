@@ -52,18 +52,20 @@ const OwnerDashboard = () => {
   const fetchBookings = async () => {
     try {
       const data = await bookingService.getCafeBookings(selectedCafe.id, date);
-      setBookings(data);
+      setBookings(data || []);
     } catch (err) {
       console.error(err);
+      setBookings([]);
     }
   };
 
   const fetchStations = async () => {
     try {
       const data = await stationService.getStationsByCafe(selectedCafe.id);
-      setStations(data);
+      setStations(data || []);
     } catch (err) {
       console.error(err);
+      setStations([]);
     }
   };
 
@@ -105,11 +107,13 @@ const OwnerDashboard = () => {
     );
   }
 
+  if (!selectedCafe) return null;
+
   return (
     <div className="dashboard-container fade-in">
       <div className="dashboard-content">
         <div className="dashboard-header">
-          <h1>{selectedCafe.name} Dashboard</h1>
+          <h1>{selectedCafe?.name || 'Cafe'} Dashboard</h1>
           <p>Manage your daily operations and gaming stations.</p>
         </div>
 
@@ -162,7 +166,7 @@ const OwnerDashboard = () => {
                           <div style={{fontSize: '0.85rem', color: '#a0aec0'}}>{b.playerEmail || 'No email'}</div>
                         </td>
                         <td>{b.stationLabel}</td>
-                        <td>{b.startTime.substring(0,5)} - {b.endTime.substring(0,5)}</td>
+                        <td>{b.startTime?.substring(0,5)} - {b.endTime?.substring(0,5)}</td>
                         <td style={{color: 'var(--accent-cyan)'}}>₹{b.totalPrice}</td>
                         <td>
                           <span className={b.status === 'CONFIRMED' ? 'badge-active' : 'badge-inactive'}>
