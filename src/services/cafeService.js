@@ -8,5 +8,9 @@ export const cafeService = {
   getCafeById: async (id) => {
     const response = await api.get(`/cafes/${id}`);
     return response.data;
+  },
+  getMyCafes: async () => {
+    const response = await api.get('/cafes/my');
+    return response.data;
   }
 };

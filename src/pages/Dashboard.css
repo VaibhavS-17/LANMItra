@@ -1,0 +1,212 @@
+/* ===== OWNER DASHBOARD STYLING ===== */
+
+.dashboard-container {
+  min-height: calc(100vh - 80px);
+  padding: 120px 24px 60px 24px;
+  background: var(--bg-primary);
+  color: #fff;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dashboard-header p {
+  color: #a0aec0;
+  font-size: 1.1rem;
+}
+
+/* Tabs */
+.dashboard-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+/* Layout */
+.dashboard-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+/* Toolbar (e.g. date picker, add button) */
+.panel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.panel-toolbar h2 {
+  font-size: 1.5rem;
+}
+
+/* Forms & Inputs */
+.dash-input {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-family: inherit;
+}
+
+.dash-input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.btn-add {
+  padding: 10px 20px;
+  background: var(--accent-cyan);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add:hover {
+  background: #00e5ff;
+}
+
+/* Table */
+.dash-table-wrapper {
+  overflow-x: auto;
+}
+
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dash-table th,
+.dash-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dash-table th {
+  color: #a0aec0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.dash-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Add Station Form inline */
+.add-station-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr auto;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  align-items: end;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: #a0aec0;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+}
+
+.btn-cancel-add {
+  padding: 10px 20px;
+  background: transparent;
+  color: #f87171;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Status Badges */
+.badge-active {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-inactive {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.btn-deactivate {
+  background: transparent;
+  border: 1px solid #f87171;
+  color: #f87171;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.btn-deactivate:hover {
+  background: rgba(248, 113, 113, 0.1);
+}
+
+@media (max-width: 900px) {
+  .add-station-form {
+    grid-template-columns: 1fr;
+  }
+}

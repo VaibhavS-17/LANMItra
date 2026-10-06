@@ -10,6 +10,8 @@ public class BookingResponse {
     private Long stationId;
     private String stationLabel;
     private String cafeName;
+    private String playerName;
+    private String playerEmail;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -24,6 +26,10 @@ public class BookingResponse {
     public void setStationLabel(String stationLabel) { this.stationLabel = stationLabel; }
     public String getCafeName() { return cafeName; }
     public void setCafeName(String cafeName) { this.cafeName = cafeName; }
+    public String getPlayerName() { return playerName; }
+    public void setPlayerName(String playerName) { this.playerName = playerName; }
+    public String getPlayerEmail() { return playerEmail; }
+    public void setPlayerEmail(String playerEmail) { this.playerEmail = playerEmail; }
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
     public LocalTime getStartTime() { return startTime; }

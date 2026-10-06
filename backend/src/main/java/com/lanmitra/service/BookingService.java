@@ -170,6 +170,8 @@ public class BookingService {
         response.setStationId(booking.getStation().getId());
         response.setStationLabel(booking.getStation().getLabel());
         response.setCafeName(booking.getStation().getCafe().getName());
+        response.setPlayerName(booking.getPlayer().getName());
+        response.setPlayerEmail(booking.getPlayer().getEmail());
         response.setDate(booking.getBookingDate());
         response.setStartTime(booking.getStartTime());
         response.setEndTime(booking.getEndTime());

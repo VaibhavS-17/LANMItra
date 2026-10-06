@@ -20,5 +20,9 @@ export const bookingService = {
   getStationDetails: async (id) => {
     const res = await api.get(`/stations/${id}`);
     return res.data;
+  },
+  getCafeBookings: async (cafeId, date) => {
+    const res = await api.get(`/cafes/${cafeId}/bookings`, { params: { date } });
+    return res.data;
   }
 };
