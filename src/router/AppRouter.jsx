@@ -8,13 +8,11 @@ import ProtectedRoute from '../components/ProtectedRoute';
 // Real components
 import CafeListPage from '../pages/CafeListPage';
 import CafeDetailPage from '../pages/CafeDetailPage';
+import BookingPage from '../pages/BookingPage';
+import MyBookingsPage from '../pages/MyBookingsPage';
 
 // Placeholders
-import { 
-  BookingPage, 
-  MyBookingsPage, 
-  OwnerDashboard 
-} from '../pages/Placeholders';
+import { OwnerDashboard } from '../pages/Placeholders';
 
 const AppRouter = () => {
   return (

@@ -42,6 +42,12 @@ public class StationService {
         return mapToResponse(stationRepository.save(station));
     }
 
+    public StationResponse getStationById(Long id) {
+        Station station = stationRepository.findById(id)
+                .orElseThrow(() -> new com.lanmitra.exception.ResourceNotFoundException("Station not found"));
+        return mapToResponse(station);
+    }
+
     public java.util.List<StationResponse> listStations(Long cafeId) {
         return stationRepository.findByCafeId(cafeId).stream()
                 .map(this::mapToResponse)
