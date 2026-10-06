@@ -54,12 +54,12 @@ public class DataSeeder implements CommandLineRunner {
                     return userRepository.save(u);
                 });
 
-        // 2. Create Default RGIT Demo Student Player
-        userRepository.findByEmail("player.rgit@lanmitra.com")
+        // 2. Create Default Student Player
+        userRepository.findByEmail("player.mumbai@lanmitra.com")
                 .orElseGet(() -> {
                     User u = new User();
-                    u.setName("Aman Sharma (RGIT CS)");
-                    u.setEmail("player.rgit@lanmitra.com");
+                    u.setName("Aman Sharma");
+                    u.setEmail("player.mumbai@lanmitra.com");
                     u.setPasswordHash(passwordEncoder.encode("Password@123"));
                     u.setRole(UserRole.PLAYER);
                     u.setPhone("+91 98920 67890");
@@ -67,13 +67,13 @@ public class DataSeeder implements CommandLineRunner {
                     return userRepository.save(u);
                 });
 
-        // 3. Cafe 1: Respawn Gaming Lounge (Closest to RGIT Versova)
+        // 3. Cafe 1: Respawn Gaming Lounge - Versova
         Cafe respawn = new Cafe();
         respawn.setOwner(owner);
         respawn.setName("Respawn Gaming Lounge - Versova");
-        respawn.setAddress("Shop 4 & 5, Near RGIT Campus, Juhu Versova Link Road, Andheri West, Mumbai 400053");
+        respawn.setAddress("Shop 4 & 5, Near Versova Beach Road, Juhu Versova Link Road, Andheri West, Mumbai 400053");
         respawn.setCity("Andheri West, Mumbai");
-        respawn.setDescription("The premier collegiate esports hotspot right opposite RGIT! Featuring 240Hz tournament stage PCs, low-ping fiber lines, energy drink bar, and regular college scrim tournaments.");
+        respawn.setDescription("The premier collegiate esports hotspot in Versova! Featuring 240Hz tournament stage PCs, low-ping fiber lines, energy drink bar, and regular community scrim tournaments.");
         respawn.setImageUrl("https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=80");
         respawn.setPhone("+91 98201 12345");
         respawn.setOpeningTime(LocalTime.of(9, 0));
