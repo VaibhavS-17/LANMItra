@@ -5,10 +5,12 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ProtectedRoute from '../components/ProtectedRoute';
 
+// Real components
+import CafeListPage from '../pages/CafeListPage';
+import CafeDetailPage from '../pages/CafeDetailPage';
+
 // Placeholders
 import { 
-  CafeListPage, 
-  CafeDetailPage, 
   BookingPage, 
   MyBookingsPage, 
   OwnerDashboard 

@@ -1,0 +1,290 @@
+/* ===== CAFE PAGES STYLING ===== */
+
+.cafe-page-container {
+  min-height: calc(100vh - 80px);
+  padding: 40px 24px;
+  background: var(--bg-primary);
+  color: #fff;
+}
+
+/* Header & Search */
+.cafe-list-header {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+.cafe-list-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.cafe-search-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.cafe-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5d677a;
+  font-size: 1.2rem;
+}
+
+.cafe-search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 14px 16px 14px 48px;
+  border-radius: 100px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.cafe-search-input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 1px var(--accent-cyan);
+}
+
+/* Grid & Cards */
+.cafe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cafe-card {
+  background: #0a0e17;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.cafe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.3);
+}
+
+.cafe-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #111;
+}
+
+.cafe-card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cafe-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cafe-card-location {
+  color: #7a8291;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.cafe-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cafe-card-badge {
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--accent-cyan);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Detail Page */
+.cafe-detail-hero {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cafe-detail-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(8, 12, 22, 0.4) 100%);
+}
+
+.cafe-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 40px 24px;
+}
+
+.cafe-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.cafe-hero-meta {
+  display: flex;
+  gap: 24px;
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+.cafe-hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cafe-detail-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 48px;
+}
+
+.cafe-description-section {
+  color: #e2e8f0;
+  line-height: 1.7;
+}
+
+.cafe-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Stations Grid */
+.station-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.station-card {
+  background: #0a0e17;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s;
+}
+
+.station-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.station-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.station-specs {
+  color: #7a8291;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.station-price {
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.btn-book {
+  padding: 10px 24px;
+  border-radius: 100px;
+  background: var(--accent-cyan);
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-book:hover {
+  background: #00e5ff;
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+}
+
+/* Sidebar */
+.cafe-sidebar {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 32px;
+  height: fit-content;
+}
+
+.sidebar-item {
+  margin-bottom: 24px;
+}
+
+.sidebar-item h5 {
+  color: #7a8291;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .cafe-detail-body {
+    grid-template-columns: 1fr;
+  }
+  .station-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .btn-book {
+    width: 100%;
+    text-align: center;
+  }
+}
