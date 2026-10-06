@@ -222,6 +222,12 @@
   border-color: rgba(255, 255, 255, 0.15);
 }
 
+.station-info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 20px;
+}
+
 .station-info h4 {
   font-size: 1.1rem;
   margin-bottom: 4px;
@@ -231,6 +237,7 @@
   color: #7a8291;
   font-size: 0.85rem;
   margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .station-price {
@@ -246,6 +253,8 @@
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-book:hover {
