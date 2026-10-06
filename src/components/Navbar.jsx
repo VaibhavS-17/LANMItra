@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HiBars3, HiXMark } from 'react-icons/hi2';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import logo from '../assets/logo-darkmode.png';
 import './Navbar.css';
@@ -10,6 +10,9 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +66,7 @@ const Navbar = () => {
               <span style={{ marginRight: '16px', fontWeight: '500' }}>{user?.name || 'User'}</span>
               <button onClick={handleLogout} className="btn btn-outline navbar-btn">Logout</button>
             </>
-          ) : (
+          ) : !isAuthPage && (
             <>
               <Link to="/login" className="btn btn-outline navbar-btn">Login</Link>
               <Link to="/register" className="btn btn-primary navbar-btn">Sign Up</Link>
@@ -97,7 +100,7 @@ const Navbar = () => {
                 Logout
               </button>
             </>
-          ) : (
+          ) : !isAuthPage && (
             <>
               <Link to="/login" className="btn btn-outline navbar-btn" style={{ width: '100%', textAlign: 'center' }} onClick={closeMenu}>
                 Login
