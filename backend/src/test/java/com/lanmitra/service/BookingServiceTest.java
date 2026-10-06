@@ -56,14 +56,14 @@ public class BookingServiceTest {
 
         cafe = new Cafe();
         cafe.setId(1L);
-        cafe.setActive(true);
+        cafe.setIsActive(true);
         cafe.setOpeningTime(LocalTime.of(10, 0));
         cafe.setClosingTime(LocalTime.of(23, 0));
 
         station = new Station();
         station.setId(1L);
         station.setCafe(cafe);
-        station.setActive(true);
+        station.setIsActive(true);
         station.setHourlyRate(BigDecimal.valueOf(100));
         station.setLabel("PC1");
     }
