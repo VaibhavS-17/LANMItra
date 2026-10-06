@@ -73,7 +73,7 @@ const CafeListPage = () => {
                 </div>
                 
                 <div className="cafe-card-footer">
-                  <span className="cafe-card-badge">{cafe.isActive ? 'Open Now' : 'Closed'}</span>
+                  <span className="cafe-card-badge">{cafe.active ? 'Open Now' : 'Closed'}</span>
                   <span style={{ fontSize: '0.85rem', color: '#a0aec0' }}>
                     {cafe.openingTime && cafe.closingTime ? `${cafe.openingTime.substring(0,5)} - ${cafe.closingTime.substring(0,5)}` : 'Hours unlisted'}
                   </span>

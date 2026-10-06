@@ -62,10 +62,10 @@ const CafeDetailPage = () => {
 
           <h2 className="cafe-section-title" style={{ marginTop: '48px' }}>Available Stations</h2>
           <div className="station-grid">
-            {stations.filter(s => s.isActive).length === 0 ? (
+            {stations.filter(s => s.active).length === 0 ? (
               <p style={{ color: '#7a8291' }}>No active stations found.</p>
             ) : (
-              stations.filter(s => s.isActive).map(station => (
+              stations.filter(s => s.active).map(station => (
                 <div key={station.id} className="station-card">
                   <div className="station-info">
                     <h4>{station.label}</h4>
@@ -99,7 +99,7 @@ const CafeDetailPage = () => {
             
             <div className="sidebar-item">
               <h5>Status</h5>
-              {cafe.isActive ? (
+              {cafe.active ? (
                 <span style={{ color: '#4ade80', fontWeight: '500' }}>● Open for bookings</span>
               ) : (
                 <span style={{ color: '#f87171', fontWeight: '500' }}>● Currently Closed</span>
