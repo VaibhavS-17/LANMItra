@@ -5,13 +5,15 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ProtectedRoute from '../components/ProtectedRoute';
 
-// Real components
 import CafeListPage from '../pages/CafeListPage';
 import CafeDetailPage from '../pages/CafeDetailPage';
 import BookingPage from '../pages/BookingPage';
 import MyBookingsPage from '../pages/MyBookingsPage';
 import OwnerDashboard from '../pages/OwnerDashboard';
 import ErrorBoundary from '../components/ErrorBoundary';
+import TournamentsPage from '../pages/TournamentsPage';
+import TournamentDetailPage from '../pages/TournamentDetailPage';
+import LeaderboardsPage from '../pages/LeaderboardsPage';
 
 const AppRouter = () => {
   return (
@@ -20,29 +22,16 @@ const AppRouter = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       
-      {/* Public Cafe Browse */}
       <Route path="/cafes" element={<CafeListPage />} />
       <Route path="/cafes/:id" element={<CafeDetailPage />} />
+      
+      <Route path="/tournaments" element={<TournamentsPage />} />
+      <Route path="/tournaments/:id" element={<TournamentDetailPage />} />
+      <Route path="/leaderboards" element={<LeaderboardsPage />} />
 
-      {/* Protected Player Routes */}
-      <Route 
-        path="/bookings/new" 
-        element={
-          <ProtectedRoute>
-            <BookingPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/bookings/my" 
-        element={
-          <ProtectedRoute>
-            <MyBookingsPage />
-          </ProtectedRoute>
-        } 
-      />
+      <Route path="/bookings/new" element={<ProtectedRoute><BookingPage /></ProtectedRoute>} />
+      <Route path="/bookings/my" element={<ProtectedRoute><MyBookingsPage /></ProtectedRoute>} />
 
-      {/* Protected Owner Route */}
       <Route 
         path="/dashboard" 
         element={

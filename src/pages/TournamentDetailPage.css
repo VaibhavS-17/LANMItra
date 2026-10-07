@@ -1,0 +1,184 @@
+.tournament-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+.td-loading, .td-error {
+  text-align: center;
+  padding: 100px;
+  font-size: 1.2rem;
+}
+
+.td-hero {
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80') center/cover;
+  padding: 60px 40px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.td-hero .status-badge {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.td-hero h1 {
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.game-subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.td-stats-row {
+  display: flex;
+  gap: 30px;
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+}
+
+.td-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.td-stat .label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.td-stat .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.td-stat .prize {
+  color: #52c41a;
+}
+
+.td-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.td-main h2 {
+  color: var(--neon-accent);
+  margin-bottom: 20px;
+}
+
+.td-main p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.registration-card {
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
+  position: sticky;
+  top: 100px;
+}
+
+.registration-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.reg-form .form-group {
+  margin-bottom: 20px;
+}
+
+.reg-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.reg-form input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: #fff;
+}
+
+.btn-register {
+  width: 100%;
+  padding: 14px;
+  background: var(--neon-accent);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-register:hover:not(:disabled) {
+  box-shadow: 0 0 15px var(--neon-accent);
+}
+
+.btn-register:disabled {
+  background: #444;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.reg-closed {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 77, 79, 0.1);
+  color: #ff4d4f;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.reg-message {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reg-message.success {
+  background: rgba(82, 196, 26, 0.1);
+  color: #52c41a;
+  border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+.reg-message.error {
+  background: rgba(255, 77, 79, 0.1);
+  color: #ff4d4f;
+  border: 1px solid rgba(255, 77, 79, 0.3);
+}
+
+@media (max-width: 900px) {
+  .td-content {
+    grid-template-columns: 1fr;
+  }
+  .td-stats-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
