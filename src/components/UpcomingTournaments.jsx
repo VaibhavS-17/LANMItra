@@ -51,7 +51,7 @@ export default function UpcomingTournaments() {
             <div
               key={t.id}
               className="card tournament-card fade-in"
-              style={{ transitionDelay: ${index * 150}ms }}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="tournament-card-header">
                 <span className="badge badge-game">{t.game}</span>
@@ -78,7 +78,7 @@ export default function UpcomingTournaments() {
                 <div className="tournament-progress-track">
                   <div
                     className="tournament-progress-fill"
-                    style={{ width: ${t.maxParticipants ? Math.min((t.registeredPlayerCount / t.maxParticipants)*100, 100) : 100}% }}
+                    style={{ width: `${t.maxParticipants ? Math.min((t.registeredPlayerCount / t.maxParticipants)*100, 100) : 100}%` }}
                   />
                 </div>
               </div>
@@ -88,7 +88,7 @@ export default function UpcomingTournaments() {
                   <span className="tournament-entry-label">Entry Fee</span>
                   <span className="tournament-entry-value">?{t.entryFee}</span>
                 </div>
-                <Link to={/tournaments/ + t.id} className="btn btn-primary tournament-register-btn">
+                <Link to={`/tournaments/${t.id}`} className="btn btn-primary tournament-register-btn">
                   Register Now
                 </Link>
               </div>

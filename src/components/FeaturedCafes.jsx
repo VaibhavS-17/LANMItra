@@ -87,7 +87,7 @@ const FeaturedCafes = () => {
                     </div>
 
                     <div className="cafe-action-wrap">
-                      <Link to={/cafes/ + cafe.id} className="btn btn-primary cafe-book-btn">
+                      <Link to={`/cafes/${cafe.id}`} className="btn btn-primary cafe-book-btn">
                         View & Book
                       </Link>
                     </div>

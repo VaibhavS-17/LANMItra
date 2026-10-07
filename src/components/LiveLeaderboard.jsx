@@ -109,12 +109,12 @@ export default function LiveLeaderboard() {
                     return (
                     <tr
                       key={index}
-                      className={leaderboard-row row- + tier}
+                      className={`leaderboard-row row-${tier}`}
                     >
                       <td className="td-rank">
                         <div className="rank-wrapper">
                           {medal ? (
-                            <span className="rank-medal" title={Rank  + (index+1)}>
+                            <span className="rank-medal" title={`Rank ${index+1}`}>
                               {medal}
                             </span>
                           ) : (
