@@ -106,18 +106,14 @@ const FeaturedCafes = () => {
                       </div>
                     </div>
 
-                    <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', margin: '20px 0', padding: '15px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
-                      <div className="cafe-spec-item" style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span className="cafe-spec-label" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
-                          <FiMonitor className="cafe-spec-icon" /> Status
-                        </span>
-                        <span className="cafe-stations-val" style={{ fontSize: '1rem', fontWeight: '600' }}>{cafe.active ? 'Open' : 'Available'}</span>
+                    <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', margin: '12px 0 16px 0', padding: '10px 12px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', alignItems: 'center' }}>
+                      <div className="cafe-spec-item" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FiMonitor style={{ color: 'var(--text-secondary)' }} />
+                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{cafe.active ? 'Open Now' : 'Available'}</span>
                       </div>
-                      <div className="cafe-spec-item" style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span className="cafe-spec-label" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
-                          <FiClock className="cafe-spec-icon" /> Hours
-                        </span>
-                        <span className="cafe-price-val" style={{ fontSize: '1rem', fontWeight: '600' }}>
+                      <div className="cafe-spec-item" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FiClock style={{ color: 'var(--text-secondary)' }} />
+                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>
                           {cafe.openingTime ? cafe.openingTime.substring(0,5) : '10:00'} - {cafe.closingTime ? cafe.closingTime.substring(0,5) : '23:00'}
                         </span>
                       </div>
