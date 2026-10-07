@@ -14,7 +14,6 @@ const FeaturedCafes = () => {
 
   useEffect(() => {
     API.get('/cafes').then(res => {
-      // Just take top 4 cafes for the homepage
       setCafes(res.data.slice(0, 4));
       setLoading(false);
     }).catch(err => {
@@ -70,24 +69,44 @@ const FeaturedCafes = () => {
               const gradient = gradients[idx % gradients.length];
               return (
                 <div key={cafe.id} className="card cafe-card">
-                  <div className="cafe-image-banner" style={{ background: gradient }}>
-                    <div className="cafe-image-pattern" />
-                    <IoGameControllerOutline className="cafe-image-watermark" />
-                    <span className="cafe-status-badge">
+                  <div className="cafe-image-banner" style={{ background: gradient, overflow: 'hidden' }}>
+                    {cafe.imageUrl ? (
+                      <img 
+                        src={cafe.imageUrl} 
+                        alt={cafe.name} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, zIndex: 0 }} 
+                      />
+                    ) : (
+                      <>
+                        <div className="cafe-image-pattern" />
+                        <IoGameControllerOutline className="cafe-image-watermark" />
+                      </>
+                    )}
+                    <span className="cafe-status-badge" style={{ zIndex: 1, position: 'relative' }}>
                       <span className="cafe-live-dot" /> Live
                     </span>
                   </div>
 
-                  <div className="cafe-body">
-                    <div className="cafe-meta">
+                  <div className="cafe-body" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    <div className="cafe-meta" style={{ flex: 1 }}>
                       <h3 className="cafe-name">{cafe.name}</h3>
-                      <p className="cafe-location text-secondary">
-                        <FiMapPin className="cafe-location-icon" />
-                        <span>{cafe.address || 'Location TBA'} {cafe.city ? `, ${cafe.city}` : ''}</span>
-                      </p>
+                      <div className="cafe-location text-secondary" style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', marginTop: '8px' }}>
+                        <FiMapPin className="cafe-location-icon" style={{ flexShrink: 0, marginTop: '4px' }} />
+                        <span style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          lineHeight: '1.4',
+                          fontSize: '0.9rem'
+                        }}>
+                          {cafe.address || 'Location TBA'} {cafe.city ? `, ${cafe.city}` : ''}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '15px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+                    <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', margin: '20px 0', padding: '15px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
                       <div className="cafe-spec-item" style={{ display: 'flex', flexDirection: 'column' }}>
                         <span className="cafe-spec-label" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
                           <FiMonitor className="cafe-spec-icon" /> Status
