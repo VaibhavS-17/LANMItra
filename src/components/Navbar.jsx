@@ -81,7 +81,9 @@ const Navbar = () => {
         <div className="navbar-actions desktop-only">
           {isAuthenticated ? (
             <>
-              <span style={{ marginRight: '16px', fontWeight: '500' }}>{formatName(user?.name)}</span>
+              <Link to="/profile" style={{ marginRight: '16px', fontWeight: '500', color: 'inherit', textDecoration: 'none' }}>
+                {formatName(user?.name)}
+              </Link>
               <button onClick={handleLogout} className="btn btn-outline navbar-btn">Logout</button>
             </>
           ) : !isAuthPage && (
@@ -119,7 +121,9 @@ const Navbar = () => {
         <div className="navbar-mobile-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '12px 24px 0 24px' }}>
           {isAuthenticated ? (
             <>
-              <div style={{ textAlign: 'center', marginBottom: '8px', fontWeight: '500' }}>Hi, {formatName(user?.name)}</div>
+              <Link to="/profile" onClick={closeMenu} style={{ textAlign: 'center', marginBottom: '8px', fontWeight: '500', color: 'inherit', textDecoration: 'none' }}>
+                Hi, {formatName(user?.name)}
+              </Link>
               <button onClick={handleLogout} className="btn btn-outline navbar-btn" style={{ width: '100%' }}>
                 Logout
               </button>

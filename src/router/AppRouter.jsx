@@ -14,6 +14,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import TournamentsPage from '../pages/TournamentsPage';
 import TournamentDetailPage from '../pages/TournamentDetailPage';
 import LeaderboardsPage from '../pages/LeaderboardsPage';
+import PlayerProfilePage from '../pages/PlayerProfilePage';
 
 const AppRouter = () => {
   return (
@@ -31,6 +32,8 @@ const AppRouter = () => {
 
       <Route path="/bookings/new" element={<ProtectedRoute><BookingPage /></ProtectedRoute>} />
       <Route path="/bookings/my" element={<ProtectedRoute><MyBookingsPage /></ProtectedRoute>} />
+      
+      <Route path="/profile" element={<ProtectedRoute><PlayerProfilePage /></ProtectedRoute>} />
 
       <Route 
         path="/dashboard" 

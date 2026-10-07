@@ -60,6 +60,12 @@ public class PlayerStatService {
         playerStatRepository.save(stat);
     }
 
+    public List<PlayerStatResponse> getMyStats(Long playerId) {
+        return playerStatRepository.findByPlayerId(playerId).stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     private PlayerStatResponse mapToResponse(PlayerStat stat) {
         PlayerStatResponse res = new PlayerStatResponse();
         res.setPlayerName(stat.getPlayer().getName());

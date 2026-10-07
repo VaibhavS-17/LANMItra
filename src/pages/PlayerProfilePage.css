@@ -1,0 +1,102 @@
+.profile-container {
+  min-height: calc(100vh - 80px);
+  padding: 120px 24px 60px 24px;
+  background: var(--bg-primary);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-content {
+  width: 100%;
+  max-width: 900px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 32px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00d4ff, #818cf8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.profile-info h1 {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.profile-info p {
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+.profile-role-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background: rgba(0,212,255,0.1);
+  color: var(--accent-cyan);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.profile-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.stat-game-name {
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.stat-label {
+  color: #a0aec0;
+}
+
+.stat-value {
+  font-weight: 600;
+}

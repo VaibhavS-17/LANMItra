@@ -1,11 +1,14 @@
 package com.lanmitra.controller;
 
 import com.lanmitra.dto.response.PlayerStatResponse;
+import com.lanmitra.entity.User;
+import com.lanmitra.repository.UserRepository;
 import com.lanmitra.service.PlayerStatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +17,11 @@ import java.util.Map;
 public class LeaderboardController {
 
     private final PlayerStatService playerStatService;
+    private final UserRepository userRepository;
 
-    public LeaderboardController(PlayerStatService playerStatService) {
+    public LeaderboardController(PlayerStatService playerStatService, UserRepository userRepository) {
         this.playerStatService = playerStatService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -24,6 +29,13 @@ public class LeaderboardController {
             @RequestParam(required = false) String game,
             @RequestParam(defaultValue = "50") int limit) {
         return ResponseEntity.ok(playerStatService.getLeaderboard(game, limit));
+    }
+
+    @GetMapping("/my")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<PlayerStatResponse>> getMyStats(Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
+        return ResponseEntity.ok(playerStatService.getMyStats(user.getId()));
     }
 
     @PostMapping("/update")

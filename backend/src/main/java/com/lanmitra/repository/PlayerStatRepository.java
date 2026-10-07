@@ -17,4 +17,7 @@ public interface PlayerStatRepository extends JpaRepository<PlayerStat, Long> {
     // Global leaderboard across games? Usually it's per game.
     // Fetch top players by ELO across all games
     List<PlayerStat> findAllByOrderByEloScoreDesc(Pageable pageable);
+
+    // Fetch all stats for a specific player
+    List<PlayerStat> findByPlayerId(Long playerId);
 }

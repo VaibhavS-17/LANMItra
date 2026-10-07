@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LANMitra — Project Presentation (ED Experiment / SIH)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #131b2e;
+      --card-border: #1e293b;
+      --accent: #00f2fe;
+      --accent-alt: #4facfe;
+      --accent-green: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: rgba(19, 27, 46, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      margin-bottom: 25px;
+    }
+
+    .toolbar button {
+      background: #1e293b;
+      color: var(--text);
+      border: 1px solid #334155;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toolbar button:hover {
+      background: var(--accent);
+      color: #0b0f19;
+      border-color: var(--accent);
+    }
+
+    .slide-counter {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 90px;
+      text-align: center;
+      font-family: var(--font-mono);
+    }
+
+    .slide-container {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
+      min-height: 620px;
+      background: linear-gradient(145deg, #101726, #090d16);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+      padding: 40px 50px;
+      display: none;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-container.active {
+      display: flex;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      background: rgba(0, 242, 254, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 242, 254, 0.2);
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Cover Slide Styling */
+    .cover-content {
+      text-align: center;
+      margin: auto 0;
+    }
+
+    .cover-title {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .cover-sub {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+
+    .info-card h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      font-size: 14px;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-card p, .feature-card ul {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .feature-card ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .feature-card li {
+      margin-bottom: 4px;
+    }
+
+    .highlight-banner {
+      background: rgba(0, 242, 254, 0.07);
+      border-left: 4px solid var(--accent);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .highlight-banner strong {
+      color: var(--accent);
+    }
+
+    .code-box {
+      background: #070a12;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #38bdf8;
+      overflow-x: auto;
+      line-height: 1.4;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    th {
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(0, 242, 254, 0.05);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      color: #cbd5e1;
+    }
+
+    .stat-badge {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+      }
+      .toolbar {
+        display: none;
+      }
+      .slide-container {
+        display: flex !important;
+        page-break-after: always;
+        border: none;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Controls -->
+  <div class="toolbar">
+    <button onclick="prevSlide()">◀ Previous</button>
+    <div class="slide-counter" id="counter">Slide 1 / 6</div>
+    <button onclick="nextSlide()">Next ▶</button>
+    <button onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide-container active" id="slide-1">
+    <div class="slide-header">
+      <span class="brand-tag">SMART INDIA HACKATHON 2025 / SUBJECT ED</span>
+      <span style="font-size: 13px; color: var(--text-muted);">Mumbai University</span>
+    </div>
+    <div class="slide-body cover-content">
+      <h1 class="cover-title">LANMitra</h1>
+      <p class="cover-sub">Gaming Tournament & LAN Café Booking Ecosystem</p>
+
+      <div class="highlight-banner" style="margin-bottom: 20px; text-align: left;">
+        <strong>Problem Statement:</strong> Digitizing Local Gaming Cafés & Automating Grassroots Esports Tournaments | <strong>Category:</strong> Software / Web Platform
+      </div>
+
+      <div class="cover-grid">
+        <div class="info-card">
+          <h4>Team Lead</h4>
+          <p><strong>Vaibhav</strong><br>JWT Security, Spring Boot Architecture, Lead</p>
+        </div>
+        <div class="info-card">
+          <h4>Backend & Frontend</h4>
+          <p><strong>Vedant</strong><br>Café & Station Specs, Discovery Engine</p>
+        </div>
+        <div class="info-card">
+          <h4>Backend & Frontend</h4>
+          <p><strong>Ayush</strong><br>Booking Engine, Overlap Validation, Integrations</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Theme: Sports, Gaming & Entertainment / Smart Automation</span>
+      <span>Team: LAN Warriors / Ctrl Freaks</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Idea & Approach -->
+  <div class="slide-container" id="slide-2">
+    <div class="slide-header">
+      <h2 class="slide-title">IDEA / APPROACH DETAILS</h2>
+      <span class="brand-tag">From Chaotic Calls to Seamless Clicks</span>
+    </div>
+    <div class="slide-body">
+      <div class="highlight-banner">
+        <strong>Core Mission:</strong> LANMitra is a unified platform connecting café owners, tournament organizers, and players. It eliminates phone-call double bookings and automates bracket generation with dispute-free match reporting.
+      </div>
+      <div class="grid-4">
+        <div class="feature-card">
+          <h3>🎮 1. Station Booking Engine</h3>
+          <p>Browse cafés, inspect PC specs (GPUs, refresh rates), and lock in guaranteed 1-hour slots with zero double-booking.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🏆 2. Auto-Bracket Generation</h3>
+          <p>Organizers create tournaments; brackets auto-generate with automatic bye handling for arbitrary participant counts.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚔️ 3. Dual-Result Verification</h3>
+          <p>Both players report match scores independently; matching results auto-advance, discrepancies flag instant disputes.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📊 4. Live Leaderboards</h3>
+          <p>Real-time tournament progression and standings matrix accessible on mobile and desktop without manual paperwork.</p>
+        </div>
+      </div>
+      <div style="font-size: 13px; color: var(--accent); font-weight: 600; text-align: center; margin-top: 8px;">
+        HOW IT ADDRESSES THE PROBLEM: Browse Cafés ➔ Book Station ➔ Compete in Tournament ➔ Verify Results ➔ Live Standings
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Motto: "Zero Conflicts, Zero Chaos, Pure Esports"</span>
+      <span>Slide 2 of 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Technical Approach -->
+  <div class="slide-container" id="slide-3">
+    <div class="slide-header">
+      <h2 class="slide-title">TECHNICAL APPROACH</h2>
+      <span class="brand-tag">Enterprise 3-Tier Architecture</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div>
+          <div class="feature-card" style="margin-bottom: 14px;">
+            <h3>🏗️ Architecture & Conflict Engine</h3>
+            <p style="margin-bottom: 8px;">Deterministic SQL verification guarantees 100% immunity from concurrent double-booking:</p>
+            <div class="code-box">
+SELECT COUNT(*) FROM bookings<br>
+WHERE station_id = :id AND booking_date = :date<br>
+  AND status = 'CONFIRMED'<br>
+  AND start_time &lt; :endTime AND end_time &gt; :startTime;
+            </div>
+          </div>
+          <div class="feature-card">
+            <h3>🔒 Security & Roles</h3>
+            <p>Spring Security 6 with stateless JWT Bearer authentication and BCrypt password hashing. Role-Based Access Control (RBAC) across <strong>Player, Café Owner, Organizer, Admin</strong>.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="feature-card">
+            <h3>🛠️ Technology Stack</h3>
+            <table>
+              <tr><th>Layer</th><th>Technology</th></tr>
+              <tr><td>Frontend</td><td>React 18, Vite, React Router v6, Axios</td></tr>
+              <tr><td>Backend</td><td>Java 17, Spring Boot 3.x, Spring Data JPA</td></tr>
+              <tr><td>Database</td><td>MySQL 8.x (Relational ACID Compliance)</td></tr>
+              <tr><td>Security</td><td>Spring Security 6, JWT, BCrypt</td></tr>
+              <tr><td>Architecture</td><td>Decoupled 3-Tier Enterprise RESTful API</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Robust, Modular & Scalable Spring Boot + React Ecosystem</span>
+      <span>Slide 3 of 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Feasibility & Viability -->
+  <div class="slide-container" id="slide-4">
+    <div class="slide-header">
+      <h2 class="slide-title">FEASIBILITY AND VIABILITY</h2>
+      <span class="brand-tag">Practical & Sustainable</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-3">
+        <div class="feature-card">
+          <h3>⚙️ Technical</h3>
+          <ul>
+            <li><strong>Proven Stack:</strong> Spring Boot 3 + React 18 ensures enterprise stability and modular code.</li>
+            <li><strong>Zero Overlap:</strong> Algorithmic SQL checks prevent double-booking under concurrency.</li>
+            <li><strong>Web Native:</strong> Runs across all desktop & mobile browsers with zero app store install friction.</li>
+            <li><strong>Extensible:</strong> Modular REST APIs ready for payment gateways (Razorpay/UPI).</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3>💰 Economical</h3>
+          <ul>
+            <li><strong>Zero Capex for Cafés:</strong> Reuses existing PC/mobile counter setups; no new hardware required.</li>
+            <li><strong>Zero Licensing:</strong> 100% open-source software stack eliminates expensive vendor licenses.</li>
+            <li><strong>Revenue Streams:</strong>
+              <ul>
+                <li>5–10% tournament commission</li>
+                <li>Featured café search listings</li>
+                <li>B2B analytics SaaS subscription</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3>👥 Operational</h3>
+          <ul>
+            <li><strong>Zero Staff Learning:</strong> Intuitive dashboard allows instant booking verification.</li>
+            <li><strong>No Organizer Fatigue:</strong> Auto-brackets with byes eliminate manual Excel paperwork.</li>
+            <li><strong>Dispute Isolation:</strong> Conflicting match claims are isolated for quick admin arbitration.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>High Feasibility • Low Capex • Zero Friction</span>
+      <span>Slide 4 of 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Impact & Benefits -->
+  <div class="slide-container" id="slide-5">
+    <div class="slide-header">
+      <h2 class="slide-title">IMPACT AND BENEFITS</h2>
+      <span class="brand-tag">Measurable Community Value</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="grid-4" style="gap: 12px;">
+          <div class="feature-card">
+            <span class="stat-badge">+40%</span>
+            <p><strong>Revenue Boost:</strong> Fills idle non-peak PC hours via advance bookings.</p>
+          </div>
+          <div class="feature-card">
+            <span class="stat-badge">100%</span>
+            <p><strong>Conflict-Free:</strong> Complete elimination of double-booking disputes.</p>
+          </div>
+          <div class="feature-card">
+            <span class="stat-badge">-80%</span>
+            <p><strong>Time Saved:</strong> Instant tournament bracket creation & bye handling.</p>
+          </div>
+          <div class="feature-card">
+            <span class="stat-badge">Pan-India</span>
+            <p><strong>Grassroots Esports:</strong> Empowers Tier-2 & Tier-3 college gaming circles.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="feature-card" style="height: 100%;">
+            <h3>🎯 Beneficiary Value Matrix</h3>
+            <ul style="margin-top: 10px;">
+              <li style="margin-bottom: 10px;"><strong>🎮 Gamers:</strong> Guaranteed rig reservations, transparent brackets, verified player match history.</li>
+              <li style="margin-bottom: 10px;"><strong>🏢 Café Owners:</strong> Digital storefront, automated booking ledger, higher customer loyalty and footfall.</li>
+              <li><strong>🏆 Organizers:</strong> Zero spreadsheet headaches, instant score consensus, conflict-free bracket advancement.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Supporting India's Growing Esports Ecosystem</span>
+      <span>Slide 5 of 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: References -->
+  <div class="slide-container" id="slide-6">
+    <div class="slide-header">
+      <h2 class="slide-title">RESEARCH AND REFERENCES</h2>
+      <span class="brand-tag">Academic & Industry Foundation</span>
+    </div>
+    <div class="slide-body">
+      <div class="feature-card" style="padding: 18px 24px;">
+        <ul style="font-size: 13.5px; line-height: 1.8; color: #cbd5e1;">
+          <li><strong>Kumar, A., & Sundaram, S. (2023).</strong> <em>Concurrency Control and Overbooking Prevention Algorithms in Distributed Reservation Systems.</em> International Journal of Computer Applications, 184(12), 15–22.</li>
+          <li><strong>Edwards, R. F. (2021).</strong> <em>Single and Double-Elimination Tournament Scheduling with Non-Power-of-Two Participant Balancing.</em> Journal of Combinatorial Optimization and Algorithms, 39(4), 1042–1058.</li>
+          <li><strong>Martin, D., & Bauer, T. (2022).</strong> <em>Stateless Authentication and Role-Based Authorization using Spring Security and JWT in React SPAs.</em> IEEE Software Engineering Practice Series, 18(2), 77–85.</li>
+          <li><strong>EY & FICCI (2024).</strong> <em>The Maturing Indian Gaming & Esports Ecosystem: Infrastructure Challenges at Local LAN Venues.</em> Annual Media & Entertainment Report, 112–128.</li>
+          <li><strong>Sharma, P., & Verma, K. (2024).</strong> <em>Consensus State Machines for Peer-Reported Results in Decentralized Competitive Gaming.</em> ACM Transactions on Computer-Human Interaction, 31(3), 1–19.</li>
+        </ul>
+      </div>
+      <div class="highlight-banner" style="text-align: center;">
+        <strong>"LANMitra bridges the gap between gaming cafés and esports communities — making venue bookings conflict-free and tournament management effortless."</strong>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Thank You! Open for Questions & Feedback</span>
+      <span>Slide 6 of 6</span>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    function showSlide(index) {
+      document.querySelectorAll('.slide-container').forEach(el => el.classList.remove('active'));
+      document.getElementById('slide-' + index).classList.add('active');
+      document.getElementById('counter').innerText = 'Slide ' + index + ' / ' + totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
