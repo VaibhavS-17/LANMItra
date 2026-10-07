@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { FiMapPin, FiMonitor } from 'react-icons/fi';
+import { FiMapPin, FiMonitor, FiClock } from 'react-icons/fi';
 import { IoGameControllerOutline } from 'react-icons/io5';
+import { HiArrowRight } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import mapPinAsset from '../assets/3d-map-pin.jpg';
 import API from '../services/api';
@@ -82,8 +83,25 @@ const FeaturedCafes = () => {
                       <h3 className="cafe-name">{cafe.name}</h3>
                       <p className="cafe-location text-secondary">
                         <FiMapPin className="cafe-location-icon" />
-                        <span>{cafe.location}</span>
+                        <span>{cafe.address || 'Location TBA'} {cafe.city ? `, ${cafe.city}` : ''}</span>
                       </p>
+                    </div>
+
+                    <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '15px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+                      <div className="cafe-spec-item" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span className="cafe-spec-label" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
+                          <FiMonitor className="cafe-spec-icon" /> Status
+                        </span>
+                        <span className="cafe-stations-val" style={{ fontSize: '1rem', fontWeight: '600' }}>{cafe.active ? 'Open' : 'Available'}</span>
+                      </div>
+                      <div className="cafe-spec-item" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span className="cafe-spec-label" style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '4px' }}>
+                          <FiClock className="cafe-spec-icon" /> Hours
+                        </span>
+                        <span className="cafe-price-val" style={{ fontSize: '1rem', fontWeight: '600' }}>
+                          {cafe.openingTime ? cafe.openingTime.substring(0,5) : '10:00'} - {cafe.closingTime ? cafe.closingTime.substring(0,5) : '23:00'}
+                        </span>
+                      </div>
                     </div>
 
                     <div className="cafe-action-wrap">
@@ -100,7 +118,7 @@ const FeaturedCafes = () => {
 
         <div className="cafes-footer fade-in">
           <Link to="/cafes" className="cafes-view-all-link">
-            View All Cafes <span className="cafes-view-all-arrow">?</span>
+            View All Cafes <HiArrowRight className="tournaments-arrow-icon" style={{ marginLeft: '8px' }} />
           </Link>
         </div>
       </div>
