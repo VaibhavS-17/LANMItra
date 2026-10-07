@@ -1,66 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiArrowRight } from 'react-icons/hi2';
 import { IoGameControllerOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { leaderboardService } from '../services/leaderboardService';
 import trophyAsset from '../assets/3d-trophy.jpg';
 import './LiveLeaderboard.css';
 
-const leaderboardData = [
-  {
-    rank: 1,
-    medal: '🥇',
-    player: 'ProPlayer99',
-    tag: '#IND1',
-    wins: 5,
-    losses: 0,
-    status: 'Active',
-    tier: 'gold'
-  },
-  {
-    rank: 2,
-    medal: '🥈',
-    player: 'ShadowStrike',
-    tag: '#MUM2',
-    wins: 4,
-    losses: 1,
-    status: 'Active',
-    tier: 'silver'
-  },
-  {
-    rank: 3,
-    medal: '🥉',
-    player: 'NeonBlade',
-    tag: '#DEL7',
-    wins: 4,
-    losses: 1,
-    status: 'Active',
-    tier: 'bronze'
-  },
-  {
-    rank: 4,
-    medal: null,
-    player: 'CyberWolf_X',
-    tag: '#BLR4',
-    wins: 3,
-    losses: 2,
-    status: 'Eliminated',
-    tier: 'default'
-  },
-  {
-    rank: 5,
-    medal: null,
-    player: 'PhantomAce',
-    tag: '#PUN9',
-    wins: 3,
-    losses: 2,
-    status: 'Eliminated',
-    tier: 'default'
-  }
-];
-
 export default function LiveLeaderboard() {
   const sectionRef = useRef(null);
+  const [leaderboards, setLeaderboards] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    leaderboardService.getLeaderboards('').then(res => {
+      setLeaderboards(res.slice(0, 5));
+      setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    if(loading) return;
     const current = sectionRef.current;
     if (!current) return;
 
@@ -78,19 +40,29 @@ export default function LiveLeaderboard() {
     const fadeElements = current.querySelectorAll('.fade-in');
     fadeElements.forEach((el) => observer.observe(el));
 
-    return () => {
-      fadeElements.forEach((el) => observer.unobserve(el));
-      observer.disconnect();
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [loading]);
+
+  const getRankMedal = (index) => {
+    if(index === 0) return '??';
+    if(index === 1) return '??';
+    if(index === 2) return '??';
+    return null;
+  };
+  
+  const getRankTier = (index) => {
+    if(index === 0) return 'gold';
+    if(index === 1) return 'silver';
+    if(index === 2) return 'bronze';
+    return 'default';
+  }
 
   return (
     <section className="section live-leaderboard-section" id="leaderboard" ref={sectionRef}>
       <div className="container">
-        {/* Section Header */}
         <div className="section-header fade-in">
           <div className="leaderboard-title-group">
-            <h2 className="section-title">Live Tournament Standings</h2>
+            <h2 className="section-title">Live Standings</h2>
             <span className="badge badge-live">
               <span className="live-dot" />
               LIVE
@@ -101,30 +73,20 @@ export default function LiveLeaderboard() {
           </p>
         </div>
 
-        {/* Leaderboard Layout */}
         <div className="leaderboard-grid fade-in">
-          {/* Left Column: The Table */}
           <div className="card leaderboard-card">
-            {/* Tournament Sub-header Banner */}
             <div className="tournament-banner">
               <div className="tournament-banner-left">
                 <span className="badge badge-game">
                   <IoGameControllerOutline className="badge-icon" />
-                  Valorant
+                  Global Ranked
                 </span>
                 <h3 className="tournament-name">
-                  Mumbai Valorant Championship — Round 3
+                  Top Local Players
                 </h3>
-              </div>
-              <div className="tournament-banner-right">
-                <span className="live-status-indicator">
-                  <span className="live-dot pulse-slow" />
-                  Live Feed
-                </span>
               </div>
             </div>
 
-            {/* Table Container for Mobile Scrolling */}
             <div className="table-responsive">
               <table className="leaderboard-table">
                 <thead>
@@ -133,67 +95,62 @@ export default function LiveLeaderboard() {
                     <th className="th-player">Player</th>
                     <th className="th-stat">W</th>
                     <th className="th-stat">L</th>
-                    <th className="th-status">Status</th>
+                    <th className="th-status">Elo</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {leaderboardData.map((row) => (
+                  {loading ? (
+                    <tr><td colSpan="5">Loading...</td></tr>
+                  ) : leaderboards.length === 0 ? (
+                    <tr><td colSpan="5">No rankings found.</td></tr>
+                  ) : leaderboards.map((row, index) => {
+                    const medal = getRankMedal(index);
+                    const tier = getRankTier(index);
+                    return (
                     <tr
-                      key={row.rank}
-                      className={`leaderboard-row row-${row.tier} ${
-                        row.status === 'Eliminated' ? 'row-eliminated' : ''
-                      }`}
+                      key={index}
+                      className={leaderboard-row row- + tier}
                     >
                       <td className="td-rank">
                         <div className="rank-wrapper">
-                          {row.medal ? (
-                            <span className="rank-medal" title={`Rank ${row.rank}`}>
-                              {row.medal}
+                          {medal ? (
+                            <span className="rank-medal" title={Rank  + (index+1)}>
+                              {medal}
                             </span>
                           ) : (
-                            <span className="rank-number">{row.rank}</span>
+                            <span className="rank-number">{index+1}</span>
                           )}
                         </div>
                       </td>
                       <td className="td-player">
                         <div className="player-info">
-                          <div className="player-avatar">
-                            {row.player.slice(0, 2).toUpperCase()}
-                          </div>
                           <div className="player-meta">
-                            <span className="player-name">{row.player}</span>
-                            <span className="player-tag">{row.tag}</span>
+                            <span className="player-name">{row.playerName}</span>
+                            <span className="player-tag">{row.game}</span>
                           </div>
                         </div>
                       </td>
                       <td className="td-stat td-wins">{row.wins}</td>
                       <td className="td-stat td-losses">{row.losses}</td>
                       <td className="td-status">
-                        <span
-                          className={`status-pill ${
-                            row.status === 'Active' ? 'status-active' : 'status-eliminated'
-                          }`}
-                        >
-                          <span className="status-dot" />
-                          <span className="status-text">{row.status}</span>
+                        <span className="status-pill status-active">
+                          <span className="status-text">{row.eloScore}</span>
                         </span>
                       </td>
                     </tr>
-                  ))}
+                  )})}
                 </tbody>
               </table>
             </div>
 
-            {/* View Full Bracket Link */}
             <div className="leaderboard-footer">
-              <a href="#bracket" className="view-bracket-link">
-                <span>View Full Bracket</span>
+              <Link to="/leaderboards" className="view-bracket-link">
+                <span>View Full Leaderboard</span>
                 <HiArrowRight className="link-arrow" />
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Right Column: 3D Asset */}
           <div className="leaderboard-image-column">
              <div className="trophy-wrapper">
                <img src={trophyAsset} alt="Championship Trophy" className="trophy-3d-asset" />

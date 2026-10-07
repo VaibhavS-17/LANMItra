@@ -1,63 +1,40 @@
-import { useEffect, useRef } from 'react'
-import { HiCalendarDays, HiArrowRight } from 'react-icons/hi2'
-import './UpcomingTournaments.css'
-
-const TOURNAMENTS_DATA = [
-  {
-    id: 'val-mumbai',
-    game: 'VALORANT',
-    name: 'Mumbai Valorant Championship',
-    date: 'Oct 15, 2026 · 2:00 PM',
-    prize: '₹10,000',
-    slots: '48/64 Registered',
-    percentage: 75,
-    format: 'Single Elimination',
-    entryFee: '₹200',
-  },
-  {
-    id: 'cs2-showdown',
-    game: 'COUNTER-STRIKE 2',
-    name: 'CS2 Showdown Series',
-    date: 'Oct 20, 2026 · 4:00 PM',
-    prize: '₹5,000',
-    slots: '28/32 Registered',
-    percentage: 87.5,
-    format: 'Single Elimination',
-    entryFee: '₹150',
-  },
-  {
-    id: 'fifa-cup',
-    game: 'EA FC 25',
-    name: 'FIFA Pro Cup',
-    date: 'Oct 25, 2026 · 12:00 PM',
-    prize: '₹8,000',
-    slots: '12/16 Registered',
-    percentage: 75,
-    format: 'Single Elimination',
-    entryFee: '₹100',
-  },
-]
+import { useEffect, useRef, useState } from 'react';
+import { HiCalendarDays, HiArrowRight } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
+import { tournamentService } from '../services/tournamentService';
+import './UpcomingTournaments.css';
 
 export default function UpcomingTournaments() {
-  const sectionRef = useRef(null)
+  const sectionRef = useRef(null);
+  const [tournaments, setTournaments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    tournamentService.getTournaments().then(res => {
+      setTournaments(res.slice(0, 3));
+      setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    if(loading) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
+            entry.target.classList.add('visible');
           }
-        })
+        });
       },
       { threshold: 0.15 }
-    )
-
-    const elements = sectionRef.current?.querySelectorAll('.fade-in')
-    elements?.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
+    );
+    const elements = sectionRef.current?.querySelectorAll('.fade-in');
+    elements?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [loading]);
 
   return (
     <section className="section" id="tournaments" ref={sectionRef}>
@@ -70,38 +47,38 @@ export default function UpcomingTournaments() {
         </div>
 
         <div className="tournaments-grid">
-          {TOURNAMENTS_DATA.map((t, index) => (
+          {loading ? <p>Loading...</p> : tournaments.length === 0 ? <p>No active tournaments.</p> : tournaments.map((t, index) => (
             <div
               key={t.id}
               className="card tournament-card fade-in"
-              style={{ transitionDelay: `${index * 150}ms` }}
+              style={{ transitionDelay: ${index * 150}ms }}
             >
               <div className="tournament-card-header">
                 <span className="badge badge-game">{t.game}</span>
-                <span className="tournament-format-badge">{t.format}</span>
+                <span className="tournament-format-badge">{t.status}</span>
               </div>
 
               <h3 className="tournament-name">{t.name}</h3>
 
               <div className="tournament-date">
                 <HiCalendarDays className="tournament-date-icon" />
-                <span>{t.date}</span>
+                <span>{new Date(t.startDate).toLocaleDateString()}</span>
               </div>
 
               <div className="tournament-prize-block">
                 <span className="tournament-prize-label">PRIZE POOL</span>
-                <span className="tournament-prize-value">{t.prize}</span>
+                <span className="tournament-prize-value">?{t.prizePool}</span>
               </div>
 
               <div className="tournament-slots-section">
                 <div className="tournament-slots-row">
                   <span className="tournament-slots-label">Registration</span>
-                  <span className="tournament-slots-count">{t.slots}</span>
+                  <span className="tournament-slots-count">{t.registeredPlayerCount} / {t.maxParticipants || '8'}</span>
                 </div>
                 <div className="tournament-progress-track">
                   <div
                     className="tournament-progress-fill"
-                    style={{ width: `${t.percentage}%` }}
+                    style={{ width: ${t.maxParticipants ? Math.min((t.registeredPlayerCount / t.maxParticipants)*100, 100) : 100}% }}
                   />
                 </div>
               </div>
@@ -109,23 +86,23 @@ export default function UpcomingTournaments() {
               <div className="tournament-footer-meta">
                 <div className="tournament-entry-group">
                   <span className="tournament-entry-label">Entry Fee</span>
-                  <span className="tournament-entry-value">{t.entryFee}</span>
+                  <span className="tournament-entry-value">?{t.entryFee}</span>
                 </div>
-                <button type="button" className="btn btn-primary tournament-register-btn">
+                <Link to={/tournaments/ + t.id} className="btn btn-primary tournament-register-btn">
                   Register Now
-                </button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
 
         <div className="tournaments-all-wrapper fade-in">
-          <a href="#tournaments" className="tournaments-all-link">
+          <Link to="/tournaments" className="tournaments-all-link">
             <span>View All Tournaments</span>
             <HiArrowRight className="tournaments-arrow-icon" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
-  )
+  );
 }
