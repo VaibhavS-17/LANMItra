@@ -29,11 +29,11 @@ public class LeaderboardController {
     @PostMapping("/update")
     @PreAuthorize("hasRole('CAFE_OWNER')")
     public ResponseEntity<?> updateElo(@RequestBody Map<String, Object> payload) {
-        Long playerId = Long.valueOf(payload.get("playerId").toString());
+        String playerEmail = payload.get("playerEmail").toString();
         String game = payload.get("game").toString();
         boolean won = Boolean.parseBoolean(payload.get("won").toString());
         
-        playerStatService.updateElo(playerId, game, won);
+        playerStatService.updateElo(playerEmail, game, won);
         return ResponseEntity.ok("Elo updated successfully");
     }
 }

@@ -6,11 +6,15 @@ export const cafeService = {
     return response.data;
   },
   getCafeById: async (id) => {
-    const response = await api.get(`/cafes/${id}`);
+    const response = await api.get(/cafes/ + id);
     return response.data;
   },
   getMyCafes: async () => {
     const response = await api.get('/cafes/my');
+    return response.data;
+  },
+  createCafe: async (data) => {
+    const response = await api.post('/cafes', data);
     return response.data;
   }
 };

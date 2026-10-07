@@ -36,11 +36,11 @@ public class PlayerStatService {
     }
 
     @Transactional
-    public void updateElo(Long playerId, String game, boolean won) {
-        User player = userRepository.findById(playerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Player not found"));
+    public void updateElo(String playerEmail, String game, boolean won) {
+        User player = userRepository.findByEmail(playerEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("Player not found with email: " + playerEmail));
 
-        PlayerStat stat = playerStatRepository.findByPlayerIdAndGame(playerId, game)
+        PlayerStat stat = playerStatRepository.findByPlayerIdAndGame(player.getId(), game)
                 .orElseGet(() -> {
                     PlayerStat newStat = new PlayerStat();
                     newStat.setPlayer(player);
