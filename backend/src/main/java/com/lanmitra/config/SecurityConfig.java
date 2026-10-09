@@ -53,12 +53,15 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/cafes/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/tournaments/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/leaderboards/**").permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/api/auth/register")).permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/api/auth/login")).permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/cafes/**")).permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/tournaments/**")).permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/leaderboards/**")).permitAll()
+                .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated()
             )
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
             
         return http.build();

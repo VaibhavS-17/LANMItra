@@ -3,17 +3,19 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/lanmitra_db?useSSL=false&serverTimezone=Asia/Kolkata&allowPublicKeyRetrieval=true}
-    username: ${DB_USER:lanmitra}
-    password: ${DB_PASS:lanmitra123}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:lanmitra_db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
 
 app:
   jwt:
