@@ -6,8 +6,8 @@ import com.lanmitra.entity.Booking;
 import com.lanmitra.entity.Station;
 import com.lanmitra.entity.User;
 import com.lanmitra.enums.BookingStatus;
-import com.lanmitra.exception.BookingConflictException;
-import com.lanmitra.exception.ResourceNotFoundException;
+
+
 import com.lanmitra.repository.BookingRepository;
 import com.lanmitra.repository.StationRepository;
 import com.lanmitra.repository.UserRepository;
@@ -43,7 +43,7 @@ public class BookingService {
     @Transactional
     public BookingResponse createBooking(BookingRequest request, Long playerId) {
         Station station = stationRepository.findById(request.getStationId())
-                .orElseThrow(() -> new ResourceNotFoundException("Station not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Station not found"));
 
         if (!station.isIsActive() || !station.getCafe().isIsActive()) {
             throw new IllegalArgumentException("Station or Cafe is not active");
@@ -57,11 +57,11 @@ public class BookingService {
         );
 
         if (conflicts > 0) {
-            throw new BookingConflictException("This station is already booked for the selected time slot.");
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT, "This station is already booked for the selected time slot.");
         }
 
         User player = userRepository.findById(playerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Player not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Player not found"));
 
         long durationHours = Duration.between(request.getStartTime(), request.getEndTime()).toHours();
         if (durationHours <= 0) {
@@ -86,7 +86,7 @@ public class BookingService {
 
     public Map<String, Object> getAvailability(Long stationId, LocalDate date) {
         Station station = stationRepository.findById(stationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Station not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Station not found"));
 
         LocalTime opening = station.getCafe().getOpeningTime();
         LocalTime closing = station.getCafe().getClosingTime();
@@ -140,7 +140,7 @@ public class BookingService {
     @Transactional
     public void cancelBooking(Long bookingId, Long playerId) {
         Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new ResourceNotFoundException("Booking not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Booking not found"));
 
         if (!booking.getPlayer().getId().equals(playerId)) {
             throw new AccessDeniedException("You can only cancel your own bookings");

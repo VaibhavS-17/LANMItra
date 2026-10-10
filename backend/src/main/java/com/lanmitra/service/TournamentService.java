@@ -8,7 +8,7 @@ import com.lanmitra.entity.Tournament;
 import com.lanmitra.entity.TournamentRegistration;
 import com.lanmitra.entity.User;
 import com.lanmitra.enums.TournamentStatus;
-import com.lanmitra.exception.ResourceNotFoundException;
+
 import com.lanmitra.repository.CafeRepository;
 import com.lanmitra.repository.TournamentRegistrationRepository;
 import com.lanmitra.repository.TournamentRepository;
@@ -50,7 +50,7 @@ public class TournamentService {
         
         if (req.getCafeId() != null) {
             Cafe cafe = cafeRepository.findById(req.getCafeId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Cafe not found"));
+                    .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Cafe not found"));
             t.setCafe(cafe);
         }
         
@@ -67,17 +67,17 @@ public class TournamentService {
 
     public TournamentResponse getTournamentDetails(Long id) {
         Tournament t = tournamentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tournament not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Tournament not found"));
         return mapToResponse(t);
     }
 
     @Transactional
     public void registerPlayer(Long tournamentId, String email, TournamentRegistrationRequest req) {
         Tournament t = tournamentRepository.findById(tournamentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Tournament not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Tournament not found"));
                 
         User player = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "User not found"));
 
         if (t.getStatus() != TournamentStatus.UPCOMING) {
             throw new IllegalStateException("Registration is closed for this tournament");

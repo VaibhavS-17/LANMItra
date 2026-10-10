@@ -3,7 +3,7 @@ package com.lanmitra.controller;
 import com.lanmitra.dto.request.BookingRequest;
 import com.lanmitra.dto.response.BookingResponse;
 import com.lanmitra.entity.User;
-import com.lanmitra.exception.ResourceNotFoundException;
+
 import com.lanmitra.repository.UserRepository;
 import com.lanmitra.service.BookingService;
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class BookingController {
 
     private Long getUserIdFromPrincipal(Principal principal) {
         User user = userRepository.findByEmail(principal.getName())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "User not found"));
         return user.getId();
     }
 

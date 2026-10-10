@@ -3,7 +3,7 @@ package com.lanmitra.service;
 import com.lanmitra.dto.response.PlayerStatResponse;
 import com.lanmitra.entity.PlayerStat;
 import com.lanmitra.entity.User;
-import com.lanmitra.exception.ResourceNotFoundException;
+
 import com.lanmitra.repository.PlayerStatRepository;
 import com.lanmitra.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
@@ -38,7 +38,7 @@ public class PlayerStatService {
     @Transactional
     public void updateElo(String playerEmail, String game, boolean won) {
         User player = userRepository.findByEmail(playerEmail)
-                .orElseThrow(() -> new ResourceNotFoundException("Player not found with email: " + playerEmail));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Player not found with email: " + playerEmail));
 
         PlayerStat stat = playerStatRepository.findByPlayerIdAndGame(player.getId(), game)
                 .orElseGet(() -> {

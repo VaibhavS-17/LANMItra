@@ -3,7 +3,7 @@ package com.lanmitra.controller;
 import com.lanmitra.dto.request.StationRequest;
 import com.lanmitra.dto.response.StationResponse;
 import com.lanmitra.entity.User;
-import com.lanmitra.exception.ResourceNotFoundException;
+
 import com.lanmitra.repository.UserRepository;
 import com.lanmitra.service.StationService;
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class StationController {
     private Long getUserIdFromPrincipal(Principal principal) {
         if (principal == null) return null;
         User user = userRepository.findByEmail(principal.getName())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "User not found"));
         return user.getId();
     }
 
