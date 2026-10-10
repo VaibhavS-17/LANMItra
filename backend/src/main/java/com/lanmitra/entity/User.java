@@ -1,5 +1,6 @@
 package com.lanmitra.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lanmitra.enums.UserRole;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     
+    @JsonIgnore
     @Column(nullable = false)
     private String passwordHash;
     
