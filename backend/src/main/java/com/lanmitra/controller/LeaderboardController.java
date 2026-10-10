@@ -1,6 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.response.PlayerStatResponse;
 import com.lanmitra.entity.User;
 import com.lanmitra.repository.UserRepository;
 import com.lanmitra.service.PlayerStatService;
@@ -25,7 +29,7 @@ public class LeaderboardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PlayerStatResponse>> getLeaderboards(
+    public ResponseEntity<List<PlayerStat>> getLeaderboards(
             @RequestParam(required = false) String game,
             @RequestParam(defaultValue = "50") int limit) {
         return ResponseEntity.ok(playerStatService.getLeaderboard(game, limit));
@@ -33,7 +37,7 @@ public class LeaderboardController {
 
     @GetMapping("/my")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<PlayerStatResponse>> getMyStats(Principal principal) {
+    public ResponseEntity<List<PlayerStat>> getMyStats(Principal principal) {
         User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         return ResponseEntity.ok(playerStatService.getMyStats(user.getId()));
     }

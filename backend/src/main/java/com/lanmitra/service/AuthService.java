@@ -1,9 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.LoginRequest;
-import com.lanmitra.dto.request.RegisterRequest;
-import com.lanmitra.dto.response.AuthResponse;
-import com.lanmitra.dto.response.UserResponse;
 import com.lanmitra.entity.User;
 import com.lanmitra.repository.UserRepository;
 import com.lanmitra.security.JwtTokenProvider;
@@ -29,7 +30,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthResponse register(RegisterRequest request) {
+    public Map<String, Object> register(User request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered");
         }
@@ -37,45 +38,35 @@ public class AuthService {
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setPasswordHash(passwordEncoder.encode(request.getPasswordHash()));
         user.setRole(request.getRole());
 
         User savedUser = userRepository.save(user);
         
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPasswordHash())
         );
         String token = tokenProvider.generateToken(authentication);
 
-        return new AuthResponse(token, mapToUserResponse(savedUser));
+        return Map.of("token", token, "user", savedUser);
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public Map<String, Object> login(User request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPasswordHash())
         );
 
         String token = tokenProvider.generateToken(authentication);
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return new AuthResponse(token, mapToUserResponse(user));
+        return Map.of("token", token, "user", user);
     }
     
-    public UserResponse getProfile(String email) {
+    public User getProfile(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return mapToUserResponse(user);
+        return user;
     }
 
-    private UserResponse mapToUserResponse(User user) {
-        return UserResponse.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .phone(user.getPhone())
-                .avatarUrl(user.getAvatarUrl())
-                .build();
     }
-}

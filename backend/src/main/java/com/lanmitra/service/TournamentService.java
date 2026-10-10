@@ -1,8 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.TournamentRegistrationRequest;
-import com.lanmitra.dto.request.TournamentRequest;
-import com.lanmitra.dto.response.TournamentResponse;
 import com.lanmitra.entity.Cafe;
 import com.lanmitra.entity.Tournament;
 import com.lanmitra.entity.TournamentRegistration;
@@ -38,7 +40,7 @@ public class TournamentService {
     }
 
     @Transactional
-    public TournamentResponse createTournament(TournamentRequest req) {
+    public Tournament createTournament(Tournament req) {
         Tournament t = new Tournament();
         t.setName(req.getName());
         t.setGame(req.getGame());
@@ -48,31 +50,31 @@ public class TournamentService {
         t.setEntryFee(req.getEntryFee());
         t.setMaxParticipants(req.getMaxParticipants());
         
-        if (req.getCafeId() != null) {
-            Cafe cafe = cafeRepository.findById(req.getCafeId())
+        if (req.getCafe().getId() != null) {
+            Cafe cafe = cafeRepository.findById(req.getCafe().getId())
                     .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Cafe not found"));
             t.setCafe(cafe);
         }
         
         Tournament saved = tournamentRepository.save(t);
-        return mapToResponse(saved);
+        return saved;
     }
 
-    public List<TournamentResponse> getAllActiveTournaments() {
+    public List<Tournament> getAllActiveTournaments() {
         return tournamentRepository.findAll().stream()
                 .filter(t -> t.getStatus() == TournamentStatus.UPCOMING || t.getStatus() == TournamentStatus.ONGOING)
-                .map(this::mapToResponse)
+                
                 .collect(Collectors.toList());
     }
 
-    public TournamentResponse getTournamentDetails(Long id) {
+    public Tournament getTournamentDetails(Long id) {
         Tournament t = tournamentRepository.findById(id)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Tournament not found"));
-        return mapToResponse(t);
+        return t;
     }
 
     @Transactional
-    public void registerPlayer(Long tournamentId, String email, TournamentRegistrationRequest req) {
+    public void registerPlayer(Long tournamentId, String email, TournamentRegistration req) {
         Tournament t = tournamentRepository.findById(tournamentId)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Tournament not found"));
                 
@@ -99,25 +101,4 @@ public class TournamentService {
         registrationRepository.save(reg);
     }
 
-    private TournamentResponse mapToResponse(Tournament t) {
-        TournamentResponse res = new TournamentResponse();
-        res.setId(t.getId());
-        res.setName(t.getName());
-        res.setGame(t.getGame());
-        res.setStartDate(t.getStartDate());
-        res.setEndDate(t.getEndDate());
-        res.setPrizePool(t.getPrizePool());
-        res.setEntryFee(t.getEntryFee());
-        res.setMaxParticipants(t.getMaxParticipants());
-        res.setStatus(t.getStatus());
-        if (t.getCafe() != null) {
-            res.setCafeId(t.getCafe().getId());
-            res.setCafeName(t.getCafe().getName());
-        }
-        
-        // Count registrations
-        int regCount = registrationRepository.findByTournamentId(t.getId()).size();
-        res.setRegisteredPlayerCount(regCount);
-        return res;
     }
-}

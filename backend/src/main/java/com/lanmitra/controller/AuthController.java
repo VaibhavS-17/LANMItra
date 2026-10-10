@@ -1,9 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.LoginRequest;
-import com.lanmitra.dto.request.RegisterRequest;
-import com.lanmitra.dto.response.AuthResponse;
-import com.lanmitra.dto.response.UserResponse;
 import com.lanmitra.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +22,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody User request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody User request) {
         return ResponseEntity.ok(authService.login(request));
     }
     
     @GetMapping("/me")
-    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
+    public ResponseEntity<User> getCurrentUser(Authentication authentication) {
         return ResponseEntity.ok(authService.getProfile(authentication.getName()));
     }
 }

@@ -1,7 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.CafeRequest;
-import com.lanmitra.dto.response.CafeResponse;
 import com.lanmitra.entity.Cafe;
 import com.lanmitra.entity.User;
 import com.lanmitra.repository.CafeRepository;
@@ -21,7 +24,7 @@ public class CafeService {
     }
     
     @Transactional
-    public CafeResponse createCafe(Long ownerId, CafeRequest request) {
+    public Cafe createCafe(Long ownerId, Cafe request) {
         User owner = userRepository.findById(ownerId).orElseThrow();
         if (owner.getRole() != com.lanmitra.enums.UserRole.CAFE_OWNER) {
             throw new org.springframework.security.access.AccessDeniedException("User is not a CAFE_OWNER");
@@ -39,28 +42,28 @@ public class CafeService {
         cafe.setIsActive(true);
         
         Cafe saved = cafeRepository.save(cafe);
-        return mapToResponse(saved);
+        return saved;
     }
 
-    public java.util.List<CafeResponse> findAll() {
-        return cafeRepository.findAll().stream().map(this::mapToResponse).toList();
+    public java.util.List<Cafe> findAll() {
+        return cafeRepository.findAll();
     }
 
-    public java.util.List<CafeResponse> search(String query) {
+    public java.util.List<Cafe> search(String query) {
         return cafeRepository.findByCityContainingIgnoreCaseOrNameContainingIgnoreCase(query, query)
-                .stream().map(this::mapToResponse).toList();
+                ;
     }
 
-    public CafeResponse findById(Long id) {
-        return cafeRepository.findById(id).map(this::mapToResponse).orElseThrow();
+    public Cafe findById(Long id) {
+        return cafeRepository.findById(id).orElseThrow();
     }
 
-    public java.util.List<CafeResponse> findByOwner(Long ownerId) {
-        return cafeRepository.findByOwnerId(ownerId).stream().map(this::mapToResponse).toList();
+    public java.util.List<Cafe> findByOwner(Long ownerId) {
+        return cafeRepository.findByOwnerId(ownerId);
     }
 
     @Transactional
-    public CafeResponse updateCafe(Long id, Long ownerId, CafeRequest request) {
+    public Cafe updateCafe(Long id, Long ownerId, Cafe request) {
         Cafe cafe = cafeRepository.findById(id).orElseThrow();
         if (!cafe.getOwner().getId().equals(ownerId)) {
             throw new org.springframework.security.access.AccessDeniedException("Not owner");
@@ -74,22 +77,7 @@ public class CafeService {
         if (request.getOpeningTime() != null) cafe.setOpeningTime(request.getOpeningTime());
         if (request.getClosingTime() != null) cafe.setClosingTime(request.getClosingTime());
         
-        return mapToResponse(cafeRepository.save(cafe));
+        return cafeRepository.save(cafe);
     }
 
-    private CafeResponse mapToResponse(Cafe saved) {
-        CafeResponse response = new CafeResponse();
-        response.setId(saved.getId());
-        response.setName(saved.getName());
-        if (saved.getOwner() != null) response.setOwnerId(saved.getOwner().getId());
-        response.setAddress(saved.getAddress());
-        response.setCity(saved.getCity());
-        response.setDescription(saved.getDescription());
-        response.setImageUrl(saved.getImageUrl());
-        response.setPhone(saved.getPhone());
-        response.setOpeningTime(saved.getOpeningTime());
-        response.setClosingTime(saved.getClosingTime());
-        response.setActive(saved.isIsActive());
-        return response;
     }
-}

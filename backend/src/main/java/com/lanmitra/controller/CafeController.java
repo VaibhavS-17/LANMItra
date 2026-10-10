@@ -1,7 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.CafeRequest;
-import com.lanmitra.dto.response.CafeResponse;
 import com.lanmitra.entity.User;
 
 import com.lanmitra.repository.UserRepository;
@@ -36,7 +39,7 @@ public class CafeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CafeResponse>> getCafes(@RequestParam(required = false) String cityOrName) {
+    public ResponseEntity<List<Cafe>> getCafes(@RequestParam(required = false) String cityOrName) {
         if (cityOrName != null && !cityOrName.isBlank()) {
             return ResponseEntity.ok(cafeService.search(cityOrName));
         }
@@ -44,29 +47,29 @@ public class CafeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CafeResponse> getCafe(@PathVariable Long id) {
+    public ResponseEntity<Cafe> getCafe(@PathVariable Long id) {
         return ResponseEntity.ok(cafeService.findById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<CafeResponse> createCafe(@Valid @RequestBody CafeRequest request, Principal principal) {
+    public ResponseEntity<Cafe> createCafe(@Valid @RequestBody Cafe request, Principal principal) {
         Long ownerId = getUserIdFromPrincipal(principal);
-        CafeResponse response = cafeService.createCafe(ownerId, request);
+        Cafe response = cafeService.createCafe(ownerId, request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<CafeResponse> updateCafe(@PathVariable Long id, @Valid @RequestBody CafeRequest request, Principal principal) {
+    public ResponseEntity<Cafe> updateCafe(@PathVariable Long id, @Valid @RequestBody Cafe request, Principal principal) {
         Long ownerId = getUserIdFromPrincipal(principal);
-        CafeResponse response = cafeService.updateCafe(id, ownerId, request);
+        Cafe response = cafeService.updateCafe(id, ownerId, request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/my")
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<List<CafeResponse>> getMyCafes(Principal principal) {
+    public ResponseEntity<List<Cafe>> getMyCafes(Principal principal) {
         Long ownerId = getUserIdFromPrincipal(principal);
         return ResponseEntity.ok(cafeService.findByOwner(ownerId));
     }

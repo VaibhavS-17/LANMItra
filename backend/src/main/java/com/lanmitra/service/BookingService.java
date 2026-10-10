@@ -1,7 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.BookingRequest;
-import com.lanmitra.dto.response.BookingResponse;
 import com.lanmitra.entity.Booking;
 import com.lanmitra.entity.Station;
 import com.lanmitra.entity.User;
@@ -41,8 +44,8 @@ public class BookingService {
     }
 
     @Transactional
-    public BookingResponse createBooking(BookingRequest request, Long playerId) {
-        Station station = stationRepository.findById(request.getStationId())
+    public Booking createBooking(Booking request, Long playerId) {
+        Station station = stationRepository.findById(request.getStation().getId())
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Station not found"));
 
         if (!station.isIsActive() || !station.getCafe().isIsActive()) {
@@ -50,8 +53,8 @@ public class BookingService {
         }
 
         long conflicts = bookingRepository.countConflictingBookings(
-                request.getStationId(),
-                request.getDate(),
+                request.getStation().getId(),
+                request.getBookingDate(),
                 request.getStartTime(),
                 request.getEndTime()
         );
@@ -73,7 +76,7 @@ public class BookingService {
         Booking booking = new Booking();
         booking.setStation(station);
         booking.setPlayer(player);
-        booking.setBookingDate(request.getDate());
+        booking.setBookingDate(request.getBookingDate());
         booking.setStartTime(request.getStartTime());
         booking.setEndTime(request.getEndTime());
         booking.setTotalPrice(totalPrice);
@@ -81,7 +84,7 @@ public class BookingService {
 
         Booking savedBooking = bookingRepository.save(booking);
 
-        return mapToResponse(savedBooking);
+        return savedBooking;
     }
 
     public Map<String, Object> getAvailability(Long stationId, LocalDate date) {
@@ -131,10 +134,8 @@ public class BookingService {
         return response;
     }
 
-    public List<BookingResponse> getMyBookings(Long playerId) {
-        return bookingRepository.findByPlayerId(playerId).stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+    public List<Booking> getMyBookings(Long playerId) {
+        return bookingRepository.findByPlayerId(playerId);
     }
 
     @Transactional
@@ -150,7 +151,7 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
-    public List<BookingResponse> getCafeBookings(Long cafeId, LocalDate date, Long ownerId) {
+    public List<Booking> getCafeBookings(Long cafeId, LocalDate date, Long ownerId) {
         List<Booking> bookings = bookingRepository.findByCafeIdAndDate(cafeId, date);
         // Instead of checking the first booking, verify against the repository if we had it, or we rely on the controller.
         // Actually, we can fetch from a booking if present, else we might not be able to verify owner here easily without CafeRepository.
@@ -159,24 +160,7 @@ public class BookingService {
         if (!bookings.isEmpty() && !bookings.get(0).getStation().getCafe().getOwner().getId().equals(ownerId)) {
             throw new AccessDeniedException("You can only view bookings for your own cafes");
         }
-        return bookings.stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        return bookings;
     }
 
-    private BookingResponse mapToResponse(Booking booking) {
-        BookingResponse response = new BookingResponse();
-        response.setId(booking.getId());
-        response.setStationId(booking.getStation().getId());
-        response.setStationLabel(booking.getStation().getLabel());
-        response.setCafeName(booking.getStation().getCafe().getName());
-        response.setPlayerName(booking.getPlayer().getName());
-        response.setPlayerEmail(booking.getPlayer().getEmail());
-        response.setDate(booking.getBookingDate());
-        response.setStartTime(booking.getStartTime());
-        response.setEndTime(booking.getEndTime());
-        response.setTotalPrice(booking.getTotalPrice());
-        response.setStatus(booking.getStatus());
-        return response;
     }
-}

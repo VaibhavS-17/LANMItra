@@ -1,7 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.StationRequest;
-import com.lanmitra.dto.response.StationResponse;
 import com.lanmitra.entity.User;
 
 import com.lanmitra.repository.UserRepository;
@@ -36,30 +39,30 @@ public class StationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StationResponse>> getStations(@PathVariable Long cafeId) {
+    public ResponseEntity<List<Station>> getStations(@PathVariable Long cafeId) {
         return ResponseEntity.ok(stationService.listStations(cafeId));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<StationResponse> addStation(
+    public ResponseEntity<Station> addStation(
             @PathVariable Long cafeId,
-            @Valid @RequestBody StationRequest request,
+            @Valid @RequestBody Station request,
             Principal principal) {
         Long ownerId = getUserIdFromPrincipal(principal);
-        StationResponse response = stationService.addStation(cafeId, ownerId, request);
+        Station response = stationService.addStation(cafeId, ownerId, request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<StationResponse> updateStation(
+    public ResponseEntity<Station> updateStation(
             @PathVariable Long cafeId,
             @PathVariable Long id,
-            @Valid @RequestBody StationRequest request,
+            @Valid @RequestBody Station request,
             Principal principal) {
         Long ownerId = getUserIdFromPrincipal(principal);
-        StationResponse response = stationService.updateStation(id, ownerId, request);
+        Station response = stationService.updateStation(id, ownerId, request);
         return ResponseEntity.ok(response);
     }
 

@@ -1,7 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.StationRequest;
-import com.lanmitra.dto.response.StationResponse;
 import com.lanmitra.entity.Cafe;
 import com.lanmitra.entity.Station;
 import com.lanmitra.repository.CafeRepository;
@@ -19,16 +22,16 @@ public class StationService {
         this.cafeRepository = cafeRepository;
     }
 
-    public StationResponse addStation(Long cafeId, Long ownerId, StationRequest request) {
+    public Station addStation(Long cafeId, Long ownerId, Station request) {
         Cafe cafe = cafeRepository.findById(cafeId)
-                .orElseThrow(() -> new com.lanmitra.exception.ResourceNotFoundException("Cafe not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cafe not found"));
         
         if (!cafe.getOwner().getId().equals(ownerId)) {
             throw new org.springframework.security.access.AccessDeniedException("User is not the owner of this cafe");
         }
 
         if (stationRepository.existsByCafeIdAndLabel(cafeId, request.getLabel())) {
-            throw new com.lanmitra.exception.DuplicateResourceException("Station with this label already exists in this cafe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Station with this label already exists in this cafe");
         }
 
         Station station = new Station();
@@ -39,24 +42,22 @@ public class StationService {
         station.setHourlyRate(request.getHourlyRate());
         station.setIsActive(true);
 
-        return mapToResponse(stationRepository.save(station));
+        return stationRepository.save(station);
     }
 
-    public StationResponse getStationById(Long id) {
+    public Station getStationById(Long id) {
         Station station = stationRepository.findById(id)
-                .orElseThrow(() -> new com.lanmitra.exception.ResourceNotFoundException("Station not found"));
-        return mapToResponse(station);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found"));
+        return station;
     }
 
-    public java.util.List<StationResponse> listStations(Long cafeId) {
-        return stationRepository.findByCafeId(cafeId).stream()
-                .map(this::mapToResponse)
-                .toList();
+    public java.util.List<Station> listStations(Long cafeId) {
+        return stationRepository.findByCafeId(cafeId);
     }
 
-    public StationResponse updateStation(Long id, Long ownerId, StationRequest request) {
+    public Station updateStation(Long id, Long ownerId, Station request) {
         Station station = stationRepository.findById(id)
-                .orElseThrow(() -> new com.lanmitra.exception.ResourceNotFoundException("Station not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found"));
         
         if (!station.getCafe().getOwner().getId().equals(ownerId)) {
             throw new org.springframework.security.access.AccessDeniedException("Not owner");
@@ -64,7 +65,7 @@ public class StationService {
 
         if (!station.getLabel().equals(request.getLabel()) && 
             stationRepository.existsByCafeIdAndLabel(station.getCafe().getId(), request.getLabel())) {
-            throw new com.lanmitra.exception.DuplicateResourceException("Duplicate label");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate label");
         }
 
         station.setLabel(request.getLabel());
@@ -72,12 +73,12 @@ public class StationService {
         station.setSpecs(request.getSpecs());
         station.setHourlyRate(request.getHourlyRate());
 
-        return mapToResponse(stationRepository.save(station));
+        return stationRepository.save(station);
     }
 
     public void deactivateStation(Long id, Long ownerId) {
         Station station = stationRepository.findById(id)
-                .orElseThrow(() -> new com.lanmitra.exception.ResourceNotFoundException("Station not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found"));
         
         if (!station.getCafe().getOwner().getId().equals(ownerId)) {
             throw new org.springframework.security.access.AccessDeniedException("Not owner");
@@ -87,15 +88,4 @@ public class StationService {
         stationRepository.save(station);
     }
 
-    private StationResponse mapToResponse(Station station) {
-        StationResponse response = new StationResponse();
-        response.setId(station.getId());
-        response.setCafeId(station.getCafe().getId());
-        response.setLabel(station.getLabel());
-        response.setType(station.getType());
-        response.setSpecs(station.getSpecs());
-        response.setHourlyRate(station.getHourlyRate());
-        response.setActive(station.isIsActive());
-        return response;
     }
-}

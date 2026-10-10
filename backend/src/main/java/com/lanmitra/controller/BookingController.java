@@ -1,7 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.BookingRequest;
-import com.lanmitra.dto.response.BookingResponse;
 import com.lanmitra.entity.User;
 
 import com.lanmitra.repository.UserRepository;
@@ -47,16 +50,16 @@ public class BookingController {
 
     @PostMapping("/bookings")
     @PreAuthorize("hasRole('PLAYER') or hasRole('ADMIN')")
-    public ResponseEntity<BookingResponse> createBooking(
-            @Valid @RequestBody BookingRequest request,
+    public ResponseEntity<Booking> createBooking(
+            @Valid @RequestBody Booking request,
             Principal principal) {
         Long playerId = getUserIdFromPrincipal(principal);
-        BookingResponse response = bookingService.createBooking(request, playerId);
+        Booking response = bookingService.createBooking(request, playerId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/bookings/my")
-    public ResponseEntity<List<BookingResponse>> getMyBookings(Principal principal) {
+    public ResponseEntity<List<Booking>> getMyBookings(Principal principal) {
         Long playerId = getUserIdFromPrincipal(principal);
         return ResponseEntity.ok(bookingService.getMyBookings(playerId));
     }
@@ -70,7 +73,7 @@ public class BookingController {
 
     @GetMapping("/cafes/{id}/bookings")
     @PreAuthorize("hasRole('CAFE_OWNER') or hasRole('ADMIN')")
-    public ResponseEntity<List<BookingResponse>> getCafeBookings(
+    public ResponseEntity<List<Booking>> getCafeBookings(
             @PathVariable Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             Principal principal) {

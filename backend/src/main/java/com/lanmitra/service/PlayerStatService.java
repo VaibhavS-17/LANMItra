@@ -1,6 +1,10 @@
 package com.lanmitra.service;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.response.PlayerStatResponse;
 import com.lanmitra.entity.PlayerStat;
 import com.lanmitra.entity.User;
 
@@ -24,7 +28,7 @@ public class PlayerStatService {
         this.userRepository = userRepository;
     }
 
-    public List<PlayerStatResponse> getLeaderboard(String game, int limit) {
+    public List<PlayerStat> getLeaderboard(String game, int limit) {
         List<PlayerStat> stats;
         if (game != null && !game.isEmpty()) {
             stats = playerStatRepository.findByGameOrderByEloScoreDesc(game, PageRequest.of(0, limit));
@@ -32,7 +36,7 @@ public class PlayerStatService {
             stats = playerStatRepository.findAllByOrderByEloScoreDesc(PageRequest.of(0, limit));
         }
 
-        return stats.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return stats;
     }
 
     @Transactional
@@ -60,27 +64,8 @@ public class PlayerStatService {
         playerStatRepository.save(stat);
     }
 
-    public List<PlayerStatResponse> getMyStats(Long playerId) {
-        return playerStatRepository.findByPlayerId(playerId).stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+    public List<PlayerStat> getMyStats(Long playerId) {
+        return playerStatRepository.findByPlayerId(playerId);
     }
 
-    private PlayerStatResponse mapToResponse(PlayerStat stat) {
-        PlayerStatResponse res = new PlayerStatResponse();
-        res.setPlayerName(stat.getPlayer().getName());
-        res.setGame(stat.getGame());
-        res.setEloScore(stat.getEloScore());
-        res.setMatchesPlayed(stat.getMatchesPlayed());
-        res.setWins(stat.getWins());
-        res.setLosses(stat.getLosses());
-        
-        double winRate = 0;
-        if (stat.getMatchesPlayed() > 0) {
-            winRate = ((double) stat.getWins() / stat.getMatchesPlayed()) * 100.0;
-        }
-        // Round to 1 decimal place
-        res.setWinRate(Math.round(winRate * 10.0) / 10.0);
-        return res;
     }
-}

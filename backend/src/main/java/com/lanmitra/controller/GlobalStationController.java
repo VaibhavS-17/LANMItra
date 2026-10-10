@@ -1,6 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.response.StationResponse;
 import com.lanmitra.service.StationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +20,7 @@ public class GlobalStationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StationResponse> getStation(@PathVariable Long id) {
+    public ResponseEntity<Station> getStation(@PathVariable Long id) {
         return ResponseEntity.ok(stationService.getStationById(id));
     }
 }

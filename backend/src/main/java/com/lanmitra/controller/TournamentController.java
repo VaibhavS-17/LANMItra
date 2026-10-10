@@ -1,8 +1,10 @@
 package com.lanmitra.controller;
+import com.lanmitra.entity.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.HashMap;
 
-import com.lanmitra.dto.request.TournamentRegistrationRequest;
-import com.lanmitra.dto.request.TournamentRequest;
-import com.lanmitra.dto.response.TournamentResponse;
 import com.lanmitra.service.TournamentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,26 +24,26 @@ public class TournamentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TournamentResponse>> getAllActiveTournaments() {
+    public ResponseEntity<List<Tournament>> getAllActiveTournaments() {
         return ResponseEntity.ok(tournamentService.getAllActiveTournaments());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TournamentResponse> getTournamentDetails(@PathVariable Long id) {
+    public ResponseEntity<Tournament> getTournamentDetails(@PathVariable Long id) {
         return ResponseEntity.ok(tournamentService.getTournamentDetails(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('CAFE_OWNER')")
-    public ResponseEntity<TournamentResponse> createTournament(@RequestBody TournamentRequest request) {
-        TournamentResponse response = tournamentService.createTournament(request);
+    public ResponseEntity<Tournament> createTournament(@RequestBody Tournament request) {
+        Tournament response = tournamentService.createTournament(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{id}/register")
     @PreAuthorize("hasRole('PLAYER')")
     public ResponseEntity<?> registerPlayer(@PathVariable Long id, 
-                                            @RequestBody TournamentRegistrationRequest request,
+                                            @RequestBody TournamentRegistration request,
                                             Authentication authentication) {
         try {
             tournamentService.registerPlayer(id, authentication.getName(), request);
