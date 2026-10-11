@@ -22,12 +22,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody User request) {
+    public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody User request) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> request) {
         return ResponseEntity.ok(authService.login(request));
     }
     

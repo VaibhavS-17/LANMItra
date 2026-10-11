@@ -30,37 +30,51 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public Map<String, Object> register(User request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already registered");
+    public Map<String, Object> register(Map<String, String> request) {
+        String name = request.get("name");
+        String email = request.get("email");
+        String password = request.get("password");
+        String roleStr = request.get("role");
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered");
         }
 
         User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPasswordHash(passwordEncoder.encode(request.getPasswordHash()));
-        user.setRole(request.getRole());
+        user.setName(name);
+        user.setEmail(email);
+        user.setPasswordHash(passwordEncoder.encode(password));
+        user.setRole(roleStr != null ? com.lanmitra.enums.UserRole.valueOf(roleStr) : com.lanmitra.enums.UserRole.PLAYER);
 
         User savedUser = userRepository.save(user);
         
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPasswordHash())
+                new UsernamePasswordAuthenticationToken(email, password)
         );
         String token = tokenProvider.generateToken(authentication);
 
-        return Map.of("token", token, "user", savedUser);
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", savedUser);
+        return response;
     }
 
-    public Map<String, Object> login(User request) {
+    public Map<String, Object> login(Map<String, String> request) {
+        String email = request.get("email");
+        String password = request.get("password");
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPasswordHash())
+                new UsernamePasswordAuthenticationToken(email, password)
         );
 
         String token = tokenProvider.generateToken(authentication);
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        return Map.of("token", token, "user", user);
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", user);
+        return response;
     }
     
     public User getProfile(String email) {
