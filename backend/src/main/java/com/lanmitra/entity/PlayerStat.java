@@ -1,8 +1,10 @@
 package com.lanmitra.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "player_stats")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PlayerStat {
 
     @Id
@@ -36,3 +38,5 @@ public class PlayerStat {
     public Integer getLosses() { return losses; }
     public void setLosses(Integer losses) { this.losses = losses; }
 }
+
+

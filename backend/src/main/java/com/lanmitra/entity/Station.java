@@ -1,4 +1,5 @@
 package com.lanmitra.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.lanmitra.enums.StationType;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "stations", uniqueConstraints = {@UniqueConstraint(columnNames = {"cafe_id", "label"})})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Station {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,3 +54,5 @@ public class Station {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
+
+

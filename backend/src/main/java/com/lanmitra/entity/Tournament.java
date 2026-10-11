@@ -1,4 +1,5 @@
 package com.lanmitra.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lanmitra.enums.TournamentStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tournaments")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Tournament {
 
     @Id
@@ -56,3 +58,5 @@ public class Tournament {
     public List<TournamentRegistration> getRegistrations() { return registrations; }
     public void setRegistrations(List<TournamentRegistration> registrations) { this.registrations = registrations; }
 }
+
+

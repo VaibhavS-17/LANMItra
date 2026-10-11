@@ -1,4 +1,5 @@
 package com.lanmitra.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -6,6 +7,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "cafes")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cafe {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,3 +79,5 @@ public class Cafe {
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }
+
+

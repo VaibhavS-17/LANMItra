@@ -1,9 +1,11 @@
 package com.lanmitra.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tournament_registrations")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TournamentRegistration {
 
     @Id
@@ -32,3 +34,5 @@ public class TournamentRegistration {
     public LocalDateTime getRegistrationDate() { return registrationDate; }
     public void setRegistrationDate(LocalDateTime registrationDate) { this.registrationDate = registrationDate; }
 }
+
+
