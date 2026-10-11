@@ -99,6 +99,8 @@ LANMitra provides a centralized, web-based platform that unifies gaming station 
 
 The LANMitra platform follows a classic decoupled 3-tier enterprise architecture ensuring modularity, high scalability, and robust security:
 
+![LANMitra System Architecture](images/system-architecture.png)
+
 ```mermaid
 flowchart TD
     subgraph ClientLayer ["1. Presentation Layer (React 18 SPA)"]
@@ -243,6 +245,8 @@ erDiagram
 ### 3. Core Functional Flowcharts
 
 #### A. User Registration & Authentication Flow
+![User Authentication Flowchart](images/flowchart-user-auth.png)
+
 ```mermaid
 flowchart TD
     Start([User Registration / Login]) --> CheckType{Action Type?}
@@ -264,6 +268,8 @@ flowchart TD
 ```
 
 #### B. Station Slot Booking & Overlap Collision Prevention Flow
+![Booking Overlap Collision Prevention Flowchart](images/flowchart-booking-conflict.png)
+
 ```mermaid
 flowchart TD
     B1([Player Selects Station, Date & Time Slot]) --> B2[Send POST /api/bookings with JWT]
@@ -299,6 +305,8 @@ flowchart TD
 ```
 
 #### D. Tournament Bracket Generation & Advancement Flow
+![Tournament Bracket Generation Flowchart](images/flowchart-tournament-bracket.png)
+
 ```mermaid
 flowchart TD
     T1([Registration Deadline Reached]) --> T2[Count Registered Participants: N]
