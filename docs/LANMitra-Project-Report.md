@@ -195,14 +195,114 @@ All unit and integration tests for Phase 1 components successfully passed. The b
 
 ## Chapter 7: Results & Screenshots
 
-### 7.1 Screen Descriptions
-- **Landing Page:** Introduces the platform to users, highlighting features for players and café owners.
-- **Login/Register:** Form with client-side validation and role selection for new accounts.
-- **Café List:** A grid view of registered cafés with search and filter capabilities.
-- **Booking Flow:** A detailed view of a selected café, listing its stations. Users select a date and are presented with available 1-hour slots.
-- **Owner Dashboard:** A secure area where café owners can add new stations, update rates, and view upcoming reservations.
+This chapter presents the graphical user interface outputs of the LANMitra platform across all primary user workflows and stakeholder roles. Each interface demonstrates the end-to-end realization of the architectural requirements, database constraints, and business logic defined in previous chapters.
 
-*[Screenshot to be added]*
+### 7.1 Public Discovery & User Onboarding
+
+#### 7.1.1 Landing Page
+The landing page serves as the entry point for players and café owners, providing a dark-mode cyberpunk gaming aesthetic, clear value propositions, interactive search for gaming venues, and quick navigation to tournaments and leaderboards.
+
+![Figure 7.1: LANMitra Homepage & Discovery Hub](screenshots/01-landing-page.png)
+*Figure 7.1: LANMitra Homepage & Discovery Hub*
+
+#### 7.1.2 Authentication & User Onboarding
+Authentication enforces secure session management via BCrypt password hashing and JWT issuance. The login interface handles credential validation, while the registration interface provides dedicated role toggles for Players and Café Owners.
+
+![Figure 7.2: Secure Login Interface](screenshots/02-login-page.png)
+*Figure 7.2: Secure Login Interface*
+
+![Figure 7.3: User Registration with Role Selection](screenshots/03-register-page.png)
+*Figure 7.3: User Registration with Role Selection (Player vs. Café Owner)*
+
+---
+
+### 7.2 Café Discovery & Station Reservation Flow
+
+#### 7.2.1 Café Discovery Directory
+The café browse page displays all active gaming venues with real-time location details, operational hours, hardware station counts, and base hourly pricing. Players can filter venues by area and search by name.
+
+![Figure 7.4: Gaming Café Discovery Directory](screenshots/04-cafe-browse.png)
+*Figure 7.4: Gaming Café Discovery Directory with Search and Location Filters*
+
+#### 7.2.2 Café Profile & Hardware Station Inventory
+Selecting a venue opens its dedicated profile displaying location metadata, contact information, operational hours, and a full catalog of PC and console stations with granular hardware specifications (e.g., RTX 4080, 240Hz monitors, PS5 OLED lounges) and hourly rates.
+
+![Figure 7.5: Café Details and Station Inventory](screenshots/05-cafe-detail-stations.png)
+*Figure 7.5: Café Details and Hardware Station Inventory*
+
+#### 7.2.3 Interactive Station Booking Flow
+When booking a station, players select their desired reservation date. The system queries the backend to determine slot availability in real time, presenting 1-hour time slots marked as Available or Reserved. The interface dynamically calculates total booking costs and enforces double-booking prevention.
+
+![Figure 7.6: Interactive Time Slot Booking Flow](screenshots/06-booking-flow.png)
+*Figure 7.6: Interactive Time Slot Booking Flow with Conflict Prevention*
+
+#### 7.2.4 Player Reservation Dashboard
+The "My Bookings" page provides players with a real-time ledger of their active, confirmed, and historical gaming reservations. Players can view station labels, dates, scheduled hours, and initiate cancellations within the allowable cancellation window.
+
+![Figure 7.7: Player Reservation Ledger](screenshots/07-my-bookings.png)
+*Figure 7.7: Player Reservation Dashboard with Status Tracking*
+
+---
+
+### 7.3 Café Owner Administration & Station Management
+
+#### 7.3.1 Owner Analytics Dashboard
+Users authenticated with the `CAFE_OWNER` role are granted access to a protected operational dashboard. The dashboard presents key operational metrics including total registered venues, station capacity, today's confirmed bookings, and estimated revenue.
+
+![Figure 7.8: Café Owner Operational Dashboard](screenshots/08-owner-dashboard.png)
+*Figure 7.8: Café Owner Operational Dashboard and Metrics Overview*
+
+#### 7.3.2 Station Inventory & Pricing Management
+Café owners can manage their venue's hardware battlestations, toggle station active/maintenance states, modify hourly tariffs, and register newly acquired gaming PCs and consoles via an intuitive management modal.
+
+![Figure 7.9: Station Inventory & Pricing Controls](screenshots/09-owner-station-management.png)
+*Figure 7.9: Station Inventory & Pricing Controls in Owner Dashboard*
+
+---
+
+### 7.4 Esports Tournaments, Bracket Engine & Standings
+
+#### 7.4.1 Tournaments Feed
+The tournaments directory displays active collegiate and community competitions across major competitive titles (Valorant, Counter-Strike 2, EA FC 25), displaying prize pools, registration deadlines, format, and participant caps.
+
+![Figure 7.10: Esports Tournaments Directory](screenshots/10-tournaments-feed.png)
+*Figure 7.10: Esports Tournaments Directory*
+
+#### 7.4.2 Tournament Detail & Bracket Progression
+The tournament detail view displays the automated single-elimination tournament bracket. Matches, player seedings, round progressions, and victor advancements are visually mapped in a structured tournament tree.
+
+![Figure 7.11: Automated Tournament Bracket](screenshots/11-tournament-bracket.png)
+*Figure 7.11: Automated Tournament Bracket and Match Progression*
+
+#### 7.4.3 Live Leaderboards & Rankings
+The live leaderboards view ranks players across tournaments based on competitive match wins, win rates, tournament points, and performance records, encouraging community competition.
+
+![Figure 7.12: Live Leaderboard and Player Standings](screenshots/12-live-leaderboards.png)
+*Figure 7.12: Live Leaderboard and Player Standings*
+
+#### 7.4.4 Player Gamer Profile
+The player profile screen centralizes player identity, including avatar, contact information, competitive statistics, and historical tournament participation and café bookings.
+
+![Figure 7.13: Player Gamer Profile & Analytics](screenshots/13-player-profile.png)
+*Figure 7.13: Player Gamer Profile and Match Analytics*
+
+---
+
+### 7.5 Verification of Functional Requirements
+
+| Req ID | Requirement Description | Corresponding Output Figure | Verification Outcome |
+|---|---|---|---|
+| **FR1.1** | User registration with role selection | Figure 7.3 | Verified: Player and Owner roles configurable |
+| **FR1.2** | Secure login & JWT authentication | Figure 7.2 | Verified: Stateless JWT auth with route protection |
+| **FR1.3** | User profile view | Figure 7.13 | Verified: Player statistics and booking summary rendered |
+| **FR2.1** | Café registration & browsing | Figure 7.4 | Verified: Grid display with search filters |
+| **FR2.2** | Station specifications & hourly rates | Figure 7.5, Figure 7.9 | Verified: Hardware specs & rates mapped per station |
+| **FR2.3** | Station availability by date & slot | Figure 7.6 | Verified: Real-time conflict-free slot grid |
+| **FR2.4** | Station slot booking | Figure 7.6 | Verified: Booking creation with fee calculation |
+| **FR2.6** | Player booking management & history | Figure 7.7 | Verified: Confirmed reservations displayed with cancellation |
+| **FR2.7** | Café Owner operational dashboard | Figure 7.8, Figure 7.9 | Verified: Protected RBAC dashboard with station inventory |
+| **FR3.1-3.5** | Tournament discovery & bracket display | Figure 7.10, Figure 7.11 | Verified: Single-elimination bracket rendering |
+| **FR5.1-5.2** | Live standings & leaderboard tracking | Figure 7.12 | Verified: Competitive player points and rankings |
 
 ---
 
