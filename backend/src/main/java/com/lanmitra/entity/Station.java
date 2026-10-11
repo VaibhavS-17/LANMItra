@@ -49,6 +49,7 @@ public class Station {
     public void setSpecs(String specs) { this.specs = specs; }
     public BigDecimal getHourlyRate() { return hourlyRate; }
     public void setHourlyRate(BigDecimal hourlyRate) { this.hourlyRate = hourlyRate; }
+    public boolean isActive() { return isActive; }
     public boolean isIsActive() { return isActive; }
     public void setIsActive(boolean isActive) { this.isActive = isActive; }
     public LocalDateTime getCreatedAt() { return createdAt; }

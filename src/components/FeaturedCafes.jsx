@@ -109,7 +109,7 @@ const FeaturedCafes = () => {
                     <div className="cafe-specs" style={{ display: 'flex', justifyContent: 'space-between', margin: '12px 0 16px 0', padding: '10px 12px', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', alignItems: 'center' }}>
                       <div className="cafe-spec-item" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <FiMonitor style={{ color: 'var(--text-secondary)' }} />
-                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{cafe.active ? 'Open Now' : 'Available'}</span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{(cafe.active ?? cafe.isActive) ? 'Open Now' : 'Available'}</span>
                       </div>
                       <div className="cafe-spec-item" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <FiClock style={{ color: 'var(--text-secondary)' }} />

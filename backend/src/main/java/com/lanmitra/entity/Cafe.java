@@ -72,6 +72,7 @@ public class Cafe {
     public void setOpeningTime(LocalTime openingTime) { this.openingTime = openingTime; }
     public LocalTime getClosingTime() { return closingTime; }
     public void setClosingTime(LocalTime closingTime) { this.closingTime = closingTime; }
+    public boolean isActive() { return isActive; }
     public boolean isIsActive() { return isActive; }
     public void setIsActive(boolean isActive) { this.isActive = isActive; }
     public LocalDateTime getCreatedAt() { return createdAt; }
