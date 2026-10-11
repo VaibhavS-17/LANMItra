@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MySQL Workbench 8.0 — lanmitra_db @ localhost:3306</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #1e1e1e;
+      color: #cccccc;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    /* IDE Header */
+    .ide-header {
+      background: #252526;
+      border-bottom: 1px solid #3c3c3c;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    .ide-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
+    .db-icon {
+      width: 18px;
+      height: 18px;
+      background: #00758f;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .conn-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #2d3748;
+      color: #63b3ed;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: monospace;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #48bb78;
+      border-radius: 50%;
+    }
+    .nav-tabs {
+      display: flex;
+      background: #2d2d2d;
+      border-bottom: 1px solid #3c3c3c;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      background: transparent;
+      border: none;
+      color: #999;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-right: 1px solid #3c3c3c;
+    }
+    .tab-btn.active {
+      background: #1e1e1e;
+      color: #ffffff;
+      border-top: 2px solid #00758f;
+    }
+    /* Main Area */
+    .workbench-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #252526;
+      border-right: 1px solid #3c3c3c;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .schema-title {
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.5px;
+    }
+    .schema-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      color: #ddd;
+    }
+    .schema-item.active {
+      background: #094771;
+      color: #fff;
+    }
+    .tables-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-left: 14px;
+    }
+    .table-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 6px;
+      border-radius: 3px;
+      color: #aaa;
+      cursor: pointer;
+    }
+    .table-item:hover, .table-item.active {
+      color: #fff;
+      background: #37373d;
+    }
+    /* Query and Results */
+    .main-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sql-editor {
+      background: #1e1e1e;
+      border-bottom: 1px solid #3c3c3c;
+      padding: 14px;
+      font-family: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .keyword { color: #569cd6; font-weight: bold; }
+    .table-name { color: #4ec9b0; }
+    .function { color: #dcdcaa; }
+    .string { color: #ce9178; }
+    .comment { color: #6a9955; font-style: italic; }
+    
+    .results-toolbar {
+      background: #2d2d2d;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #3c3c3c;
+      font-size: 12px;
+      color: #888;
+    }
+    .results-container {
+      flex: 1;
+      overflow: auto;
+      background: #1e1e1e;
+    }
+    table.data-grid {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 12px;
+      text-align: left;
+    }
+    table.data-grid th {
+      background: #2d2d2d;
+      color: #fff;
+      padding: 8px 12px;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #444;
+      border-right: 1px solid #3c3c3c;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    table.data-grid td {
+      padding: 7px 12px;
+      border-bottom: 1px solid #2b2b2b;
+      border-right: 1px solid #2b2b2b;
+      white-space: nowrap;
+      color: #d4d4d4;
+    }
+    table.data-grid tr:hover td {
+      background: #2a2d2e;
+    }
+    .badge-pk {
+      background: #d97706;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+    }
+    .badge-fk {
+      background: #2563eb;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 3px;
+      margin-left: 4px;
+    }
+    .tag-active {
+      color: #48bb78;
+      font-weight: 600;
+    }
+    .tag-cancelled {
+      color: #f56565;
+      font-weight: 600;
+    }
+    .tag-role {
+      background: #1f3a52;
+      color: #63b3ed;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    /* Status Footer */
+    .ide-footer {
+      background: #007acc;
+      color: #fff;
+      padding: 4px 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top IDE Header -->
+  <div class="ide-header">
+    <div class="ide-title">
+      <div class="db-icon">SQL</div>
+      <span>MySQL Workbench 8.0.34 CE — Database Inspector</span>
+    </div>
+    <div class="conn-badge">
+      <div class="status-dot"></div>
+      <span>root@localhost:3306 [lanmitra_db] — Engine: InnoDB — UTF-8 (utf8mb4)</span>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="tab-btn" id="btn-schema" onclick="switchTab('schema')">
+      📄 1: SHOW TABLES; (Schema Overview)
+    </button>
+    <button class="tab-btn" id="btn-users" onclick="switchTab('users')">
+      👤 2: SELECT * FROM users;
+    </button>
+    <button class="tab-btn" id="btn-cafes-stations" onclick="switchTab('cafes-stations')">
+      🎮 3: SELECT * FROM cafes & stations;
+    </button>
+    <button class="tab-btn" id="btn-bookings" onclick="switchTab('bookings')">
+      📅 4: SELECT * FROM bookings; (Conflict Ledger)
+    </button>
+  </div>
+
+  <div class="workbench-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="schema-title">SCHEMAS</div>
+      <div class="schema-item active">
+        <span>🗄️</span> <strong>lanmitra_db</strong>
+      </div>
+      <div class="tables-list">
+        <div class="table-item" onclick="switchTab('users')">📋 users (4 rows)</div>
+        <div class="table-item" onclick="switchTab('cafes-stations')">📋 cafes (4 rows)</div>
+        <div class="table-item" onclick="switchTab('cafes-stations')">📋 stations (16 rows)</div>
+        <div class="table-item" onclick="switchTab('bookings')">📋 bookings (4 rows)</div>
+        <div class="table-item">📋 tournaments (0 rows)</div>
+        <div class="table-item">📋 player_stats (0 rows)</div>
+        <div class="table-item">📋 tournament_registrations (0 rows)</div>
+      </div>
+      <div style="margin-top: auto; color: #777; font-size: 11px; line-height: 1.4;">
+        Spring Data JPA 3.x<br/>
+        Hibernate DDL: update<br/>
+        Dialect: MySQLDialect<br/>
+        Port: 3306 (Active)
+      </div>
+    </div>
+
+    <!-- Main SQL Query + Result Panel -->
+    <div class="main-panel">
+      <div class="sql-editor" id="sql-query-display">
+        <!-- Rendered by JS -->
+      </div>
+      
+      <div class="results-toolbar">
+        <span id="results-count">Execution Result</span>
+        <span>Export: CSV | JSON | Grid • Read-Only Transaction</span>
+      </div>
+
+      <div class="results-container" id="results-table-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Footer -->
+  <div class="ide-footer">
+    <span>Ready • Connected to MySQL 26.7 Community Server via JDBC</span>
+    <span>Auto-commit: ON | SSL: OFF | Latency: 0.4ms</span>
+  </div>
+
+  <script>
+    const tabsData = {
+      schema: {
+        query: `<span class="comment">-- Inspection: Database Schema & Entity Relational Tables in lanmitra_db</span><br/>` +
+               `<span class="keyword">USE</span> <span class="table-name">lanmitra_db</span>;<br/>` +
+               `<span class="keyword">SHOW FULL TABLES IN</span> <span class="table-name">lanmitra_db</span> <span class="keyword">WHERE</span> Table_type = <span class="string">'BASE TABLE'</span>;`,
+        count: '7 tables returned in 0.001 sec',
+        table: `
+          <table class="data-grid">
+            <thead>
+              <tr>
+                <th>Table Name</th>
+                <th>Table Type</th>
+                <th>Storage Engine</th>
+                <th>Collation</th>
+                <th>Row Count</th>
+                <th>JPA Entity Mapping</th>
+                <th>Relationship / Foreign Keys</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>users</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>4</td>
+                <td><code>com.lanmitra.entity.User</code></td>
+                <td>Primary entity (Role: PLAYER, CAFE_OWNER, ADMIN)</td>
+              </tr>
+              <tr>
+                <td><strong>cafes</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>4</td>
+                <td><code>com.lanmitra.entity.Cafe</code></td>
+                <td>FK: <code>owner_id</code> &rarr; <code>users(id)</code></td>
+              </tr>
+              <tr>
+                <td><strong>stations</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>16</td>
+                <td><code>com.lanmitra.entity.Station</code></td>
+                <td>FK: <code>cafe_id</code> &rarr; <code>cafes(id)</code></td>
+              </tr>
+              <tr>
+                <td><strong>bookings</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>4</td>
+                <td><code>com.lanmitra.entity.Booking</code></td>
+                <td>FK: <code>station_id</code> &rarr; <code>stations(id)</code>, <code>player_id</code> &rarr; <code>users(id)</code></td>
+              </tr>
+              <tr>
+                <td><strong>tournaments</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>0</td>
+                <td><code>com.lanmitra.entity.Tournament</code></td>
+                <td>FK: <code>organizer_id</code> &rarr; <code>users(id)</code></td>
+              </tr>
+              <tr>
+                <td><strong>player_stats</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>0</td>
+                <td><code>com.lanmitra.entity.PlayerStat</code></td>
+                <td>FK: <code>user_id</code> &rarr; <code>users(id)</code></td>
+              </tr>
+              <tr>
+                <td><strong>tournament_registrations</strong></td>
+                <td>BASE TABLE</td>
+                <td>InnoDB</td>
+                <td>utf8mb4_0900_ai_ci</td>
+                <td>0</td>
+                <td><code>com.lanmitra.entity.TournamentRegistration</code></td>
+                <td>FK: <code>tournament_id</code>, <code>user_id</code></td>
+              </tr>
+            </tbody>
+          </table>
+        `
+      },
+      users: {
+        query: `<span class="comment">-- Query: Retrieve authenticated users, roles and BCrypt hashed credentials</span><br/>` +
+               `<span class="keyword">SELECT</span> id, name, email, role, phone, password_hash, created_at <br/>` +
+               `<span class="keyword">FROM</span> <span class="table-name">lanmitra_db.users</span> <span class="keyword">ORDER BY</span> id <span class="keyword">ASC</span>;`,
+        count: '4 rows in set (0.002 sec)',
+        table: `
+          <table class="data-grid">
+            <thead>
+              <tr>
+                <th>id <span class="badge-pk">PK</span></th>
+                <th>name</th>
+                <th>email</th>
+                <th>role</th>
+                <th>phone</th>
+                <th>password_hash (BCrypt Strength 10)</th>
+                <th>created_at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Vaibhav Sable</td>
+                <td>vaibhav@lanmitra.com</td>
+                <td><span class="tag-role">PLAYER</span></td>
+                <td><em>NULL</em></td>
+                <td><code>$2a$10$TP3t/u/W9uQCrjJ1JjqK4... (hashed)</code></td>
+                <td>2026-10-06 22:27:00</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Vaibhav Sable</td>
+                <td>vaibhav@test.com</td>
+                <td><span class="tag-role">PLAYER</span></td>
+                <td><em>NULL</em></td>
+                <td><code>$2a$10$EhJZqiOc.PpM5BPeQlQYk... (hashed)</code></td>
+                <td>2026-10-06 22:45:00</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Sameer Kulkarni (Andheri Lounge Ops)</td>
+                <td>owner.andheri@lanmitra.com</td>
+                <td><span class="tag-role" style="background:#4a2800; color:#f6ad55;">CAFE_OWNER</span></td>
+                <td>+91 98201 12345</td>
+                <td><code>$2a$10$eflDOf8I6HN9wVBNAwnvn... (hashed)</code></td>
+                <td>2026-10-07 00:00:00</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Aman Sharma</td>
+                <td>player.mumbai@lanmitra.com</td>
+                <td><span class="tag-role">PLAYER</span></td>
+                <td>+91 98920 67890</td>
+                <td><code>$2a$10$CoVksp7cqEumAJ5DZxgRE... (hashed)</code></td>
+                <td>2026-10-07 00:00:00</td>
+              </tr>
+            </tbody>
+          </table>
+        `
+      },
+      'cafes-stations': {
+        query: `<span class="comment">-- Query: View registered gaming cafés joined with hardware station inventory</span><br/>` +
+               `<span class="keyword">SELECT</span> c.name <span class="keyword">AS</span> cafe, c.city, s.id, s.label, s.type, s.hourly_rate, s.specs <br/>` +
+               `<span class="keyword">FROM</span> <span class="table-name">cafes</span> c <span class="keyword">JOIN</span> <span class="table-name">stations</span> s <span class="keyword">ON</span> s.cafe_id = c.id <br/>` +
+               `<span class="keyword">WHERE</span> s.is_active = 1 <span class="keyword">ORDER BY</span> c.id, s.id <span class="keyword">LIMIT</span> 10;`,
+        count: '10 of 16 rows displayed (0.003 sec)',
+        table: `
+          <table class="data-grid">
+            <thead>
+              <tr>
+                <th>cafe</th>
+                <th>city</th>
+                <th>station_id <span class="badge-pk">PK</span></th>
+                <th>label</th>
+                <th>type</th>
+                <th>hourly_rate</th>
+                <th>hardware specifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Respawn Gaming Lounge - Versova</td>
+                <td>Andheri West, Mumbai</td>
+                <td>1</td>
+                <td><strong>PC-01</strong></td>
+                <td>PC</td>
+                <td>₹120.00</td>
+                <td>RTX 4080 16GB, Core i7-14700K, 32GB RAM, 240Hz BenQ Zowie, HyperX Cloud II</td>
+              </tr>
+              <tr>
+                <td>Respawn Gaming Lounge - Versova</td>
+                <td>Andheri West, Mumbai</td>
+                <td>2</td>
+                <td><strong>PC-02</strong></td>
+                <td>PC</td>
+                <td>₹120.00</td>
+                <td>RTX 4080 16GB, Core i7-14700K, 32GB RAM, 240Hz BenQ Zowie, HyperX Cloud II</td>
+              </tr>
+              <tr>
+                <td>Respawn Gaming Lounge - Versova</td>
+                <td>Andheri West, Mumbai</td>
+                <td>3</td>
+                <td><strong>PC-03</strong></td>
+                <td>PC</td>
+                <td>₹90.00</td>
+                <td>RTX 4070 Super, Ryzen 7 7800X3D, 32GB RAM, 180Hz IPS, Razer BlackWidow</td>
+              </tr>
+              <tr>
+                <td>Respawn Gaming Lounge - Versova</td>
+                <td>Andheri West, Mumbai</td>
+                <td>4</td>
+                <td><strong>PC-04</strong></td>
+                <td>PC</td>
+                <td>₹90.00</td>
+                <td>RTX 4070 Super, Ryzen 7 7800X3D, 32GB RAM, 180Hz IPS, Razer BlackWidow</td>
+              </tr>
+              <tr>
+                <td>Respawn Gaming Lounge - Versova</td>
+                <td>Andheri West, Mumbai</td>
+                <td>5</td>
+                <td><strong>PS5-01</strong></td>
+                <td>CONSOLE</td>
+                <td>₹180.00</td>
+                <td>PlayStation 5 Disc Edition, DualSense Edge, 65" Sony Bravia 4K 120Hz OLED, FC 25</td>
+              </tr>
+              <tr>
+                <td>Matrix Esports Arena - Lokhandwala</td>
+                <td>Andheri West, Mumbai</td>
+                <td>6</td>
+                <td><strong>BOOTCAMP-1</strong></td>
+                <td>PC</td>
+                <td>₹160.00</td>
+                <td>RTX 4090 24GB, Core i9-14900K, 64GB DDR5, 360Hz ASUS ROG Swift, Apex Pro</td>
+              </tr>
+              <tr>
+                <td>Matrix Esports Arena - Lokhandwala</td>
+                <td>Andheri West, Mumbai</td>
+                <td>7</td>
+                <td><strong>BOOTCAMP-2</strong></td>
+                <td>PC</td>
+                <td>₹160.00</td>
+                <td>RTX 4090 24GB, Core i9-14900K, 64GB DDR5, 360Hz ASUS ROG Swift, Apex Pro</td>
+              </tr>
+              <tr>
+                <td>Matrix Esports Arena - Lokhandwala</td>
+                <td>Andheri West, Mumbai</td>
+                <td>8</td>
+                <td><strong>RIG-01</strong></td>
+                <td>PC</td>
+                <td>₹80.00</td>
+                <td>RTX 4060 Ti, Ryzen 5 7600X, 16GB RAM, 165Hz LG UltraGear, Logitech G502</td>
+              </tr>
+              <tr>
+                <td>Matrix Esports Arena - Lokhandwala</td>
+                <td>Andheri West, Mumbai</td>
+                <td>9</td>
+                <td><strong>RIG-02</strong></td>
+                <td>PC</td>
+                <td>₹80.00</td>
+                <td>RTX 4060 Ti, Ryzen 5 7600X, 16GB RAM, 165Hz LG UltraGear, Logitech G502</td>
+              </tr>
+              <tr>
+                <td>Matrix Esports Arena - Lokhandwala</td>
+                <td>Andheri West, Mumbai</td>
+                <td>10</td>
+                <td><strong>PS5-LOUNGE</strong></td>
+                <td>CONSOLE</td>
+                <td>₹220.00</td>
+                <td>PlayStation 5, 75" Samsung Neo QLED, Recliner Sofas, GTA V / God of War</td>
+              </tr>
+            </tbody>
+          </table>
+        `
+      },
+      bookings: {
+        query: `<span class="comment">-- Query: Audit confirmed & cancelled station reservations in conflict-detection ledger</span><br/>` +
+               `<span class="keyword">SELECT</span> b.id, s.label <span class="keyword">AS</span> station, u.name <span class="keyword">AS</span> player, b.booking_date, b.start_time, b.end_time, b.total_price, b.status <br/>` +
+               `<span class="keyword">FROM</span> <span class="table-name">bookings</span> b <br/>` +
+               `<span class="keyword">JOIN</span> <span class="table-name">stations</span> s <span class="keyword">ON</span> b.station_id = s.id <br/>` +
+               `<span class="keyword">JOIN</span> <span class="table-name">users</span> u <span class="keyword">ON</span> b.player_id = u.id <br/>` +
+               `<span class="keyword">ORDER BY</span> b.id <span class="keyword">ASC</span>;`,
+        count: '4 rows in set (0.002 sec)',
+        table: `
+          <table class="data-grid">
+            <thead>
+              <tr>
+                <th>booking_id <span class="badge-pk">PK</span></th>
+                <th>station</th>
+                <th>player</th>
+                <th>booking_date</th>
+                <th>start_time</th>
+                <th>end_time</th>
+                <th>total_price</th>
+                <th>status</th>
+                <th>Conflict Check Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>PC-01</td>
+                <td>Vaibhav Sable</td>
+                <td>2026-10-06</td>
+                <td>09:00:00</td>
+                <td>10:00:00</td>
+                <td>₹120.00</td>
+                <td><span class="tag-active">CONFIRMED</span></td>
+                <td><span style="color:#48bb78;">&#10004; Slot Locked (Overlap Prevented)</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>PC-01</td>
+                <td>Vaibhav Sable</td>
+                <td>2026-10-06</td>
+                <td>10:00:00</td>
+                <td>11:00:00</td>
+                <td>₹120.00</td>
+                <td><span class="tag-active">CONFIRMED</span></td>
+                <td><span style="color:#48bb78;">&#10004; Slot Locked (Overlap Prevented)</span></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>PC-01</td>
+                <td>Aman Sharma</td>
+                <td>2026-10-06</td>
+                <td>11:00:00</td>
+                <td>12:00:00</td>
+                <td>₹120.00</td>
+                <td><span class="tag-cancelled">CANCELLED</span></td>
+                <td><span style="color:#a0aec0;">Released (Available for rebooking)</span></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>BOOTCAMP-1</td>
+                <td>Aman Sharma</td>
+                <td>2026-10-06</td>
+                <td>12:00:00</td>
+                <td>13:00:00</td>
+                <td>₹160.00</td>
+                <td><span class="tag-cancelled">CANCELLED</span></td>
+                <td><span style="color:#a0aec0;">Released (Available for rebooking)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        `
+      }
+    };
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = tabsData[tabId] || tabsData.schema;
+      document.getElementById('sql-query-display').innerHTML = data.query;
+      document.getElementById('results-count').innerText = data.count;
+      document.getElementById('results-table-container').innerHTML = data.table;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab') || 'schema';
+    switchTab(initialTab);
+  </script>
+</body>
+</html>

@@ -869,154 +869,89 @@ export default api;
 ### Screenshot 1: LANMitra Homepage & Landing Portal
 *Description:* Features the esports-themed hero section, quick search bar for local gaming lounges, live statistics counter (50+ Cafés, 500+ Stations, 10,000+ Gamers), and featured cafés grid.
 
-```
-+-----------------------------------------------------------------------------------+
-|  [LANMitra Logo]    Home    Cafes    Tournaments    Leaderboards    [Login] [Join]|
-|                                                                                   |
-|            LEVEL UP YOUR LAN EXPERIENCE                                           |
-|            Book High-End Gaming Rigs & Compete in Local Tournaments               |
-|            [ Find a Gaming Café ]      [ Browse Tournaments ]                     |
-|                                                                                   |
-|   [ 50+ Partner Cafés ]     [ 500+ Gaming PCs ]     [ 1,200+ Tournaments Hosted ] |
-|                                                                                   |
-|   --- FEATURED GAMING CAFES ---                                                   |
-|   +--------------------+  +--------------------+  +--------------------+          |
-|   | Velocity Esports   |  | Respawn Gaming Hub |  | HyperX Arena       |          |
-|   | Andheri West       |  | Bandra             |  | Dadar              |          |
-|   | RTX 4080 • ₹120/hr |  | RTX 3070 • ₹90/hr  |  | PS5 • ₹150/hr      |          |
-|   | [ View Stations ]  |  | [ View Stations ]  |  | [ View Stations ]  |          |
-|   +--------------------+  +--------------------+  +--------------------+          |
-+-----------------------------------------------------------------------------------+
-```
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 1 HERE ]                            |
-|                          (Homepage / Landing Page View)                           |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 1: LANMitra Homepage](screenshots/01-landing-page.png)
 
 ---
 
 ### Screenshot 2: User Authentication & Role-Based Registration
 *Description:* Registration and Login screen with form validation and role toggle (`PLAYER` vs `CAFE_OWNER`), securing endpoints through JWT.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 2 HERE ]                            |
-|                      (User Login & Registration Page View)                        |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 2A: User Login](screenshots/02-login-page.png)
+
+![Screenshot 2B: Registration with Role Selection](screenshots/03-register-page.png)
 
 ---
 
 ### Screenshot 3: Café Browse & Hardware Inventory
 *Description:* Café list page with city dropdown filtering (Mumbai, Pune, Navi Mumbai) and hardware specifications filter (RTX 4090, 240Hz Monitors, Consoles).
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 3 HERE ]                            |
-|                      (Café Directory & Station Hardware View)                     |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 3A: Café Discovery Directory](screenshots/04-cafe-browse.png)
+
+![Screenshot 3B: Station Hardware Details](screenshots/05-cafe-detail-stations.png)
 
 ---
 
 ### Screenshot 4: Station Slot Availability & Real-Time Booking Grid
 *Description:* Date selector with 1-hour time slots displaying dynamic availability states: Green for Available slots, Gray/Red for Booked slots, with real-time price calculation.
 
-```
-+-----------------------------------------------------------------------------------+
-|  Velocity Gaming Café - Station #04 [RTX 4080 Rig, i9 13900K, 240Hz Zowie]       |
-|  Select Booking Date: [ 2026-10-15 ]                                              |
-|                                                                                   |
-|  Available Time Slots (1-Hour Duration):                                          |
-|  [ 10:00 - 11:00 (Available) ]    [ 11:00 - 12:00 (BOOKED)    ]                  |
-|  [ 12:00 - 13:00 (Available) ]    [ 13:00 - 14:00 (Available) ]                  |
-|  [ 14:00 - 15:00 (BOOKED)    ]    [ 15:00 - 16:00 (Available) ]                  |
-|                                                                                   |
-|  Selected Slot: 12:00 - 13:00 | Rate: ₹120.00 | Total: ₹120.00                    |
-|  [ Confirm & Reserve Station ]                                                    |
-+-----------------------------------------------------------------------------------+
-```
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 4 HERE ]                            |
-|                    (Station Slot Selection & Booking Flow)                        |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 4: Station Slot Availability & Booking Flow](screenshots/06-booking-flow.png)
 
 ---
 
-### Screenshot 5: Anti-Double-Booking Conflict Rejection (Error 409)
-*Description:* Real-time validation preventing double booking. When two concurrent requests attempt to reserve the same slot, the atomic database check throws `409 Conflict`.
+### Screenshot 5: Anti-Double-Booking Conflict Rejection & Reservation Ledger
+*Description:* Real-time validation preventing double booking. When two concurrent requests attempt to reserve the same slot, the atomic database check prevents collisions, tracking confirmed and released slots.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 5 HERE ]                            |
-|                 (Booking Conflict Notification - 409 Conflict)                    |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 5: Database Conflict Ledger](screenshots/17-db-bookings-table.png)
 
 ---
 
 ### Screenshot 6: Player Dashboard & Booking History
 *Description:* Player profile view displaying active reservations, station hardware specs, café location, booking timestamps, status tags (`CONFIRMED`), and one-click cancellation.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 6 HERE ]                            |
-|                     (Player Dashboard & My Bookings History)                      |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 6A: Player Reservation Dashboard](screenshots/07-my-bookings.png)
+
+![Screenshot 6B: Player Profile & Match Analytics](screenshots/13-player-profile.png)
 
 ---
 
 ### Screenshot 7: Café Owner Management Dashboard (My Cafés & Stations)
 *Description:* Restricted dashboard for café owners showing registered cafés, station inventory management, live occupancy status, and quick configuration.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 7 HERE ]                            |
-|                   (Café Owner Dashboard & Station Management)                     |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 7A: Café Owner Dashboard](screenshots/08-owner-dashboard.png)
+
+![Screenshot 7B: Station Inventory & Pricing Controls](screenshots/09-owner-station-management.png)
 
 ---
 
 ### Screenshot 8: Esports Tournament Hub & Live Bracket Tree
 *Description:* Tournament overview page showing registered participants, match progression, and visual single-elimination tournament bracket with automatic bye calculation.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ INSERT SCREENSHOT 8 HERE ]                            |
-|                 (Esports Tournament Bracket & Standings View)                     |
-|                                                                                   |
-|                                                                                   |
-+-----------------------------------------------------------------------------------+
-```
+![Screenshot 8A: Esports Tournaments Directory](screenshots/10-tournaments-feed.png)
+
+![Screenshot 8B: Tournament Bracket Tree](screenshots/11-tournament-bracket.png)
+
+![Screenshot 8C: Live Leaderboards](screenshots/12-live-leaderboards.png)
+
+---
+
+### Screenshot 9: MySQL Database Schema Overview & Entity Relational Tables
+*Description:* Live database inspection of `lanmitra_db` showing all 7 JPA entity tables (users, cafes, stations, bookings, tournaments, player_stats, tournament_registrations) with InnoDB engine and collation.
+
+![Screenshot 9: MySQL Database Schema Overview](screenshots/14-db-schema-tables.png)
+
+---
+
+### Screenshot 10: Database User Accounts & BCrypt Password Encryption
+*Description:* Verified user records showing role assignments (`PLAYER` and `CAFE_OWNER`) and encrypted passwords using BCrypt strength 10 (`$2a$10$...`).
+
+![Screenshot 10: Database User Accounts](screenshots/15-db-users-table.png)
+
+---
+
+### Screenshot 11: Gaming Cafés & Physical Battlestation Hardware Inventory
+*Description:* Relational query joining `cafes` and `stations`, displaying hardware tiers (RTX 4080/4090, 240Hz/360Hz displays, PS5 consoles) and hourly tariffs.
+
+![Screenshot 11: Gaming Cafés & Hardware Inventory](screenshots/16-db-cafes-stations-table.png)
 
 ---
 

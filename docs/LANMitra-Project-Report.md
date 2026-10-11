@@ -288,18 +288,48 @@ The player profile screen centralizes player identity, including avatar, contact
 
 ---
 
-### 7.5 Verification of Functional Requirements
+### 7.5 Database Verification & Relational Schema Outputs
+
+To verify the underlying data layer integrity, database tables were inspected directly on the live MySQL instance (`lanmitra_db`). The following figures demonstrate the relational schemas, primary and foreign key constraints, password encryption, and reservation conflict detection states:
+
+#### 7.5.1 Schema Overview & Entity Tables
+The database maintains strict 3NF relational normalization across all core entities. Tables are managed via Spring Data JPA with InnoDB storage engine and `utf8mb4` collation.
+
+![Figure 7.14: MySQL Schema Overview and Entity Tables](screenshots/14-db-schema-tables.png)
+*Figure 7.14: MySQL Schema Overview and Entity Tables in `lanmitra_db`*
+
+#### 7.5.2 Users Table & BCrypt Password Hashing
+Demonstrates Role-Based Access Control (`PLAYER`, `CAFE_OWNER`) and cryptographic security. Passwords are never stored in plaintext; they are securely hashed using BCrypt (strength 10).
+
+![Figure 7.15: Users Table with BCrypt Hashed Passwords](screenshots/15-db-users-table.png)
+*Figure 7.15: Users Table with BCrypt Hashed Passwords and Role Indicators*
+
+#### 7.5.3 Gaming Cafés & Hardware Stations Inventory
+Displays the one-to-many relationship linking gaming cafés to their physical stations, including hardware tiers (RTX 4080, 240Hz monitors, PS5 4K lounges) and hourly pricing.
+
+![Figure 7.16: Cafés and Station Inventory Ledger](screenshots/16-db-cafes-stations-table.png)
+*Figure 7.16: Cafés and Station Inventory Ledger in MySQL*
+
+#### 7.5.4 Bookings Conflict Detection Ledger
+Demonstrates the transactional booking records. Overlapping slot reservations are prevented by atomic checks, while cancelled slots are safely released for rebooking.
+
+![Figure 7.17: Bookings Conflict Ledger](screenshots/17-db-bookings-table.png)
+*Figure 7.17: Bookings Conflict Ledger Showing Confirmed and Released Slots*
+
+---
+
+### 7.6 Verification of Functional Requirements
 
 | Req ID | Requirement Description | Corresponding Output Figure | Verification Outcome |
 |---|---|---|---|
-| **FR1.1** | User registration with role selection | Figure 7.3 | Verified: Player and Owner roles configurable |
-| **FR1.2** | Secure login & JWT authentication | Figure 7.2 | Verified: Stateless JWT auth with route protection |
+| **FR1.1** | User registration with role selection | Figure 7.3, Figure 7.15 | Verified: Player and Owner roles stored with BCrypt hashes |
+| **FR1.2** | Secure login & JWT authentication | Figure 7.2, Figure 7.15 | Verified: Stateless JWT auth with route protection |
 | **FR1.3** | User profile view | Figure 7.13 | Verified: Player statistics and booking summary rendered |
-| **FR2.1** | Café registration & browsing | Figure 7.4 | Verified: Grid display with search filters |
-| **FR2.2** | Station specifications & hourly rates | Figure 7.5, Figure 7.9 | Verified: Hardware specs & rates mapped per station |
-| **FR2.3** | Station availability by date & slot | Figure 7.6 | Verified: Real-time conflict-free slot grid |
-| **FR2.4** | Station slot booking | Figure 7.6 | Verified: Booking creation with fee calculation |
-| **FR2.6** | Player booking management & history | Figure 7.7 | Verified: Confirmed reservations displayed with cancellation |
+| **FR2.1** | Café registration & browsing | Figure 7.4, Figure 7.16 | Verified: Grid display backed by MySQL `cafes` table |
+| **FR2.2** | Station specifications & hourly rates | Figure 7.5, Figure 7.9, Figure 7.16 | Verified: Hardware specs & rates mapped per station |
+| **FR2.3** | Station availability by date & slot | Figure 7.6, Figure 7.17 | Verified: Real-time conflict-free slot grid |
+| **FR2.4** | Station slot booking | Figure 7.6, Figure 7.17 | Verified: Booking creation with fee calculation & locking |
+| **FR2.6** | Player booking management & history | Figure 7.7, Figure 7.17 | Verified: Confirmed reservations displayed with cancellation |
 | **FR2.7** | Café Owner operational dashboard | Figure 7.8, Figure 7.9 | Verified: Protected RBAC dashboard with station inventory |
 | **FR3.1-3.5** | Tournament discovery & bracket display | Figure 7.10, Figure 7.11 | Verified: Single-elimination bracket rendering |
 | **FR5.1-5.2** | Live standings & leaderboard tracking | Figure 7.12 | Verified: Competitive player points and rankings |
