@@ -303,41 +303,71 @@ const OwnerDashboard = () => {
 
         {/* CAFES TAB */}
         {activeTab === 'cafes' && (
-          <div className="dashboard-panel" style={{ marginTop: '20px' }}>
-            <h2>Register a New Cafe</h2>
-            <form className="add-station-form" style={{ gridTemplateColumns: '1fr 1fr', display: 'grid', gap: '20px' }} onSubmit={handleCreateCafe}>
-              <div className="form-group">
-                <label>Cafe Name</label>
-                <input required type="text" className="dash-input" value={newCafe.name} onChange={e => setNewCafe({...newCafe, name: e.target.value})} />
+          <div style={{ marginTop: '20px' }}>
+            <div className="dashboard-panel" style={{ marginBottom: '32px' }}>
+              <div className="panel-toolbar">
+                <h2>Your Registered Cafes ({myCafes.length})</h2>
               </div>
-              <div className="form-group">
-                <label>City</label>
-                <input required type="text" className="dash-input" value={newCafe.city} onChange={e => setNewCafe({...newCafe, city: e.target.value})} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginTop: '16px' }}>
+                {myCafes.map(cafe => (
+                  <div key={cafe.id} style={{ background: '#1a202c', padding: '20px', borderRadius: '12px', border: '1px solid #2d3748' }}>
+                    <h3 style={{ fontSize: '1.25rem', marginBottom: '8px', color: '#fff' }}>{cafe.name}</h3>
+                    <p style={{ color: '#a0aec0', fontSize: '0.9rem', marginBottom: '6px' }}>📍 {cafe.address}, {cafe.city}</p>
+                    <p style={{ color: '#a0aec0', fontSize: '0.9rem', marginBottom: '6px' }}>📞 {cafe.phone}</p>
+                    <p style={{ color: '#a0aec0', fontSize: '0.9rem', marginBottom: '16px' }}>🕒 {cafe.openingTime?.substring(0, 5)} - {cafe.closingTime?.substring(0, 5)}</p>
+                    <button 
+                      type="button"
+                      className="btn btn-primary" 
+                      style={{ width: '100%' }}
+                      onClick={() => {
+                        setSelectedCafe(cafe);
+                        setActiveTab('overview');
+                      }}
+                    >
+                      Manage Stations & Bookings
+                    </button>
+                  </div>
+                ))}
               </div>
-              <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Address</label>
-                <input required type="text" className="dash-input" value={newCafe.address} onChange={e => setNewCafe({...newCafe, address: e.target.value})} />
-              </div>
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input required type="text" className="dash-input" value={newCafe.phone} onChange={e => setNewCafe({...newCafe, phone: e.target.value})} />
-              </div>
-              <div className="form-group">
-                <label>Opening Time</label>
-                <input required type="time" className="dash-input" value={newCafe.openingTime} onChange={e => setNewCafe({...newCafe, openingTime: e.target.value + ':00'})} />
-              </div>
-              <div className="form-group">
-                <label>Closing Time</label>
-                <input required type="time" className="dash-input" value={newCafe.closingTime} onChange={e => setNewCafe({...newCafe, closingTime: e.target.value + ':00'})} />
-              </div>
-              <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Description</label>
-                <textarea className="dash-input" style={{ minHeight: '80px' }} value={newCafe.description} onChange={e => setNewCafe({...newCafe, description: e.target.value})}></textarea>
-              </div>
-              <div style={{ gridColumn: 'span 2' }}>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Register Cafe</button>
-              </div>
-            </form>
+            </div>
+
+            <div className="dashboard-panel">
+              <h2>Register a New Cafe</h2>
+              <p style={{ color: '#a0aec0', marginBottom: '20px' }}>Add another branch or gaming arena to your business.</p>
+              <form className="add-station-form" style={{ gridTemplateColumns: '1fr 1fr', display: 'grid', gap: '20px' }} onSubmit={handleCreateCafe}>
+                <div className="form-group">
+                  <label>Cafe Name</label>
+                  <input required type="text" className="dash-input" value={newCafe.name} onChange={e => setNewCafe({...newCafe, name: e.target.value})} />
+                </div>
+                <div className="form-group">
+                  <label>City</label>
+                  <input required type="text" className="dash-input" value={newCafe.city} onChange={e => setNewCafe({...newCafe, city: e.target.value})} />
+                </div>
+                <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                  <label>Address</label>
+                  <input required type="text" className="dash-input" value={newCafe.address} onChange={e => setNewCafe({...newCafe, address: e.target.value})} />
+                </div>
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <input required type="text" className="dash-input" value={newCafe.phone} onChange={e => setNewCafe({...newCafe, phone: e.target.value})} />
+                </div>
+                <div className="form-group">
+                  <label>Opening Time</label>
+                  <input required type="time" className="dash-input" value={newCafe.openingTime} onChange={e => setNewCafe({...newCafe, openingTime: e.target.value + ':00'})} />
+                </div>
+                <div className="form-group">
+                  <label>Closing Time</label>
+                  <input required type="time" className="dash-input" value={newCafe.closingTime} onChange={e => setNewCafe({...newCafe, closingTime: e.target.value + ':00'})} />
+                </div>
+                <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                  <label>Description</label>
+                  <textarea className="dash-input" style={{ minHeight: '80px' }} value={newCafe.description} onChange={e => setNewCafe({...newCafe, description: e.target.value})}></textarea>
+                </div>
+                <div style={{ gridColumn: 'span 2' }}>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Register Cafe</button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
 
