@@ -1,0 +1,110 @@
+/* ===== MINIMAL SUBMISSIONS SECTION ===== */
+.submissions-minimal-section {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(8, 12, 22, 0.6);
+  position: relative;
+}
+
+.submissions-minimal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.submissions-minimal-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.submissions-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.submissions-minimal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  min-height: 40px;
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.submissions-minimal-btn .drive-icon {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.submissions-minimal-btn .arrow-icon {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+/* Hover effects */
+.submissions-minimal-btn:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
+}
+
+.submissions-minimal-btn.btn-experiments:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  color: var(--accent-cyan);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+}
+
+.submissions-minimal-btn.btn-experiments:hover .drive-icon,
+.submissions-minimal-btn.btn-experiments:hover .arrow-icon {
+  color: var(--accent-cyan);
+}
+
+.submissions-minimal-btn.btn-assignments:hover {
+  border-color: rgba(129, 140, 248, 0.4);
+  color: var(--accent-purple);
+  box-shadow: 0 4px 12px rgba(129, 140, 248, 0.15);
+}
+
+.submissions-minimal-btn.btn-assignments:hover .drive-icon,
+.submissions-minimal-btn.btn-assignments:hover .arrow-icon {
+  color: var(--accent-purple);
+}
+
+.submissions-minimal-btn:hover .arrow-icon {
+  transform: translate(1px, -1px);
+}
+
+@media (max-width: 480px) {
+  .submissions-minimal-section {
+    padding: 32px 0;
+  }
+
+  .submissions-btn-group {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .submissions-minimal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

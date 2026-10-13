@@ -7,6 +7,7 @@ import LiveLeaderboard from '../components/LiveLeaderboard';
 import StatsCounter from '../components/StatsCounter';
 import BusinessCTA from '../components/BusinessCTA';
 import Testimonials from '../components/Testimonials';
+import SubmissionsSection from '../components/SubmissionsSection';
 
 const HomePage = () => {
   return (
@@ -19,6 +20,7 @@ const HomePage = () => {
       <StatsCounter />
       <BusinessCTA />
       <Testimonials />
+      <SubmissionsSection />
     </>
   );
 };
