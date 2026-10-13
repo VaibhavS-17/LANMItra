@@ -73,25 +73,28 @@ const MyBookingsPage = () => {
         ) : (
           <div className="booking-list">
             {bookings.map(booking => {
-              const isPast = new Date() > new Date(booking.date + 'T' + booking.endTime);
+              const bDate = booking.date || booking.bookingDate;
+              const isPast = new Date() > new Date(bDate + 'T' + booking.endTime);
               const isCancellable = booking.status === 'CONFIRMED' && !isPast;
+              const cafeTitle = booking.cafeName || booking.station?.cafe?.name || 'Gaming Lounge';
+              const stationTitle = booking.stationLabel || booking.station?.label || 'Station';
 
               return (
                 <div key={booking.id} className="booking-item">
                   <div className="booking-item-details">
-                    <h3>{booking.cafeName}</h3>
+                    <h3>{cafeTitle}</h3>
                     <div className="booking-item-meta">
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <HiCalendar size={16} /> {booking.date}
+                        <HiCalendar size={16} /> {bDate}
                       </span>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <HiClock size={16} /> {booking.startTime.substring(0,5)} - {booking.endTime.substring(0,5)}
                       </span>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <HiMapPin size={16} /> {booking.stationLabel}
+                        <HiMapPin size={16} /> {stationTitle}
                       </span>
                     </div>
-                    {getStatusBadge(booking.status, booking.date, booking.endTime)}
+                    {getStatusBadge(booking.status, bDate, booking.endTime)}
                   </div>
                   <div className="booking-item-actions">
                     <div className="booking-item-price">

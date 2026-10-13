@@ -62,7 +62,9 @@ const BookingPage = () => {
     try {
       await bookingService.createBooking({
         stationId: station.id,
+        station: { id: station.id },
         date: selectedDate,
+        bookingDate: selectedDate,
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime
       });

@@ -43,6 +43,47 @@ public class Booking {
     @Column(updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Transient
+    private Long stationId;
+
+    @Transient
+    private LocalDate date;
+
+    public Long getStationId() {
+        if (stationId != null) return stationId;
+        return station != null ? station.getId() : null;
+    }
+
+    public void setStationId(Long stationId) {
+        this.stationId = stationId;
+        if (this.station == null && stationId != null) {
+            Station s = new Station();
+            s.setId(stationId);
+            this.station = s;
+        }
+    }
+
+    public LocalDate getDate() {
+        return date != null ? date : bookingDate;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+        if (this.bookingDate == null) {
+            this.bookingDate = date;
+        }
+    }
+
+    @Transient
+    public String getCafeName() {
+        return (station != null && station.getCafe() != null) ? station.getCafe().getName() : null;
+    }
+
+    @Transient
+    public String getStationLabel() {
+        return station != null ? station.getLabel() : null;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Station getStation() { return station; }

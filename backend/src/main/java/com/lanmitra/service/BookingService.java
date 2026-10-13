@@ -45,16 +45,27 @@ public class BookingService {
 
     @Transactional
     public Booking createBooking(Booking request, Long playerId) {
-        Station station = stationRepository.findById(request.getStation().getId())
+        Long targetStationId = request.getStationId() != null ? request.getStationId() :
+                (request.getStation() != null ? request.getStation().getId() : null);
+        if (targetStationId == null) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Station ID is required");
+        }
+
+        Station station = stationRepository.findById(targetStationId)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Station not found"));
 
         if (!station.isIsActive() || !station.getCafe().isIsActive()) {
             throw new IllegalArgumentException("Station or Cafe is not active");
         }
 
+        LocalDate bDate = request.getBookingDate() != null ? request.getBookingDate() : request.getDate();
+        if (bDate == null) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Booking date is required");
+        }
+
         long conflicts = bookingRepository.countConflictingBookings(
-                request.getStation().getId(),
-                request.getBookingDate(),
+                targetStationId,
+                bDate,
                 request.getStartTime(),
                 request.getEndTime()
         );
@@ -76,7 +87,7 @@ public class BookingService {
         Booking booking = new Booking();
         booking.setStation(station);
         booking.setPlayer(player);
-        booking.setBookingDate(request.getBookingDate());
+        booking.setBookingDate(bDate);
         booking.setStartTime(request.getStartTime());
         booking.setEndTime(request.getEndTime());
         booking.setTotalPrice(totalPrice);
