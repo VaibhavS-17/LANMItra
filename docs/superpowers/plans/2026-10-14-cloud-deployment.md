@@ -29,7 +29,7 @@
 - Consumes: Vite client-side routing in `src/App.jsx` and Axios configuration in `src/services/api.js`.
 - Produces: Vercel routing rewrites mapping all non-asset requests to `/index.html`, and environment template for `VITE_API_URL`.
 
-- [ ] **Step 1: Create `vercel.json` for SPA route rewriting**
+- [x] **Step 1: Create `vercel.json` for SPA route rewriting**
 
 Create `vercel.json` at project root:
 ```json
@@ -43,7 +43,7 @@ Create `vercel.json` at project root:
 }
 ```
 
-- [ ] **Step 2: Create `.env.example` at project root**
+- [x] **Step 2: Create `.env.example` at project root**
 
 Create `.env.example` at project root:
 ```env
@@ -51,7 +51,7 @@ Create `.env.example` at project root:
 VITE_API_URL=http://localhost:8080/api
 ```
 
-- [ ] **Step 3: Test frontend production build**
+- [x] **Step 3: Test frontend production build**
 
 Run:
 ```powershell
@@ -59,7 +59,7 @@ npm run build
 ```
 Expected output: Build completes successfully in `dist/` with exit code 0.
 
-- [ ] **Step 4: Commit frontend deployment configuration**
+- [x] **Step 4: Commit frontend deployment configuration**
 
 Run:
 ```powershell
@@ -79,7 +79,7 @@ git commit -m "feat(frontend): add vercel.json SPA rewrite and .env.example"
 - Consumes: Spring Boot environment variables `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`, `CORS_ORIGINS`.
 - Produces: Dynamic database connectivity on Render and wildcard CORS allowance for Vercel preview/production domains (`https://*.vercel.app`).
 
-- [ ] **Step 1: Externalize datasource and expand CORS origins in `application.yml`**
+- [x] **Step 1: Externalize datasource and expand CORS origins in `application.yml`**
 
 Modify `backend/src/main/resources/application.yml`:
 ```yaml
@@ -108,7 +108,7 @@ app:
     allowed-origins: ${CORS_ORIGINS:http://localhost:5173,https://*.vercel.app}
 ```
 
-- [ ] **Step 2: Update `SecurityConfig.java` to use `setAllowedOriginPatterns`**
+- [x] **Step 2: Update `SecurityConfig.java` to use `setAllowedOriginPatterns`**
 
 In `backend/src/main/java/com/lanmitra/config/SecurityConfig.java`, replace `configuration.setAllowedOrigins(allowedOrigins);` with:
 ```java
@@ -126,7 +126,7 @@ In `backend/src/main/java/com/lanmitra/config/SecurityConfig.java`, replace `con
     }
 ```
 
-- [ ] **Step 3: Verify backend compilation and tests**
+- [x] **Step 3: Verify backend compilation and tests**
 
 Run:
 ```powershell
@@ -134,7 +134,7 @@ mvn -f backend/pom.xml test-compile
 ```
 Expected output: `BUILD SUCCESS` with exit code 0.
 
-- [ ] **Step 4: Commit backend configuration changes**
+- [x] **Step 4: Commit backend configuration changes**
 
 Run:
 ```powershell
@@ -153,7 +153,7 @@ git commit -m "feat(backend): externalize datasource credentials and allow verce
 - Consumes: Eclipse Temurin Java 17 base images.
 - Produces: Memory-capped container image runnable within Render's 512MB RAM constraint.
 
-- [ ] **Step 1: Update `backend/Dockerfile` with JVM memory caps**
+- [x] **Step 1: Update `backend/Dockerfile` with JVM memory caps**
 
 Replace `backend/Dockerfile` with:
 ```dockerfile
@@ -172,7 +172,7 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-Xmx384m", "-jar", "app.jar"]
 ```
 
-- [ ] **Step 2: Commit Dockerfile update**
+- [x] **Step 2: Commit Dockerfile update**
 
 Run:
 ```powershell
@@ -191,7 +191,7 @@ git commit -m "fix(backend): limit maven and jre heap memory for render 512mb ti
 - Consumes: Architecture, environment variable keys, and cloud dashboard URLs.
 - Produces: Step-by-step user-facing guide for TiDB Cloud Serverless, Render, and Vercel setup.
 
-- [ ] **Step 1: Write `docs/DEPLOYMENT-GUIDE.md`**
+- [x] **Step 1: Write `docs/DEPLOYMENT-GUIDE.md`**
 
 Create `docs/DEPLOYMENT-GUIDE.md` detailing:
 1. Setting up TiDB Cloud Serverless (free cluster, database name `lanmitra_db`, copying host/user/password).
@@ -199,7 +199,7 @@ Create `docs/DEPLOYMENT-GUIDE.md` detailing:
 3. Setting up Vercel (Importing `VaibhavS-17/LANMitra`, setting `VITE_API_URL` to the Render backend URL).
 4. Verifying end-to-end communication and live login with seeded credentials (`owner.andheri@lanmitra.com` / `Password@123`).
 
-- [ ] **Step 2: Commit deployment documentation**
+- [x] **Step 2: Commit deployment documentation**
 
 Run:
 ```powershell
