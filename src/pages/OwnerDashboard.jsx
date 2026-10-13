@@ -6,6 +6,14 @@ import { tournamentService } from '../services/tournamentService';
 import API from '../services/api';
 import './Dashboard.css';
 
+const getTodayDateString = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const OwnerDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview'); // overview, cafes, tournaments, leaderboards
   const [innerTab, setInnerTab] = useState('bookings'); // bookings, stations (inside overview)
@@ -14,7 +22,7 @@ const OwnerDashboard = () => {
   const [selectedCafe, setSelectedCafe] = useState(null);
   
   // Bookings State
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [date, setDate] = useState(getTodayDateString());
   const [bookings, setBookings] = useState([]);
   
   // Stations State

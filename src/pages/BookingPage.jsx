@@ -3,13 +3,21 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { bookingService } from '../services/bookingService';
 import './Booking.css';
 
+const getTodayDateString = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const BookingPage = () => {
   const [searchParams] = useSearchParams();
   const stationId = searchParams.get('stationId');
   const navigate = useNavigate();
 
   const [station, setStation] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(getTodayDateString());
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -103,7 +111,7 @@ const BookingPage = () => {
               type="date" 
               className="date-input"
               value={selectedDate}
-              min={new Date().toISOString().split('T')[0]}
+              min={getTodayDateString()}
               onChange={(e) => setSelectedDate(e.target.value)}
             />
           </div>
