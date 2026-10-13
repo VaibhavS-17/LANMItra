@@ -84,6 +84,21 @@ public class Booking {
         return station != null ? station.getLabel() : null;
     }
 
+    @Transient
+    public String getPlayerName() {
+        return player != null ? player.getName() : null;
+    }
+
+    @Transient
+    public String getPlayerEmail() {
+        return player != null ? player.getEmail() : null;
+    }
+
+    @Transient
+    public String getPlayerPhone() {
+        return player != null ? player.getPhone() : null;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Station getStation() { return station; }

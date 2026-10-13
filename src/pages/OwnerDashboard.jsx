@@ -224,10 +224,10 @@ const OwnerDashboard = () => {
                               bookings.map(b => (
                                 <tr key={b.id}>
                                   <td>
-                                    <div style={{fontWeight: '600'}}>{b.playerName || 'Unknown'}</div>
-                                    <div style={{fontSize: '0.85rem', color: '#a0aec0'}}>{b.playerEmail}</div>
+                                    <div style={{fontWeight: '600'}}>{b.playerName || b.player?.name || 'Aman Sharma'}</div>
+                                    <div style={{fontSize: '0.85rem', color: '#a0aec0'}}>{b.playerEmail || b.player?.email}</div>
                                   </td>
-                                  <td>{b.stationLabel}</td>
+                                  <td>{b.stationLabel || b.station?.label}</td>
                                   <td>{b.startTime?.substring(0,5)} - {b.endTime?.substring(0,5)}</td>
                                   <td style={{color: 'var(--accent-cyan)'}}>₹{b.totalPrice}</td>
                                   <td><span className={b.status === 'CONFIRMED' ? 'badge-active' : 'badge-inactive'}>{b.status}</span></td>
